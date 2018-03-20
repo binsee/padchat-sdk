@@ -1,0 +1,36 @@
+{
+  "appenders": {
+    "console": {
+      "type": "console"
+    },
+    "rule-app": {
+      "type": "dateFile",
+      "filename": "logs/app.log",
+      "maxLogSize": 10485760,
+      "numBackups": 10,
+      "keepFileExt": true
+    },
+    "error": {
+      "type": "dateFile",
+      "filename": "logs/error.log",
+      "maxLogSize": 10485760,
+      "keepFileExt": true
+    },
+    "rule-error": {
+      "type": "logLevelFilter",
+      "level": "warn",
+      "appender": "error"
+    }
+  },
+  "categories": {
+    "default": {
+      "appenders": [
+        "rule-app",
+        "rule-error",
+        "console"
+      ],
+      "level": "all"
+    }
+  },
+  "level": "debug"
+}

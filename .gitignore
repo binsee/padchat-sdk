@@ -10,3 +10,5 @@ run/
 .DS_Store
 *.sw*
 *.un~
+config.json
+qrcode.jpg

@@ -4,6 +4,7 @@
   "description": "padchat的本地服务器开发包",
   "main": "index.js",
   "scripts": {
+    "start": "node demo",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "binsee",
@@ -12,6 +13,8 @@
     "ws": "^5.1.0"
   },
   "devDependencies": {
-    "@types/ws": "^4.0.1"
+    "@types/log4js": "^2.3.5",
+    "@types/ws": "^4.0.1",
+    "log4js": "^2.5.3"
   }
 }
