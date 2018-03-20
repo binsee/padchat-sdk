@@ -1,0 +1,17 @@
+{
+  "name": "padchat-sdk",
+  "version": "0.1.0",
+  "description": "padchat的本地服务器开发包",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "binsee",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^4.0.1"
+  }
+}
