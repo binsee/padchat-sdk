@@ -1,8 +1,8 @@
 'use strict'
 
-const log4js = require('log4js')
+const log4js  = require('log4js')
 const Padchat = require('./index')
-const fs = require('fs')
+const fs      = require('fs')
 
 /**
 * 创建日志目录
@@ -30,15 +30,15 @@ logger.info('demo start!')
 
 const autoData = {
   wxData: '',
-  token: '',
+  token : '',
 }
 const server = 'ws://127.0.0.1:7777'
 
 try {
-  const tmpBuf = fs.readFileSync('./config.json')
-  const data = JSON.parse(String(tmpBuf))
-  autoData.wxData = data.wxData
-  autoData.token = data.token
+  const tmpBuf          = fs.readFileSync('./config.json')
+  const data            = JSON.parse(String(tmpBuf))
+        autoData.wxData = data.wxData
+        autoData.token  = data.token
   logger.info('载入设备参数: %o \n\n自动登陆数据：%o ', autoData)
 } catch (e) {
   logger.warn('没有在本地发现设备登录参数或解析数据失败！如首次登录请忽略！')
@@ -90,32 +90,32 @@ wx
   })
   .on('scan', data => {
     switch (data.status) {
-      case 0:
+      case 0: 
         logger.info('等待扫码...', data)
         break;
-      case 1:
+      case 1: 
         logger.info('已扫码，请在手机端确认登陆...', data)
         break;
-      case 2:
+      case 2: 
         switch (data.subStatus) {
-          case 0:
+          case 0: 
             logger.info('扫码成功！登陆成功！', data)
             break;
-          case 1:
+          case 1: 
             logger.info('扫码成功！登陆失败！', data)
             break;
-          default:
+          default: 
             logger.info('扫码成功！未知状态码！', data)
             break;
         }
         break;
-      case 3:
+      case 3: 
         logger.info('二维码已过期！', data)
         break;
-      case 4:
+      case 4: 
         logger.info('手机端已取消登陆！', data)
         break;
-      default:
+      default: 
         break;
     }
   })
@@ -129,7 +129,7 @@ wx
     }
     logger.info('获取设备参数成功, json: ', ret)
 
-    const tmp = Object.assign({}, ret.data)
+    const tmp = Object.assign({}, { wxData: ret.data.wx_data })
 
     ret = await wx.getLoginToken()
     if (!ret.success) {
@@ -188,11 +188,11 @@ wx
     let ret
 
     switch (data.mType) {
-      case 2:
+      case 2: 
         logger.info('收到推送联系人：', data.nickName)
         break
 
-      case 1:
+      case 1: 
         if (data.fromUser === 'newsapp') { // 腾讯新闻发的信息太长
           break
         }
@@ -208,7 +208,7 @@ wx
         }
         break
 
-      case 34:
+      case 34: 
         logger.info('收到来自 %s 的语言消息，现在转发给文件传输助手', data.fromUser)
         await wx.sendVoice('filehelper', data.data)
           .then(ret => {
@@ -219,7 +219,7 @@ wx
           })
         break
 
-      default:
+      default: 
         logger.info('收到推送消息：', data)
         break
     }
