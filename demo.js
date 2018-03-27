@@ -29,8 +29,8 @@ const logger = log4js.getLogger('app')
 logger.info('demo start!')
 
 const autoData = {
-  wxData: '',
-  token : '',
+  wxData:'',
+  token :'',
 }
 const server = 'ws://127.0.0.1:7777'
 
@@ -39,7 +39,7 @@ try {
   const data            = JSON.parse(String(tmpBuf))
         autoData.wxData = data.wxData
         autoData.token  = data.token
-  logger.info('载入设备参数: %o \n\n自动登陆数据：%o ', autoData)
+  logger.info('载入设备参数与自动登陆数据：%o ', autoData)
 } catch (e) {
   logger.warn('没有在本地发现设备登录参数或解析数据失败！如首次登录请忽略！')
 }
@@ -90,46 +90,48 @@ wx
   })
   .on('scan', data => {
     switch (data.status) {
-      case 0: 
+      case 0:
         logger.info('等待扫码...', data)
         break;
-      case 1: 
+      case 1:
         logger.info('已扫码，请在手机端确认登陆...', data)
         break;
-      case 2: 
+      case 2:
         switch (data.subStatus) {
-          case 0: 
+          case 0:
             logger.info('扫码成功！登陆成功！', data)
             break;
-          case 1: 
+          case 1:
             logger.info('扫码成功！登陆失败！', data)
             break;
-          default: 
+          default:
             logger.info('扫码成功！未知状态码！', data)
             break;
         }
         break;
-      case 3: 
+      case 3:
         logger.info('二维码已过期！', data)
         break;
-      case 4: 
+      case 4:
         logger.info('手机端已取消登陆！', data)
         break;
-      default: 
+      default:
         break;
     }
   })
   .on('login', async () => {
     logger.info('微信账号登陆成功！')
     let ret
-    ret = await wx.getWxData()
-    if (!ret.success) {
-      logger.warn('获取设备参数未成功！ json:', ret)
-      return
+    if (!autoData.wxData) {
+      // 如果已经存在设备参数，则不再获取
+      ret = await wx.getWxData()
+      if (!ret.success) {
+        logger.warn('获取设备参数未成功！ json:', ret)
+        return
+      }
+      logger.info('获取设备参数成功, json: ', ret)
+      Object.assign(autoData, { wxData: ret.data.wx_data })
     }
-    logger.info('获取设备参数成功, json: ', ret)
-
-    const tmp = Object.assign({}, { wxData: ret.data.wx_data })
 
     ret = await wx.getLoginToken()
     if (!ret.success) {
@@ -137,10 +139,10 @@ wx
       return
     }
     logger.info('获取自动登陆数据成功, json: ', ret)
-    Object.assign(tmp, { token: ret.data.token })
+    Object.assign(autoData, { token: ret.data.token })
 
     // NOTE: 这里将设备参数保存到本地，以后再次登录此账号时提供相同参数
-    fs.writeFileSync('./config.json', JSON.stringify(tmp))
+    fs.writeFileSync('./config.json', JSON.stringify(autoData))
     logger.info('设备参数已写入到 ./config.json文件')
   })
   .on('logout', ({ msg }) => {
@@ -188,11 +190,11 @@ wx
     let ret
 
     switch (data.mType) {
-      case 2: 
+      case 2:
         logger.info('收到推送联系人：', data.nickName)
         break
 
-      case 1: 
+      case 1:
         if (data.fromUser === 'newsapp') { // 腾讯新闻发的信息太长
           break
         }
@@ -208,7 +210,7 @@ wx
         }
         break
 
-      case 34: 
+      case 34:
         logger.info('收到来自 %s 的语言消息，现在转发给文件传输助手', data.fromUser)
         await wx.sendVoice('filehelper', data.data)
           .then(ret => {
@@ -219,7 +221,7 @@ wx
           })
         break
 
-      default: 
+      default:
         logger.info('收到推送消息：', data)
         break
     }
