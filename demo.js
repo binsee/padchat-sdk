@@ -25,12 +25,13 @@ try {
 }
 
 const logger = log4js.getLogger('app')
+const dLog   = log4js.getLogger('dev')
 
 logger.info('demo start!')
 
 const autoData = {
-  wxData:'',
-  token :'',
+  wxData: '',
+  token : '',
 }
 const server = 'ws://127.0.0.1:7777'
 
@@ -90,32 +91,32 @@ wx
   })
   .on('scan', data => {
     switch (data.status) {
-      case 0:
+      case 0: 
         logger.info('等待扫码...', data)
         break;
-      case 1:
+      case 1: 
         logger.info('已扫码，请在手机端确认登陆...', data)
         break;
-      case 2:
+      case 2: 
         switch (data.subStatus) {
-          case 0:
+          case 0: 
             logger.info('扫码成功！登陆成功！', data)
             break;
-          case 1:
+          case 1: 
             logger.info('扫码成功！登陆失败！', data)
             break;
-          default:
+          default: 
             logger.info('扫码成功！未知状态码！', data)
             break;
         }
         break;
-      case 3:
+      case 3: 
         logger.info('二维码已过期！', data)
         break;
-      case 4:
+      case 4: 
         logger.info('手机端已取消登陆！', data)
         break;
-      default:
+      default: 
         break;
     }
   })
@@ -187,20 +188,22 @@ wx
     // --------------------------------
     // 注意，如果是来自微信群的消息，data.content字段中包含发言人的wxid及其发言内容，需要自行提取
     // 各类复杂消息，data.content中是xml格式的文本内容，需要自行从中提取各类数据。（如好友请求）
-    let ret
-
+    if (data.mType != 2) {
+      // 输出除联系人以外的推送信息
+      dLog.info('push', data)
+    }
     switch (data.mType) {
-      case 2:
+      case 2: 
         logger.info('收到推送联系人：', data.nickName)
         break
 
-      case 1:
+      case 1: 
         if (data.fromUser === 'newsapp') { // 腾讯新闻发的信息太长
           break
         }
         logger.info('收到来自 %s 的文本消息：', data.fromUser, data.description || data.content)
         if (/ding/.test(data.content)) {
-          await wx.sendMsg(data.fromUser, 'dong')
+          await wx.sendMsg(data.fromUser, 'dong. receive:' + data.content)
             .then(ret => {
               logger.info('回复信息给%s 结果：', data.fromUser, ret)
             })
@@ -210,7 +213,7 @@ wx
         }
         break
 
-      case 34:
+      case 34: 
         logger.info('收到来自 %s 的语言消息，现在转发给文件传输助手', data.fromUser)
         await wx.sendVoice('filehelper', data.data)
           .then(ret => {
@@ -221,7 +224,7 @@ wx
           })
         break
 
-      default:
+      default: 
         logger.info('收到推送消息：', data)
         break
     }
@@ -231,6 +234,10 @@ wx
   })
   .on('warn', e => {
     logger.error('任务出现错误:', e)
+  })
+  .on('cmdRet', (cmd, ret) => {
+    //捕捉接口操作结果，补充接口文档用
+    dLog.info(cmd, ret)
   })
 
 
