@@ -1,8 +1,8 @@
 'use strict'
 
 const EventEmitter = require('events')
-const Websocket = require('ws')
-const UUID = require('uuid')
+const Websocket    = require('ws')
+const UUID         = require('uuid')
 
 const Helper = require('./helper')
 const {
@@ -134,6 +134,11 @@ class Padchat extends EventEmitter {
       cmd,
       data,
     })
+      .then(ret => {
+        // 用于抓取操作接口对应的返回数据，便于写入文档
+        this.emit('cmdRet', cmd, ret)
+        return ret
+      })
       .catch(e => {
         throw e
       })
@@ -186,24 +191,24 @@ class Padchat extends EventEmitter {
     }
 
     switch (type) {
-      case 'token':
-      case 'request':
+      case 'token'  : 
+      case 'request': 
         if (!data.token || !data.wxData) {
           throw new Error('login data error!')
         }
         break
-      case 'phone':
+      case 'phone': 
         if (!data.phone) {
           // code
           throw new Error('login data error!')
         }
         break
-      case 'user':
+      case 'user': 
         if (!data.username || !data.password) {
           throw new Error('login data error!')
         }
         break
-      default:
+      default: 
         break
     }
     data.loginType = loginType[type]
@@ -225,6 +230,22 @@ class Padchat extends EventEmitter {
 
   /**
    * 获取二次登陆数据
+   *
+   * 返回：
+   * ```
+   * {
+   * error  : '',
+   * msg    : '',
+   * success: true,
+   * data   : 
+   *  {
+   * message: '',
+   * status : 0,
+   * token  : 'xxxx',   //二次登陆token
+   * uin    : 14900000  //微信号uin，唯一值
+   *  }
+   * }
+   * ```
    *
    * @returns {Promise} 返回Promise<Object>，注意捕捉catch
    * @memberof Padchat
@@ -271,14 +292,41 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 发送App消息
+   * 群发文字信息
    *
-   * @param {String} toUserName 接收者的wxid
+   * @param {any} [userList=[]] 接收者wxid数组
    * @param {String} content 内容文本
    * @returns {Promise} 返回Promise<Object>，注意捕捉catch
    * @memberof Padchat
    */
-  async sendAppMsg(toUserName, content) {
+  async massMsg(userList = [], content) {
+    return await this.sendCmd('massMsg', {
+      userList,
+      content,
+    })
+  }
+
+  /**
+   * 发送App消息
+   *
+   * @param {String} toUserName 接收者的wxid
+   * @param {Object} object 内容文本
+   * ```
+   * {
+   * appid    = '',   //appid，忽略即可
+   * sdkver   = '',   //sdk版本，忽略即可
+   * title    = '',   //标题
+   * des      = '',   //描述
+   * url      = '',   //链接url
+   * thumburl = '',   //缩略图url
+   * }
+   * ```
+   *
+   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+   * @memberof Padchat
+   */
+  async sendAppMsg(toUserName, object) {
+    const content = Helper.structureXml(object)
     return await this.sendCmd('sendAppMsg', {
       toUserName,
       content,
@@ -322,9 +370,10 @@ class Padchat extends EventEmitter {
 
   /**
    * 发送语音消息
+   * 注意：只能发送silk格式的语音文件
    *
    * @param {String} toUserName 接收者的wxid
-   * @param {Buffer|String} file 图片Buffer数据或base64
+   * @param {Buffer|String} file 语音Buffer数据或base64
    * @returns {Promise} 返回Promise<Object>，注意捕捉catch
    * @memberof Padchat
    */
@@ -332,11 +381,51 @@ class Padchat extends EventEmitter {
     if (file instanceof Buffer) {
       file = file.toString('base64')
     }
-    return await this.sendCmd('sendImage', {
+    return await this.sendCmd('sendVoice', {
       toUserName,
       file,
     })
   }
+
+  /**
+   * 获取消息原始图片
+   *
+   * @param {Object} rawMsgData 推送的消息结构体
+   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+   * @memberof Padchat
+   */
+  async getMsgImage(rawMsgData) {
+    return await this.sendCmd('getMsgImage', {
+      rawMsgData,
+    })
+  }
+
+  /**
+   * 获取消息原始视频
+   *
+   * @param {Object} rawMsgData 推送的消息结构体
+   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+   * @memberof Padchat
+   */
+  async getMsgVideo(rawMsgData) {
+    return await this.sendCmd('getMsgVideo', {
+      rawMsgData,
+    })
+  }
+
+  /**
+   * 获取消息原始语音
+   *
+   * @param {Object} rawMsgData 推送的消息结构体
+   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+   * @memberof Padchat
+   */
+  async getMsgVoice(rawMsgData) {
+    return await this.sendCmd('getMsgVoice', {
+      rawMsgData,
+    })
+  }
+
   /**
    * 创建群
    *
@@ -422,6 +511,51 @@ class Padchat extends EventEmitter {
   }
 
   /**
+   * 设置群公告
+   *
+   * @param {String} groupId 群id
+   * @param {String} content 群公告内容
+   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+   * @memberof Padchat
+   */
+  async setRoomAnnouncement(groupId, content) {
+    return await this.sendCmd('setRoomAnnouncement', {
+      groupId,
+      content,
+    })
+  }
+
+  /**
+   * 设置群名称
+   *
+   * @param {String} groupId 群id
+   * @param {String} content 群名称
+   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+   * @memberof Padchat
+   */
+  async setRoomName(groupId, content) {
+    return await this.sendCmd('setRoomName', {
+      groupId,
+      content,
+    })
+  }
+
+  /**
+   * 获取微信群二维码
+   *
+   * @param {String} groupId 群id
+   * @param {Number} style 二维码风格
+   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+   * @memberof Padchat
+   */
+  async getRoomQrcode(groupId, style = 1) {
+    return await this.sendCmd('getRoomQrcode', {
+      groupId,
+      style,
+    })
+  }
+
+  /**
    * 获取用户信息
    *
    * @param {String} userId 用户wxid
@@ -457,6 +591,21 @@ class Padchat extends EventEmitter {
   async deleteContact(userId) {
     return await this.sendCmd('deleteContact', {
       userId,
+    })
+  }
+
+  /**
+   * 获取用户二维码
+   *
+   * @param {String} userId 用户wxid
+   * @param {Number} style 二维码风格
+   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+   * @memberof Padchat
+   */
+  async getContactQrcode(userId, style = 1) {
+    return await this.sendCmd('getUserQrcode', {
+      userId,
+      style,
     })
   }
 
@@ -543,20 +692,23 @@ class Padchat extends EventEmitter {
     })
   }
 
-  /** 朋友圈系列接口 */
-
   /**
-   * 获取消息原始图片
+   * 设置头像
    *
-   * @param {Object} rawMsgData 推送的消息结构体
+   * @param {Buffer|String} file 图片Buffer数据或base64
    * @returns {Promise} 返回Promise<Object>，注意捕捉catch
    * @memberof Padchat
    */
-  async getMsgImage(rawMsgData) {
-    return await this.sendCmd('getMsgImage', {
-      rawMsgData,
+  async setHeadImg(file) {
+    if (file instanceof Buffer) {
+      file = file.toString('base64')
+    }
+    return await this.sendCmd('setHeadImg', {
+      file,
     })
   }
+
+  /** 朋友圈系列接口 */
 
   /**
    * 上传图片到朋友圈
@@ -578,17 +730,19 @@ class Padchat extends EventEmitter {
    * 操作朋友圈
    * FIXME: 此接口有问题，暂时无效
    *
-   * @param {String} userId 用户wxid
    * @param {String} momentId 朋友圈消息id
-   * @param {Number} type 操作类型
+   * @param {Number} type 操作类型，1为删除朋友圈，4为删除评论，5为取消赞
+   * @param {Number} commentId 操作类型，当type为4时，对应删除评论的id，其他状态为0
+   * @param {Number} commentType 操作类型，当删除评论时可用，2或者3
    * @returns {Promise} 返回Promise<Object>，注意捕捉catch
    * @memberof Padchat
    */
-  async snsObjectOp(userId, momentId, type) {
+  async snsObjectOp(momentId, type, commentId, commentType = 2) {
     return await this.sendCmd('snsObjectOp', {
-      userId,
       momentId,
       type,
+      commentId,
+      commentType,
     })
   }
 
@@ -660,6 +814,21 @@ class Padchat extends EventEmitter {
       userId,
       momentId,
       content,
+    })
+  }
+
+  /**
+   * 朋友圈点赞
+   *
+   * @param {String} userId 用户wxid
+   * @param {String} momentId 朋友圈消息id
+   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+   * @memberof Padchat
+   */
+  async snsLike(userId, momentId) {
+    return await this.sendCmd('snsLike', {
+      userId,
+      momentId,
     })
   }
 
@@ -968,14 +1137,38 @@ function onWsMsg(msg) {
   if (data.data) {
     // 转小驼峰
     data.data = Helper.toCamelCase(data.data)
-    // data.data.data = Helper.toCamelCase(data.data.data || null)
+    if (data.data.data) {
+      data.data.data = Helper.toCamelCase(data.data.data || {})
+    }
+    //
   }
 
   this.emit('msg', data)
+  // 返回数据结果
+  // data = {
+  //   type  : 'cmdRet',                                 //返回数据包类型
+  //   cmdId : 'b61eb250-3770-11e8-b00f-595f9d4f3df0',   //请求id
+  //   taskId: '5',                                      //服务端返回当前实例的任务ID
+  //   data  :                                           //荷载数据，`push`类型无
+  //     {
+  //       error  : '',     //错误提示
+  //       msg    : '',     //其他提示信息
+  //       success: true,   //接口执行是否成功
+  //       data   :         //接口执行结果数据
+  //         {
+  //           message: '',
+  //           msgId  : '1284778244346778513',
+  //           status : 0
+  //         }
+  //     },
+  //   list:   // 仅`push`类型拥有，包含多个push结构数据
+  //     [{
+  //     }],
+  // }
 
   let hasOn
   switch (data.type) {
-    case 'cmdRet':
+    case 'cmdRet': 
       if (data.type === 'cmdRet' && data.cmdId) {
         hasOn = this.emit('RET#' + data.cmdId, data)
         if (!hasOn) {
@@ -984,22 +1177,22 @@ function onWsMsg(msg) {
       }
       break;
 
-    case 'userEvent':
+    case 'userEvent': 
       switch (data.event) {
-        case 'warn':
+        case 'warn': 
           // 如果success字段为true，则为不严重的问题
           this.emit('warn', new Error('服务器返回错误提示：' + data.msg), data.success)
           break
-        case 'qrcode': // 微信扫码登陆，推送二维码
-        case 'scan': // 微信账号扫码事件
-        case 'login': // 微信账号登陆成功
-        case 'loaded': // 通讯录载入完毕
-        case 'logout': // 微信账号退出
-        case 'over': // 实例注销（账号不退出）
-        case 'sns': // 朋友圈事件：新评论
+        case 'qrcode':   // 微信扫码登陆，推送二维码
+        case 'scan'  :   // 微信账号扫码事件
+        case 'login' :   // 微信账号登陆成功
+        case 'loaded':   // 通讯录载入完毕
+        case 'logout':   // 微信账号退出
+        case 'over'  :   // 实例注销（账号不退出）
+        case 'sns'   :   // 朋友圈事件：新评论
           this.emit(data.event, data.data || {}, data.msg)
           break
-        case 'push':
+        case 'push': 
           if (!data.data || !Array.isArray(data.data.list) || data.data.list.length <= 0) {
             this.emit('error', new Error('推送数据异常！'))
 
@@ -1007,6 +1200,7 @@ function onWsMsg(msg) {
           }
           data.data.list.forEach(item => {
             const type = item.msg_type
+            // 过滤无意义的2048和32768类型数据
             if (type === undefined || type === 2048 || type === 32768) {
               return null
             }
@@ -1016,12 +1210,12 @@ function onWsMsg(msg) {
             this.emit('push', Helper.toCamelCase(item))
           })
           break
-        default:
+        default: 
           this.emit('other', data)
           break
       }
       break
-    default:
+    default: 
       this.emit('other', data)
       break;
   }
@@ -1036,6 +1230,6 @@ function clearRawMsg(obj) {
 }
 
 
-Padchat.Padchat = Padchat
+Padchat.Padchat   = Padchat
 Padchat.blacklist = blacklist
-module.exports = Padchat
+module.exports    = Padchat

@@ -6,6 +6,7 @@
 module.exports = {
   toCamelCase,
   toUnderLine,
+  structureXml,
 }
 
 /**
@@ -13,9 +14,8 @@ module.exports = {
  *
  * @param {any} obj 要转换的object
  * @param {boolean} [big=true] 是否转换为大驼峰格式
- * @returns 转换后的object
+ * @returns {Object} 转换后的object
  */
-
 function toCamelCase(obj, big = false) {
   if (!(obj instanceof Object)) {
     return obj
@@ -37,9 +37,8 @@ function toCamelCase(obj, big = false) {
  * 将object中的属性名称从驼峰转换为下划线格式
  *
  * @param {any} obj 要转换的object
- * @returns 转换后的object
+ * @returns {Object} 转换后的object
  */
-
 function toUnderLine(obj) {
   const newObj = {}
   if (!(obj instanceof Object)) {
@@ -53,3 +52,33 @@ function toUnderLine(obj) {
   }
   return newObj
 }
+
+/**
+ * 组装appmsg消息体
+ *
+ * @param {Object} obj 消息体参数
+   * ```
+   * {
+   * appid    = '',   //appid，忽略即可
+   * sdkver   = '',   //sdk版本，忽略即可
+   * title    = '',   //标题
+   * des      = '',   //描述
+   * url      = '',   //链接url
+   * thumburl = '',   //缩略图url
+   * }
+   * ```
+ * @returns {String} 组装的消息体
+ */
+function structureXml(obj) {
+  const { appid = '', sdkver = '', title = '', des = '', url = '', thumburl = '' } = obj
+  return `<appmsg appid="${appid}" sdkver="${sdkver}"><title>${title}</title>
+<des>${des}</des>
+<action>view</action>
+<type>5</type>
+<showtype>0</showtype>
+<content></content>
+<url>${url}</url>
+<thumburl>${thumburl}</thumburl>
+</appmsg>`
+}
+
