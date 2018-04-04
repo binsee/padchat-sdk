@@ -71,7 +71,8 @@ function toUnderLine(obj) {
  */
 function structureXml(obj) {
   const { appid = '', sdkver = '', title = '', des = '', url = '', thumburl = '' } = obj
-  return `<appmsg appid="${appid}" sdkver="${sdkver}"><title>${title}</title>
+  return `<appmsg appid="${appid}" sdkver="${sdkver}">
+<title>${title}</title>
 <des>${des}</des>
 <action>view</action>
 <type>5</type>
@@ -79,6 +80,6 @@ function structureXml(obj) {
 <content></content>
 <url>${url}</url>
 <thumburl>${thumburl}</thumburl>
-</appmsg>`
+</appmsg>`.replace(/\n/g, '')
 }
 
