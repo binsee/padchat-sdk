@@ -46,7 +46,7 @@ try {
 }
 
 const wx = new Padchat(server)
-logger.info('当前连接接口服务器为：')
+logger.info('当前连接接口服务器为：', server)
 
 wx
   .on('close', () => {
