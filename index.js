@@ -31,7 +31,8 @@ const server = 'ws://127.0.0.1:7777'
  * 所有接口均返回以下结构数据：
  * {
  * success: true,   // 执行是否成功
- * msg    : '',     // 错误提示
+ * err    : '',     // 错误提示
+ * msg    : '',     // 附加信息
  * data   : {}      // 返回结果
  * }
  *
@@ -67,12 +68,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * ws发送数据
-   *
-   * @param {object} data 数据
-   * @returns {Promise} 返回ws处理结果
-   * @memberof Wss
-   */
+  * ws发送数据
+  *
+  * @param {object} data 数据
+  * @returns {Promise} 返回ws处理结果
+  * @memberof Wss
+  */
   async _send(data) {
     return new Promise((resolve, reject) => {
       this.ws.send(JSON.stringify(data), e => {
@@ -86,13 +87,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 包装ws发送数据
-   *
-   * @param {object} data 要发送的数据
-   * @param {number} timeout 发送超时时间
-   * @returns {Promise} 返回ws处理结果
-   * @memberof Wss
-   */
+  * 包装ws发送数据
+  *
+  * @param {object} data 要发送的数据
+  * @param {number} timeout 发送超时时间
+  * @returns {Promise} 返回ws处理结果
+  * @memberof Wss
+  */
   async asyncSend(data, timeout = 30000) {
     if (!data.cmdId) {
       data.cmdId = UUID.v1()
@@ -116,17 +117,17 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 包装ws发送指令数据包
-   *
-   * @param {string} cmd 要操作的接口
-   * @param {object} data 要发送的数据
-   * @returns {Promise} 返回ws处理结果
-   */
+  * 包装ws发送指令数据包
+  *
+  * @param {string} cmd 要操作的接口
+  * @param {object} data 要发送的数据
+  * @returns {Promise} 返回ws处理结果
+  */
   async sendCmd(cmd, data = {}) {
     if (data.rawMsgData) {
       // 清洗掉无用而占空间的字段
       data.rawMsgData = clearRawMsg(data.rawMsgData)
-      Helper.toUnderLine(data.rawMsgData)
+      data.rawMsgData = Helper.toUnderLine(data.rawMsgData)
     }
 
     return await this.asyncSend({
@@ -145,46 +146,59 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 初始化
-   *
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 初始化
+  *
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error  : '',
+    success: true
+  }
+  * ```
+  * @memberof Padchat
+  */
   async init() {
     return await this.sendCmd('init')
   }
 
   /**
-   * 关闭微信实例（不退出登陆）
-   *
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 关闭微信实例（不退出登陆）
+  *
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async close() {
     return await this.sendCmd('close')
   }
 
   /**
-   * 登录账号
-   *
-   * @param {string} [type='qrcode'] 登录类型，默认为扫码登录
-   * token 断线重连，用于短时间使用设备数据和token再次登录。token有效期很短，如果登陆失败，建议使用二次登陆方式
-   * request 二次登陆。需要提供`wxData`和`token`数据，手机端会弹出确认框，点击后登陆。不容易封号
-   * qrcode 扫码登录（现在此模式已经可以返回二维码内容的url了）
-   * phone 使用手机验证码登录
-   * user 使用账号+密码登录
-   * @param {Object} data 附加数据
-   * 登录类型 | 字段 | 说明
-   * ----|----|----
-   * 任意 | wxData | 设备信息数据，登录后使用 getDeviceInfo接口获得。使用此数据可免设备安全验证，不容易封号
-   * token/request | token | 使用用任意方式登录成功后，使用 getAutoLoginData 接口获得。 此token有过期时间，断开登录状态一段时间后会过期。
-   * phone | phone | 手机号
-   * phone | code | 手机验证码
-   * user | username | 用户名/qq号/手机号
-   * user | password | 密码
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 登录账号
+  *
+  * @param {string} [type='qrcode'] 登录类型，默认为扫码登录
+  * token 断线重连，用于短时间使用设备数据和token再次登录。token有效期很短，如果登陆失败，建议使用二次登陆方式
+  * request 二次登陆。需要提供`wxData`和`token`数据，手机端会弹出确认框，点击后登陆。不容易封号
+  * qrcode 扫码登录（现在此模式已经可以返回二维码内容的url了）
+  * phone 使用手机验证码登录
+  * user 使用账号+密码登录
+  * @param {Object} data 附加数据
+  * 登录类型 | 字段 | 说明
+  * ----|----|----
+  * 任意 | wxData | 设备信息数据，登录后使用 getDeviceInfo接口获得。使用此数据可免设备安全验证，不容易封号
+  * token/request | token | 使用用任意方式登录成功后，使用 getAutoLoginData 接口获得。 此token有过期时间，断开登录状态一段时间后会过期。
+  * phone | phone | 手机号
+  * phone | code | 手机验证码
+  * user | username | 用户名/qq号/手机号
+  * user | password | 密码
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error  : '',
+    msg    : '请使用手机微信扫码登陆！',
+    success: true
+  }
+  * ```
+  * @memberof Padchat
+  */
   async login(type = 'qrcode', data = {}) {
     if (!loginType[type]) {
       throw new Error('login type error!')
@@ -216,73 +230,89 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取设备62数据
-   *
-   * NOTE: 需要注意使用断线重连方式登陆后，获取到的62数据是无效的，一定不要用。
-   * 事实上，只要你有一次登陆成功，以后一直用这个62数据，不用换就行。
-   *
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取设备62数据
+  *
+  * NOTE: 注意：如果使用62数据进行登陆，再获取到的62数据是无效的，一定不要用。
+  * 事实上，只要你有一次登陆成功，以后一直用这个62数据，不用换就行。
+  *
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error: '', success: true,
+    data : 
+      {
+        wxData: '62xxxxx'  //设备62数据
+      }
+  }
+  * ```
+  * @memberof Padchat
+  */
   async getWxData() {
     return await this.sendCmd('getWxData', {})
   }
 
   /**
-   * 获取二次登陆数据
-   *
-   * 返回：
-   * ```
-   * {
-   * error  : '',
-   * msg    : '',
-   * success: true,
-   * data   : 
-   *  {
-   * message: '',
-   * status : 0,
-   * token  : 'xxxx',   //二次登陆token
-   * uin    : 14900000  //微信号uin，唯一值
-   *  }
-   * }
-   * ```
-   *
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取二次登陆数据
+  *
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error  : '',
+    success: true,
+    data   : 
+      {
+        message: '',
+        status : 0,
+        token  : 'xxxx',   //二次登陆token
+        uin    : 14900000  //微信号uin，唯一值
+      }
+  }
+  * ```
+  * @memberof Padchat
+  */
   async getLoginToken() {
     return await this.sendCmd('getLoginToken', {})
   }
 
   /**
    * 同步通讯录
-   *
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  *
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async syncContact() {
     return await this.sendCmd('syncContact', {})
   }
 
   /**
-   * 退出登录
-   *
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 退出登录
+  *
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async logout() {
     return await this.sendCmd('logout', {})
   }
 
   /**
-   * 发送文字信息
-   *
-   * @param {String} toUserName 接收者的wxid
-   * @param {String} content 内容文本
-   * @param {any} [atList=[]] 向群内发信息时，要@的用户wxid数组
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 发送文字信息
+  *
+  * @param {String} toUserName 接收者的wxid
+  * @param {String} content 内容文本
+  * @param {any} [atList=[]] 向群内发信息时，要@的用户wxid数组
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error: '', success: true,
+    data : {
+      message: '',
+      msgId  : '5172746684759824075',
+      status : 0
+    }
+  }
+  * ```
+  *  @memberof Padchat
+  */
   async sendMsg(toUserName, content, atList = []) {
     return await this.sendCmd('sendMsg', {
       toUserName,
@@ -292,13 +322,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 群发文字信息
-   *
-   * @param {any} [userList=[]] 接收者wxid数组
-   * @param {String} content 内容文本
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 群发文字信息
+  *
+  * @param {any} [userList=[]] 接收者wxid数组
+  * @param {String} content 内容文本
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async massMsg(userList = [], content) {
     return await this.sendCmd('massMsg', {
       userList,
@@ -307,24 +337,24 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 发送App消息
-   *
-   * @param {String} toUserName 接收者的wxid
-   * @param {Object} object 内容文本
-   * ```
-   * {
-   * appid    = '',   //appid，忽略即可
-   * sdkver   = '',   //sdk版本，忽略即可
-   * title    = '',   //标题
-   * des      = '',   //描述
-   * url      = '',   //链接url
-   * thumburl = '',   //缩略图url
-   * }
-   * ```
-   *
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 发送App消息
+  *
+  * @param {String} toUserName 接收者的wxid
+  * @param {Object} object 内容文本
+  * ```
+  * {
+  * appid    = '',   //appid，忽略即可
+  * sdkver   = '',   //sdk版本，忽略即可
+  * title    = '',   //标题
+  * des      = '',   //描述
+  * url      = '',   //链接url
+  * thumburl = '',   //缩略图url
+  * }
+  * ```
+  *
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async sendAppMsg(toUserName, object) {
     const content = Helper.structureXml(object)
     return await this.sendCmd('sendAppMsg', {
@@ -334,14 +364,14 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 分享名片
-   *
-   * @param {String} toUserName 接收者的wxid
-   * @param {String} content 内容文本
-   * @param {String} userId 被分享人wxid
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 分享名片
+  *
+  * @param {String} toUserName 接收者的wxid
+  * @param {String} content 内容文本
+  * @param {String} userId 被分享人wxid
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async shareCard(toUserName, content, userId) {
     return await this.sendCmd('shareCard', {
       toUserName,
@@ -351,13 +381,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 发送图片消息
-   *
-   * @param {String} toUserName 接收者的wxid
-   * @param {Buffer|String} file 图片Buffer数据或base64
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 发送图片消息
+  *
+  * @param {String} toUserName 接收者的wxid
+  * @param {Buffer|String} file 图片Buffer数据或base64
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async sendImage(toUserName, file) {
     if (file instanceof Buffer) {
       file = file.toString('base64')
@@ -369,14 +399,14 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 发送语音消息
-   * 注意：只能发送silk格式的语音文件
-   *
-   * @param {String} toUserName 接收者的wxid
-   * @param {Buffer|String} file 语音Buffer数据或base64
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 发送语音消息
+  * 注意：只能发送silk格式的语音文件
+  *
+  * @param {String} toUserName 接收者的wxid
+  * @param {Buffer|String} file 语音Buffer数据或base64
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async sendVoice(toUserName, file) {
     if (file instanceof Buffer) {
       file = file.toString('base64')
@@ -388,12 +418,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取消息原始图片
-   *
-   * @param {Object} rawMsgData 推送的消息结构体
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取消息原始图片
+  *
+  * @param {Object} rawMsgData 推送的消息结构体
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getMsgImage(rawMsgData) {
     return await this.sendCmd('getMsgImage', {
       rawMsgData,
@@ -401,12 +431,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取消息原始视频
-   *
-   * @param {Object} rawMsgData 推送的消息结构体
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取消息原始视频
+  *
+  * @param {Object} rawMsgData 推送的消息结构体
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getMsgVideo(rawMsgData) {
     return await this.sendCmd('getMsgVideo', {
       rawMsgData,
@@ -414,12 +444,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取消息原始语音
-   *
-   * @param {Object} rawMsgData 推送的消息结构体
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取消息原始语音
+  *
+  * @param {Object} rawMsgData 推送的消息结构体
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getMsgVoice(rawMsgData) {
     return await this.sendCmd('getMsgVoice', {
       rawMsgData,
@@ -427,12 +457,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 创建群
-   *
-   * @param {String[]} userList 用户wxid数组
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 创建群
+  *
+  * @param {String[]} userList 用户wxid数组
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async createRoom(userList) {
     return await this.sendCmd('createRoom', {
       userList,
@@ -440,12 +470,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取群成员信息
-   *
-   * @param {String} groupId 群id
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取群成员信息
+  *
+  * @param {String} groupId 群id
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getRoomMembers(groupId) {
     return await this.sendCmd('getRoomMembers', {
       groupId,
@@ -453,13 +483,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 添加群成员
-   *
-   * @param {String} groupId 群id
-   * @param {String} userId 用户wxid
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 添加群成员
+  *
+  * @param {String} groupId 群id
+  * @param {String} userId 用户wxid
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async addRoomMember(groupId, userId) {
     return await this.sendCmd('addRoomMember', {
       groupId,
@@ -468,13 +498,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 邀请群成员
-   *
-   * @param {String} groupId 群id
-   * @param {String} userId 用户wxid
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 邀请群成员
+  *
+  * @param {String} groupId 群id
+  * @param {String} userId 用户wxid
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async inviteRoomMember(groupId, userId) {
     return await this.sendCmd('inviteRoomMember', {
       groupId,
@@ -483,13 +513,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 删除群成员
-   *
-   * @param {String} groupId 群id
-   * @param {String} userId 用户wxid
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 删除群成员
+  *
+  * @param {String} groupId 群id
+  * @param {String} userId 用户wxid
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async deleteRoomMember(groupId, userId) {
     return await this.sendCmd('deleteRoomMember', {
       groupId,
@@ -498,12 +528,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 退出群
-   *
-   * @param {String} groupId 群id
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 退出群
+  *
+  * @param {String} groupId 群id
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async quitRoom(groupId) {
     return await this.sendCmd('quitRoom', {
       groupId,
@@ -511,13 +541,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 设置群公告
-   *
-   * @param {String} groupId 群id
-   * @param {String} content 群公告内容
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 设置群公告
+  *
+  * @param {String} groupId 群id
+  * @param {String} content 群公告内容
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async setRoomAnnouncement(groupId, content) {
     return await this.sendCmd('setRoomAnnouncement', {
       groupId,
@@ -526,13 +556,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 设置群名称
-   *
-   * @param {String} groupId 群id
-   * @param {String} content 群名称
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 设置群名称
+  *
+  * @param {String} groupId 群id
+  * @param {String} content 群名称
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async setRoomName(groupId, content) {
     return await this.sendCmd('setRoomName', {
       groupId,
@@ -541,13 +571,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取微信群二维码
-   *
-   * @param {String} groupId 群id
-   * @param {Number} style 二维码风格
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取微信群二维码
+  *
+  * @param {String} groupId 群id
+  * @param {Number} style 二维码风格
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getRoomQrcode(groupId, style = 1) {
     return await this.sendCmd('getRoomQrcode', {
       groupId,
@@ -556,12 +586,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取用户信息
-   *
-   * @param {String} userId 用户wxid
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取用户信息
+  *
+  * @param {String} userId 用户wxid
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getContact(userId) {
     return await this.sendCmd('getContact', {
       userId,
@@ -569,12 +599,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 搜索用户
-   *
-   * @param {String} userId 用户wxid
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 搜索用户
+  *
+  * @param {String} userId 用户wxid
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async searchContact(userId) {
     return await this.sendCmd('searchContact', {
       userId,
@@ -582,12 +612,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 删除好友
-   *
-   * @param {String} userId 用户wxid
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 删除好友
+  *
+  * @param {String} userId 用户wxid
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async deleteContact(userId) {
     return await this.sendCmd('deleteContact', {
       userId,
@@ -595,13 +625,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取用户二维码
-   *
-   * @param {String} userId 用户wxid
-   * @param {Number} style 二维码风格
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取用户二维码
+  *
+  * @param {String} userId 用户wxid
+  * @param {Number} style 二维码风格
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getContactQrcode(userId, style = 1) {
     return await this.sendCmd('getUserQrcode', {
       userId,
@@ -610,13 +640,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 通过好友验证
-   *
-   * @param {String} stranger 用户stranger数据
-   * @param {String} ticket 用户ticket数据
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 通过好友验证
+  *
+  * @param {String} stranger 用户stranger数据
+  * @param {String} ticket 用户ticket数据
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async acceptUser(stranger, ticket) {
     return await this.sendCmd('acceptUser', {
       stranger,
@@ -625,32 +655,32 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 添加好友
-   *
-   * @param {String} stranger 用户stranger数据
-   * @param {String} ticket 用户ticket数据
-   * @param {Number} type 添加好友途径
-   × 值 | 说明
-   × ----|----
-   × 1 | 朋友验证方式
-   × 2 | 通过搜索邮箱
-   × 3 | 通过微信号搜索
-   × 4 | 通过QQ好友添加
-   × 5 | 通过朋友验证消息
-   × 7 | 通过朋友验证消息(可回复)
-   × 8 | 通过群来源
-   × 12 | 通过QQ好友添加
-   × 14 | 通过群来源
-   × 15 | 通过搜索手机号
-   × 16 | 通过朋友验证消息
-   × 17 | 通过名片分享
-   × 22 | 通过摇一摇打招呼方式
-   × 25 | 通过漂流瓶
-   × 30 | 通过二维码方式
-   * @param {string} [content=''] 验证信息
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 添加好友
+  *
+  * @param {String} stranger 用户stranger数据
+  * @param {String} ticket 用户ticket数据
+  * @param {Number} type 添加好友途径
+  × 值 | 说明
+  × ----|----
+  × 1 | 朋友验证方式
+  × 2 | 通过搜索邮箱
+  × 3 | 通过微信号搜索
+  × 4 | 通过QQ好友添加
+  × 5 | 通过朋友验证消息
+  × 7 | 通过朋友验证消息(可回复)
+  × 8 | 通过群来源
+  × 12 | 通过QQ好友添加
+  × 14 | 通过群来源
+  × 15 | 通过搜索手机号
+  × 16 | 通过朋友验证消息
+  × 17 | 通过名片分享
+  × 22 | 通过摇一摇打招呼方式
+  × 25 | 通过漂流瓶
+  × 30 | 通过二维码方式
+  * @param {string} [content=''] 验证信息
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async addContact(stranger, ticket, type = 3, content = '') {
     return await this.sendCmd('addContact', {
       stranger,
@@ -661,14 +691,14 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 打招呼
-   *
-   * @param {String} stranger 用户stranger数据
-   * @param {String} ticket 用户ticket数据
-   * @param {String} content 打招呼内容
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 打招呼
+  *
+  * @param {String} stranger 用户stranger数据
+  * @param {String} ticket 用户ticket数据
+  * @param {String} content 打招呼内容
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async sayHello(stranger, ticket, content = '') {
     return await this.sendCmd('sayHello', {
       stranger,
@@ -678,13 +708,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 设置备注
-   *
-   * @param {String} userId 用户wxid
-   * @param {String} remark 备注名称
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 设置备注
+  *
+  * @param {String} userId 用户wxid
+  * @param {String} remark 备注名称
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async setRemark(userId, remark) {
     return await this.sendCmd('setRemark', {
       userId,
@@ -693,12 +723,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 设置头像
-   *
-   * @param {Buffer|String} file 图片Buffer数据或base64
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 设置头像
+  *
+  * @param {Buffer|String} file 图片Buffer数据或base64
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async setHeadImg(file) {
     if (file instanceof Buffer) {
       file = file.toString('base64')
@@ -711,12 +741,12 @@ class Padchat extends EventEmitter {
   /** 朋友圈系列接口 */
 
   /**
-   * 上传图片到朋友圈
-   *
-   * @param {Buffer|String} file 图片Buffer数据或base64
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 上传图片到朋友圈
+  *
+  * @param {Buffer|String} file 图片Buffer数据或base64
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async snsUpload(file) {
     if (file instanceof Buffer) {
       file = file.toString('base64')
@@ -727,16 +757,16 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 操作朋友圈
-   * FIXME: 此接口有问题，暂时无效
-   *
-   * @param {String} momentId 朋友圈消息id
-   * @param {Number} type 操作类型，1为删除朋友圈，4为删除评论，5为取消赞
-   * @param {Number} commentId 操作类型，当type为4时，对应删除评论的id，其他状态为0
-   * @param {Number} commentType 操作类型，当删除评论时可用，2或者3
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 操作朋友圈
+  * FIXME: 此接口有问题，暂时无效
+  *
+  * @param {String} momentId 朋友圈消息id
+  * @param {Number} type 操作类型，1为删除朋友圈，4为删除评论，5为取消赞
+  * @param {Number} commentId 操作类型，当type为4时，对应删除评论的id，其他状态为0
+  * @param {Number} commentType 操作类型，当删除评论时可用，2或者3
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async snsObjectOp(momentId, type, commentId, commentType = 2) {
     return await this.sendCmd('snsObjectOp', {
       momentId,
@@ -747,12 +777,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 发朋友圈
-   *
-   * @param {String} content 内容文本
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 发朋友圈
+  *
+  * @param {String} content 内容文本
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async snsSendMoment(content) {
     return await this.sendCmd('snsSendMoment', {
       content,
@@ -760,13 +790,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 查看用户朋友圈
-   *
-   * @param {String} userId 用户wxid
-   * @param {string} [momentId=''] 朋友圈消息id
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 查看用户朋友圈
+  *
+  * @param {String} userId 用户wxid
+  * @param {string} [momentId=''] 朋友圈消息id
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async snsUserPage(userId, momentId = '') {
     return await this.sendCmd('snsUserPage', {
       userId,
@@ -775,12 +805,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 查看朋友圈动态
-   *
-   * @param {string} [momentId=''] 朋友圈消息id
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 查看朋友圈动态
+  *
+  * @param {string} [momentId=''] 朋友圈消息id
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async snsTimeline(momentId = '') {
     return await this.sendCmd('snsTimeline', {
       momentId,
@@ -788,12 +818,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取朋友圈消息详情
-   *
-   * @param {String} momentId 朋友圈消息id
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取朋友圈消息详情
+  *
+  * @param {String} momentId 朋友圈消息id
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async snsGetObject(momentId) {
     return await this.sendCmd('snsGetObject', {
       momentId,
@@ -801,14 +831,14 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 评论朋友圈
-   *
-   * @param {String} userId 用户wxid
-   * @param {String} momentId 朋友圈消息id
-   * @param {String} content 内容文本
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 评论朋友圈
+  *
+  * @param {String} userId 用户wxid
+  * @param {String} momentId 朋友圈消息id
+  * @param {String} content 内容文本
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async snsComment(userId, momentId, content) {
     return await this.sendCmd('snsComment', {
       userId,
@@ -818,13 +848,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 朋友圈点赞
-   *
-   * @param {String} userId 用户wxid
-   * @param {String} momentId 朋友圈消息id
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 朋友圈点赞
+  *
+  * @param {String} userId 用户wxid
+  * @param {String} momentId 朋友圈消息id
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async snsLike(userId, momentId) {
     return await this.sendCmd('snsLike', {
       userId,
@@ -835,12 +865,12 @@ class Padchat extends EventEmitter {
   /** 收藏系列接口 */
 
   /**
-   * 同步收藏消息
-   *
-   * @param {string} [favKey=''] 同步key
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 同步收藏消息
+  *
+  * @param {string} [favKey=''] 同步key
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async syncFav(favKey = '') {
     return await this.sendCmd('syncFav', {
       favKey,
@@ -848,12 +878,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 添加收藏
-   *
-   * @param {String} content 内容文本
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 添加收藏
+  *
+  * @param {String} content 内容文本
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async addFav(content) {
     return await this.sendCmd('addFav', {
       content,
@@ -861,12 +891,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取收藏消息详情
-   *
-   * @param {Number} favId 收藏id
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取收藏消息详情
+  *
+  * @param {Number} favId 收藏id
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getFav(favId) {
     return await this.sendCmd('getFav', {
       favId,
@@ -874,12 +904,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 删除收藏
-   *
-   * @param {Number} favId 收藏id
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 删除收藏
+  *
+  * @param {Number} favId 收藏id
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async deleteFav(favId) {
     return await this.sendCmd('deleteFav', {
       favId,
@@ -889,22 +919,22 @@ class Padchat extends EventEmitter {
   /** 标签系列接口 */
 
   /**
-   * 获取所有标签
-   *
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取所有标签
+  *
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getLabelList() {
     return await this.sendCmd('getLabelList', {})
   }
 
   /**
-   * 添加标签
-   *
-   * @param {String} label 标签名称
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 添加标签
+  *
+  * @param {String} label 标签名称
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async addLabel(label) {
     return await this.sendCmd('addLabel', {
       label,
@@ -912,12 +942,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 删除标签
-   *
-   * @param {String} labelId 标签id
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 删除标签
+  *
+  * @param {String} labelId 标签id
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async deleteLabel(labelId) {
     return await this.sendCmd('deleteLabel', {
       labelId,
@@ -925,21 +955,21 @@ class Padchat extends EventEmitter {
   }
   /**
   deleteLabel: {
-      auth: 'tag',
-      rule: {
-        labelId: 'string',
-      },
-    },
+  auth: 'tag',
+  rule: {
+  labelId: 'string',
+  },
+  },
   */
 
   /**
-   * 设置用户标签
-   *
-   * @param {String} userId 用户wxid
-   * @param {String} labelId 标签id
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 设置用户标签
+  *
+  * @param {String} userId 用户wxid
+  * @param {String} labelId 标签id
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async setLabel(userId, labelId) {
     return await this.sendCmd('setLabel', {
       userId,
@@ -950,12 +980,28 @@ class Padchat extends EventEmitter {
   /** 转账及红包接口 */
 
   /**
-   * 查看转账消息
-   *
-   * @param {Object} rawMsgData 推送的消息结构体
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 查看转账消息
+  *
+  * @param {Object} rawMsgData 推送的消息结构体
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error  : '',
+    success: true,
+    data   : 
+      {
+        external: '{"trans_status":2001,"retcode":"0","retmsg":"ok","fee":20,"fee_type":"1","pay_time":152292100,"modify_time":1522922926,"refund_bank_type":"BANK","payer_name":"wxid_xxxxxx","receiver_name":"wxid_xxxxxx","status_desc":"已收钱","status_supplementary":"<_wc_custom_link_ href=\\"weixin:\\/\\/wcpay\\/transfer\\/watchbalance\\">查看零钱<\\/_wc_custom_link_>","delay_confirm_flag":0,"is_payer":false}',
+        message : '\n',
+        status  : 0
+      }
+  }
+  * ```
+  * 当未收款时 `external` 内容如下：
+  * ```
+    external: '{"trans_status":2000,"retcode":"0","retmsg":"ok","fee":20,"fee_type":"1","pay_time":152292100,"modify_time":0,"refund_bank_type":"BANK","payer_name":"wxid_xxxxxx","receiver_name":"wxid_xxxxxx","status_desc":"待确认收款","status_supplementary":"1天内未确认，将退还给对方。<_wc_custom_link_ href=\\"weixin:\\/\\/wcpay\\/transfer\\/rebacksendmsg\\">立即退还<\\/_wc_custom_link_>","delay_confirm_flag":0,"is_payer":false}',
+  * ```
+  * @memberof Padchat
+  */
   async queryTransfer(rawMsgData) {
     return await this.sendCmd('queryTransfer', {
       rawMsgData,
@@ -963,12 +1009,24 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 接受转账
-   *
-   * @param {Object} rawMsgData 推送的消息结构体
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 接受转账
+  *
+  * @param {Object} rawMsgData 推送的消息结构体
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error  : '',
+    success: true,
+    data   : 
+      {
+        external: '{"fee":20,"fee_type":"1","payer":"085e9858ea9393320da704000","receiver":"085e9858ebbb4c57b6f1ba000","retcode":"0","retmsg":"ok"}',
+        message : '\n',
+        status  : 0
+      }
+  }
+  * ```
+  * @memberof Padchat
+  */
   async acceptTransfer(rawMsgData) {
     return await this.sendCmd('acceptTransfer', {
       rawMsgData,
@@ -976,12 +1034,25 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 接收红包
-   *
-   * @param {Object} rawMsgData 推送的消息结构体
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 接收红包
+  *
+  * @param {Object} rawMsgData 推送的消息结构体
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error  : '',
+    success: true,
+    data   : 
+      {
+        external: '{"retcode":0,"retmsg":"ok","sendId":"1000039401201804056026435709000","wishing":"红包","isSender":1,"receiveStatus":2,"hbStatus":2,"statusMess":"","hbType":0,"watermark":"","agree_duty":{"title":"","service_protocol_wording":"","service_protocol_url":"","button_wording":"","delay_expired_time":0,"agreed_flag":1},"sendUserName":"wxid_xxxx","timingIdentifier":"D321E1FF9E302CC4A05BB75106F10000"}',
+        key     : 'D321E1FF9E302CC4A05BB75106F10000',
+        message : '\n',
+        status  : 0
+      }
+  }
+  * ```
+  * @memberof Padchat
+  */
   async receiveRedPacket(rawMsgData) {
     return await this.sendCmd('receiveRedPacket', {
       rawMsgData,
@@ -989,14 +1060,26 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 查看红包信息
-   *
-   * @param {Object} rawMsgData 推送的消息结构体
-   * @param {Number} [index=0] 列表索引。
-   * 每页11个，查看第二页11，查看第三页22，以此类推
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 查看红包信息
+  *
+  * @param {Object} rawMsgData 推送的消息结构体
+  * @param {Number} [index=0] 列表索引。
+  * 每页11个，查看第二页11，查看第三页22，以此类推
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error  : '',
+    success: true,
+    data   : 
+      {
+        external: '{"retcode":0,"retmsg":"ok","recNum":0,"totalNum":1,"totalAmount":10,"sendId":"1000039401201804056026435709000","amount":0,"wishing":"红包","isSender":1,"receiveId":"","operationHeader":[],"hbType":0,"isContinue":0,"hbStatus":2,"headTitle":"红包金额0.10元，等待对方领取","canShare":0,"hbKind":1,"recAmount":0,"record":[],"operationTail":{"name":"未领取的红包，将于24小时后发起退款","type":"Text","content":"","enable":1,"iconUrl":"","ossKey":4294967000},"atomicFunc":{"enable":0},"jumpChange":1,"changeWording":"已存入零钱，可直接提现","sendUserName":"wxid_xxxxx"}',
+        message : '\n',
+        status  : 0
+      }
+  }
+  * ```
+  * @memberof Padchat
+  */
   async queryRedPacket(rawMsgData, index = 0) {
     return await this.sendCmd('queryRedPacket', {
       rawMsgData,
@@ -1005,13 +1088,25 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 领取红包
-   *
-   * @param {Object} rawMsgData 推送的消息结构体
-   * @param {String} key 红包的验证key，通过调用 receiveRedPacket 获得
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 领取红包
+  *
+  * @param {Object} rawMsgData 推送的消息结构体
+  * @param {String} key 红包的验证key，通过调用 receiveRedPacket 获得
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error  : '',
+    success: true,
+    data   : 
+      {
+        external: '{"retcode":0,"retmsg":"ok","sendId":"1000039401201804057020330940000","amount":10,"recNum":1,"recAmount":10,"totalNum":1,"totalAmount":10,"hasWriteAnswer":0,"hbType":0,"isSender":0,"isContinue":0,"receiveStatus":2,"hbStatus":4,"statusMess":"","wishing":"测试好吧","receiveId":"1000039401000804057020330940000","headTitle":"","canShare":0,"operationHeader":[],"record":[{"receiveAmount":10,"receiveTime":"1522923952","answer":"","receiveId":"1000039401000804057020330940000","state":1,"receiveOpenId":"1000039401000804057020330940000","userName":"wxid_xxxxxxx"}],"watermark":"","jumpChange":1,"changeWording":"已存入零钱，可用于发红包","sendUserName":"binxxx","real_name_info":{"guide_flag":0},"SystemMsgContext":"<img src=\\"SystemMessages_HongbaoIcon.png\\"\\/>  你领取了$binxxx$的<_wc_custom_link_ color=\\"#FD9931\\" href=\\"weixin:\\/\\/weixinhongbao\\/opendetail?sendid=1000039401201804057020330940000&sign=92f26327088efd6eaeeb013fc2ad173515ab3be0305f09dcb43e3de7093805f0009089a4fe5e2f69ba87576d7fc33316b2faef1b406617d8578b3e4b064e7316159ff73cd39e730d7e974c8a5fc32b99&ver=6\\">红包<\\/_wc_custom_link_>","sessionUserName":"wxid_xxxxxx"}',
+        message : '\n',
+        status  : 0
+      }
+  }
+  * ```
+  * @memberof Padchat
+  */
   async openRedPacket(rawMsgData, key) {
     return await this.sendCmd('openRedPacket', {
       rawMsgData,
@@ -1022,12 +1117,12 @@ class Padchat extends EventEmitter {
   /** 公众号系列接口 */
 
   /**
-   * 获取公众号gh名称
-   *
-   * @param {String} userId 公众号wxid
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取公众号gh名称
+  *
+  * @param {String} userId 公众号wxid
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getMpInfo(userId) {
     return await this.sendCmd('getMpInfo', {
       userId,
@@ -1035,12 +1130,12 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取公众号信息
-   *
-   * @param {String} ghName 公众号gh名称，即`gh_`格式的id
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取公众号信息
+  *
+  * @param {String} ghName 公众号gh名称，即`gh_`格式的id
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getSubscriptionInfo(ghName) {
     return await this.sendCmd('getSubscriptionInfo', {
       ghName,
@@ -1048,14 +1143,14 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 操作公众号菜单
-   *
-   * @param {String} ghName 公众号gh名称，即`gh_`格式的id
-   * @param {Number} menuId 菜单id
-   * @param {String} menuKey 菜单key
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 操作公众号菜单
+  *
+  * @param {String} ghName 公众号gh名称，即`gh_`格式的id
+  * @param {Number} menuId 菜单id
+  * @param {String} menuKey 菜单key
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async operateSubscription(ghName, menuId, menuKey) {
     return await this.sendCmd('operateSubscription', {
       ghName,
@@ -1065,13 +1160,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 获取网页访问授权
-   *
-   * @param {String} ghName 公众号gh名称，即`gh_`格式的id
-   * @param {String} url 网页url
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 获取网页访问授权
+  *
+  * @param {String} ghName 公众号gh名称，即`gh_`格式的id
+  * @param {String} url 网页url
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async getRequestToken(ghName, url) {
     return await this.sendCmd('getRequestToken', {
       ghName,
@@ -1080,14 +1175,14 @@ class Padchat extends EventEmitter {
   }
 
   /**
-   * 访问网页
-   *
-   * @param {string} url 网页url地址
-   * @param {string} xKey 访问Key
-   * @param {string} xUin 访问uin
-   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
-   * @memberof Padchat
-   */
+  * 访问网页
+  *
+  * @param {string} url 网页url地址
+  * @param {string} xKey 访问Key
+  * @param {string} xUin 访问uin
+  * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * @memberof Padchat
+  */
   async requestUrl(url, xKey, xUin) {
     return await this.sendCmd('requestUrl', {
       url,
@@ -1162,8 +1257,23 @@ function onWsMsg(msg) {
   //         }
   //     },
   //   list:   // 仅`push`类型拥有，包含多个push结构数据
-  //     [{
-  //     }],
+  //     [
+  //       {
+  //         content    : '信息内容',                  //消息内容或xml结构体内容
+  //         continue   : 1,
+  //         description: '杉木 : 信息内容',             //描述内容
+  //         fromUser   : 'wxid_001',              //发信人
+  //         msgId      : '4032724472820776289',   //消息id
+  //         msgSource  : '',
+  //         msgType    : 5,                       //消息主类型，类型为5时则用子类型判断
+  //         status     : 1,
+  //         subType    : 1,                       //消息子类型
+  //         timestamp  : 1522921008,              //消息时间戳
+  //         toUser     : 'wxid_002',              //收件人
+  //         uin        : 149806460,               //用户uin，全局唯一
+  //         mType      : 1                        //消息类型。等同msgType，当msgType为5时，等同于subType
+  //       }
+  //     ],
   // }
 
   let hasOn

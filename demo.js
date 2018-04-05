@@ -33,7 +33,9 @@ const autoData = {
   wxData: '',
   token : '',
 }
-const server = 'ws://127.0.0.1:7777'
+let server = ''
+    server = 'ws://127.0.0.1:7777'
+// server = 'ws://52.80.182.103:7777'
 
 try {
   const tmpBuf          = fs.readFileSync('./config.json')
@@ -131,7 +133,7 @@ wx
         return
       }
       logger.info('获取设备参数成功, json: ', ret)
-      Object.assign(autoData, { wxData: ret.data.wx_data })
+      Object.assign(autoData, { wxData: ret.data.wxData })
     }
 
     ret = await wx.getLoginToken()
@@ -222,6 +224,60 @@ wx
           .catch(e => {
             logger.warn('转发语音信息异常:', e.message)
           })
+        break
+
+      case 49: 
+
+        if (data.content.indexOf('<![CDATA[微信红包]]>') > 0) {
+          logger.info('收到来自 %s 的红包：', data.fromUser, data)
+          await wx.queryRedPacket(data)
+            .then(ret => {
+              logger.info('查询来自 %s 的红包信息：', data.fromUser, ret)
+            })
+            .catch(e => {
+              logger.warn('查询红包异常:', e.message)
+            })
+          await wx.receiveRedPacket(data)
+            .then(async ret => {
+              logger.info('接收来自 %s 的红包结果：', data.fromUser, ret)
+              await wx.openRedPacket(data, ret.data.key)
+                .then(ret2 => {
+                  logger.info('打开来自 %s 的红包结果：', data.fromUser, ret2)
+                })
+                .catch(e => {
+                  logger.warn('打开红包异常:', e.message)
+                })
+            })
+            .catch(e => {
+              logger.warn('接收红包异常:', e.message)
+            })
+        } else if (data.content.indexOf('<![CDATA[微信转账]]>') > 0) {
+          logger.info('收到来自 %s 的转账：', data.fromUser, data)
+          await wx.queryTransfer(data)
+            .then(ret => {
+              logger.info('查询来自 %s 的转账信息：', data.fromUser, ret)
+            })
+            .catch(e => {
+              logger.warn('查询转账异常:', e.message)
+            })
+          await wx.acceptTransfer(data)
+            .then(ret => {
+              logger.info('接受来自 %s 的转账结果：', data.fromUser, ret)
+            })
+            .catch(e => {
+              logger.warn('接受转账异常:', e.message)
+            })
+        } else {
+          logger.info('收到一条来自 %s 的appmsg富媒体消息：', data.fromUser, data)
+        }
+        break
+
+      case 10002: 
+        if (data.fromUser === 'weixin') {
+          //每次登陆，会收到一条系统垃圾推送，过滤掉
+          break
+        }
+        logger.info('用户 %s 撤回了一条消息：', data.fromUser, data)
         break
 
       default: 
