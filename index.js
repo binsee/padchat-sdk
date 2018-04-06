@@ -276,6 +276,7 @@ class Padchat extends EventEmitter {
 
   /**
    * 同步通讯录
+   * FIXME: 此接口不可用，待修复
   *
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
   * @memberof Padchat
@@ -324,16 +325,19 @@ class Padchat extends EventEmitter {
   /**
   * 群发文字信息
   *
+  * FIXME: 此接口有问题，暂停使用
+  *
   * @param {any} [userList=[]] 接收者wxid数组
   * @param {String} content 内容文本
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
   * @memberof Padchat
   */
   async massMsg(userList = [], content) {
-    return await this.sendCmd('massMsg', {
-      userList,
-      content,
-    })
+    return new Error('此接口存在问题，停用!')
+    // return await this.sendCmd('massMsg', {
+    //   userList,
+    //   content,
+    // })
   }
 
   /**
@@ -353,6 +357,16 @@ class Padchat extends EventEmitter {
   * ```
   *
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error: '', success: true,
+    data : {
+      message: '',
+      msgId  : '2195811529497100215',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async sendAppMsg(toUserName, object) {
@@ -370,6 +384,16 @@ class Padchat extends EventEmitter {
   * @param {String} content 内容文本
   * @param {String} userId 被分享人wxid
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error: '', success: true,
+    data : {
+      message: '',
+      msgId  : '1797099903789182796',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async shareCard(toUserName, content, userId) {
@@ -386,6 +410,16 @@ class Padchat extends EventEmitter {
   * @param {String} toUserName 接收者的wxid
   * @param {Buffer|String} file 图片Buffer数据或base64
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error: '', success: true,
+    data : {
+      message: '',
+      msgId  : '1797099903789182796',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async sendImage(toUserName, file) {
@@ -405,6 +439,18 @@ class Padchat extends EventEmitter {
   * @param {String} toUserName 接收者的wxid
   * @param {Buffer|String} file 语音Buffer数据或base64
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    error: '', success: true,
+    data : {
+      data   : 2490,                   //语音文件尺寸
+      message: '',
+      msgId  : '136722815749654341',
+      size   : 0,
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async sendVoice(toUserName, file) {
@@ -420,8 +466,22 @@ class Padchat extends EventEmitter {
   /**
   * 获取消息原始图片
   *
+  * 在push事件中收到的data数据是缩略图图片数据，使用本接口获取原图数据
+  *
   * @param {Object} rawMsgData 推送的消息结构体
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        image  : 'base64_xxxx',   //base64编码的原图数据
+        message: '',
+        size   : 8139,            //图片数据尺寸
+        status : 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async getMsgImage(rawMsgData) {
@@ -433,10 +493,25 @@ class Padchat extends EventEmitter {
   /**
   * 获取消息原始视频
   *
+  * 在push事件中只获得推送通知，不包含视频数据，需要使用本接口获取视频文件数据
+  *
   * @param {Object} rawMsgData 推送的消息结构体
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        message: '',
+        size   : 160036,        //视频数据尺寸
+        status : 0,
+        video  : 'base64_xxxx'  //base64编码的视频数据
+      }
+  }
+  * ```
   * @memberof Padchat
   */
+
   async getMsgVideo(rawMsgData) {
     return await this.sendCmd('getMsgVideo', {
       rawMsgData,
@@ -444,10 +519,24 @@ class Padchat extends EventEmitter {
   }
 
   /**
-  * 获取消息原始语音
+  * 获取消息语音数据
+  *
+  * 这个接口获取到的与push事件中接收到的数据一致，是base64编码的silk格式语音数据
   *
   * @param {Object} rawMsgData 推送的消息结构体
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        message: '',
+        size   : 2490,          //语音数据尺寸
+        status : 0,
+        voice  : 'base64_xxxx'  //base64编码的语音数据
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async getMsgVoice(rawMsgData) {
@@ -459,8 +548,22 @@ class Padchat extends EventEmitter {
   /**
   * 创建群
   *
+  * 注意：如果有用户存在问题不能进群，则会建群失败。
+  * 但判断是否成功应以`userName`字段
+  *
   * @param {String[]} userList 用户wxid数组
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        message : 'Everything is OK',    //操作结果提示，失败为`MemberList are wrong`
+        status  : 0,
+        userName: '5658541000@chatroom'  //如果建群成功，则返回群id
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async createRoom(userList) {
@@ -474,6 +577,21 @@ class Padchat extends EventEmitter {
   *
   * @param {String} groupId 群id
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        chatroomId: 700000001,
+        count     : 3,
+        member    :             //群成员列表json文本，需要再使用JSON.parse进行解析
+        '[{"big_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/0","chatroom_nick_name":"","invited_by":"wxid_xxx002","nick_name":"杉木","small_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/132","user_name":"wxid_xxx001"},{"big_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/0","chatroom_nick_name":"","invited_by":"","nick_name":"小木匠","small_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/132","user_name":"wxid_xxx002"},{"big_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/0","chatroom_nick_name":"","invited_by":"wxid_xxx002","nick_name":"梦君君","small_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/132","user_name":"wxid_xxx003"}]\n',
+        message : '',
+        status  : 0,
+        userName: '5658541000@chatroom'  //群id
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async getRoomMembers(groupId) {
@@ -488,6 +606,15 @@ class Padchat extends EventEmitter {
   * @param {String} groupId 群id
   * @param {String} userId 用户wxid
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: 'Everything is OK',   //失败为`MemberList are wrong`
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async addRoomMember(groupId, userId) {
@@ -499,10 +626,20 @@ class Padchat extends EventEmitter {
 
   /**
   * 邀请群成员
+  * 会给对方发送一条邀请消息，无法判断对方是否真的接收到
   *
   * @param {String} groupId 群id
   * @param {String} userId 用户wxid
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async inviteRoomMember(groupId, userId) {
@@ -518,6 +655,15 @@ class Padchat extends EventEmitter {
   * @param {String} groupId 群id
   * @param {String} userId 用户wxid
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async deleteRoomMember(groupId, userId) {
@@ -532,6 +678,15 @@ class Padchat extends EventEmitter {
   *
   * @param {String} groupId 群id
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async quitRoom(groupId) {
@@ -546,6 +701,15 @@ class Padchat extends EventEmitter {
   * @param {String} groupId 群id
   * @param {String} content 群公告内容
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async setRoomAnnouncement(groupId, content) {
@@ -561,6 +725,15 @@ class Padchat extends EventEmitter {
   * @param {String} groupId 群id
   * @param {String} content 群名称
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async setRoomName(groupId, content) {
@@ -574,14 +747,25 @@ class Padchat extends EventEmitter {
   * 获取微信群二维码
   *
   * @param {String} groupId 群id
-  * @param {Number} style 二维码风格
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        footer : '该二维码7天内(4月13日前)有效，重新进入将更新',
+        message: '',
+        qrCode : '',                            //进群二维码图片base64
+        status : 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
-  async getRoomQrcode(groupId, style = 1) {
+  async getRoomQrcode(groupId) {
     return await this.sendCmd('getRoomQrcode', {
       groupId,
-      style,
+      style: 0,
     })
   }
 
@@ -590,6 +774,34 @@ class Padchat extends EventEmitter {
   *
   * @param {String} userId 用户wxid
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        bigHead        : 'http://wx.qlogo.cn/xxx/0',     //大头像url
+        city           : 'mesa',                         //城市
+        country        : 'CN',                           //国家
+        intro          : '',                             //简介（公众号主体）
+        label          : '',                             //（标签）
+        message        : '',
+        nickName       : '杉木',                           //昵称
+        provincia      : 'Henan',                        //省份
+        pyInitial      : 'SM',                           //昵称拼音简写
+        quanPin        : 'shamu',                        //昵称拼音
+        remark         : '',                             //备注
+        remarkPyInitial: '',                             //备注拼音简写
+        remarkQuanPin  : '',                             //备注拼音
+        sex            : 1,                              //性别：1男2女
+        signature      : '签名',                           //个性签名
+        smallHead      : 'http://wx.qlogo.cn/xxx/132',   //小头像url
+        status         : 0,
+        stranger       : 'v1_xxx@stranger',              //用户v1码，从未加过好友则为空
+        ticket         : 'v2_xxx@stranger',              //用户v2码，如果非空则为单向好友(非对方好友)
+        userName       : 'binxxx'                        //用户wxid
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async getContact(userId) {
@@ -600,9 +812,32 @@ class Padchat extends EventEmitter {
 
   /**
   * 搜索用户
+  * 可用此接口来判断是否已经加对方为好友
   *
   * @param {String} userId 用户wxid
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        bigHead  : 'http://wx.qlogo.cn/xxx/0',     //大头像url
+        city     : 'mesa',                         //城市
+        country  : 'CN',                           //国家
+        message  : '',
+        nickName : '杉木',                           //昵称
+        provincia: 'Henan',                        //省份
+        pyInitial: 'SM',                           //昵称拼音简写
+        quanPin  : 'shamu',                        //昵称拼音
+        sex      : 1,                              //性别：1男2女
+        signature: '签名',                           //个性签名
+        smallHead: 'http://wx.qlogo.cn/xxx/132',   //小头像url
+        status   : 0,
+        stranger : 'v1_xxx@stranger',              //好友为空，非好友显示v2码
+        userName : 'binxxx'                        //是自己好友显示wxid，非好友为v1码
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async searchContact(userId) {
@@ -616,6 +851,15 @@ class Padchat extends EventEmitter {
   *
   * @param {String} userId 用户wxid
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async deleteContact(userId) {
@@ -626,13 +870,26 @@ class Padchat extends EventEmitter {
 
   /**
   * 获取用户二维码
+  * 仅限获取自己的二维码，无法获取其他人的二维码
   *
   * @param {String} userId 用户wxid
-  * @param {Number} style 二维码风格
+  * @param {Number} style 二维码风格。可用范围0-3
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        footer : '',
+        message: '',
+        qrCode : '',   //二维码图片base64
+        status : 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
-  async getContactQrcode(userId, style = 1) {
+  async getContactQrcode(userId, style = 0) {
     return await this.sendCmd('getUserQrcode', {
       userId,
       style,
@@ -645,6 +902,15 @@ class Padchat extends EventEmitter {
   * @param {String} stranger 用户stranger数据
   * @param {String} ticket 用户ticket数据
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async acceptUser(stranger, ticket) {
@@ -662,23 +928,32 @@ class Padchat extends EventEmitter {
   * @param {Number} type 添加好友途径
   × 值 | 说明
   × ----|----
-  × 1 | 朋友验证方式
-  × 2 | 通过搜索邮箱
-  × 3 | 通过微信号搜索
+  x 0 | 通过微信号搜索
+  × 1 | 搜索QQ号
+  x 3 | 通过微信号搜索
   × 4 | 通过QQ好友添加
   × 5 | 通过朋友验证消息
-  × 7 | 通过朋友验证消息(可回复)
-  × 8 | 通过群来源
-  × 12 | 通过QQ好友添加
-  × 14 | 通过群来源
+  × 8 | 通过群聊
+  × 10 | 通过手机通讯录添加
+  × 12 | 来自QQ好友
+  × 13 | 通过手机通讯录添加
+  × 14 | 通过群聊
   × 15 | 通过搜索手机号
-  × 16 | 通过朋友验证消息
-  × 17 | 通过名片分享
-  × 22 | 通过摇一摇打招呼方式
-  × 25 | 通过漂流瓶
-  × 30 | 通过二维码方式
+  × 17 | 通过名片分享           //未验证
+  × 22 | 通过摇一摇打招呼方式    //未验证
+  × 25 | 通过漂流瓶             //未验证
+  × 30 | 通过二维码方式         //未验证
   * @param {string} [content=''] 验证信息
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0    //如果对方设置了验证，会返回-44
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async addContact(stranger, ticket, type = 3, content = '') {
@@ -692,11 +967,22 @@ class Padchat extends EventEmitter {
 
   /**
   * 打招呼
+  * 如果已经是好友，会收到由系统自动发送，来自对方的一条文本信息
+  * “xx已通过你的朋友验证请求，现在可以开始聊天了”
   *
   * @param {String} stranger 用户stranger数据
   * @param {String} ticket 用户ticket数据
   * @param {String} content 打招呼内容
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async sayHello(stranger, ticket, content = '') {
@@ -713,6 +999,15 @@ class Padchat extends EventEmitter {
   * @param {String} userId 用户wxid
   * @param {String} remark 备注名称
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async setRemark(userId, remark) {
@@ -727,6 +1022,20 @@ class Padchat extends EventEmitter {
   *
   * @param {Buffer|String} file 图片Buffer数据或base64
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+    {
+      success: true,
+      data   : 
+        {
+          bigHead  : 'http://wx.qlogo.cn/mmhead/ver_1/xxx/0',
+          data     : 1527,                                        //图片文件尺寸
+          message  : '',
+          size     : 1527,                                        //图片文件尺寸
+          smallHead: 'http://wx.qlogo.cn/mmhead/ver_1/xxx/132',
+          status   : 0
+        }
+    }
+  * ```
   * @memberof Padchat
   */
   async setHeadImg(file) {
@@ -742,9 +1051,24 @@ class Padchat extends EventEmitter {
 
   /**
   * 上传图片到朋友圈
+  * NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
   *
   * @param {Buffer|String} file 图片Buffer数据或base64
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+    {
+      success: true,
+      data   : 
+        {
+          bigHead  : 'http://mmsns.qpic.cn/mmsns/xxx/0',
+          data     : 1527,                                   //图片文件尺寸
+          message  : '',
+          size     : 1527,                                   //图片文件尺寸
+          smallHead: 'http://mmsns.qpic.cn/mmsns/xxx/150',
+          status   : 0
+        }
+    }
+  * ```
   * @memberof Padchat
   */
   async snsUpload(file) {
@@ -758,13 +1082,21 @@ class Padchat extends EventEmitter {
 
   /**
   * 操作朋友圈
-  * FIXME: 此接口有问题，暂时无效
   *
-  * @param {String} momentId 朋友圈消息id
+  * @param {String} momentId 朋友圈信息id
   * @param {Number} type 操作类型，1为删除朋友圈，4为删除评论，5为取消赞
   * @param {Number} commentId 操作类型，当type为4时，对应删除评论的id，其他状态为0
-  * @param {Number} commentType 操作类型，当删除评论时可用，2或者3
+  * @param {Number} commentType 操作类型，当删除评论时可用，需与评论type字段一致
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async snsObjectOp(momentId, type, commentId, commentType = 2) {
@@ -781,6 +1113,25 @@ class Padchat extends EventEmitter {
   *
   * @param {String} content 内容文本
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        data: 
+          {
+            create_time: 1523015689,
+            description:              //朋友圈信息xml结构体文本
+            '<TimelineObject><id>12775981595019653292</id><username>wxid_8z66rux8lysr22</username><createTime>1523015689</createTime><contentDesc>来自代码发的朋友圈</contentDesc><contentDescShowType>0</contentDescShowType><contentDescScene>3</contentDescScene><private>0</private><sightFolded>0</sightFolded><appInfo><id></id><version></version><appName></appName><installUrl></installUrl><fromUrl></fromUrl><isForceUpdate>0</isForceUpdate></appInfo><sourceUserName></sourceUserName><sourceNickName></sourceNickName><statisticsData></statisticsData><statExtStr></statExtStr><ContentObject><contentStyle>2</contentStyle><title></title><description></description><mediaList></mediaList><contentUrl></contentUrl></ContentObject><actionInfo><appMsg><messageAction></messageAction></appMsg></actionInfo><location poiClassifyId="" poiName="" poiAddress="" poiClassifyType="0" city=""></location><publicUserName></publicUserName><streamvideo><streamvideourl></streamvideourl><streamvideothumburl></streamvideothumburl><streamvideoweburl></streamvideoweburl></streamvideo></TimelineObject>',
+            id       : '12775981595019653292',   //朋友圈信息id
+            nick_name: '小木匠',
+            user_name: 'wxid_xxxx'
+          },
+        message: '',
+        status : 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async snsSendMoment(content) {
@@ -793,8 +1144,29 @@ class Padchat extends EventEmitter {
   * 查看用户朋友圈
   *
   * @param {String} userId 用户wxid
-  * @param {string} [momentId=''] 朋友圈消息id
+  * @param {string} [momentId=''] 朋友圈信息id
+  * 首次传入空即获取第一页，以后传入上次拉取的最后一条信息id
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        count: 1,
+        data :     //朋友圈信息结构数组（无评论和点赞数据）
+          [{
+            create_time: 1523015689,
+            description: '<TimelineObject><id>12775981595019653292</id><username>wxid_xxx</username><createTime>1523015689</createTime><contentDesc>来自代码发的朋友圈</contentDesc><contentDescShowType>0</contentDescShowType><contentDescScene>3</contentDescScene><private>0</private> <sightFolded>0</sightFolded> <appInfo><id></id><version></version><appName></appName><installUrl></installUrl><fromUrl></fromUrl><isForceUpdate>0</isForceUpdate></appInfo> <sourceUserName></sourceUserName> <sourceNickName></sourceNickName> <statisticsData></statisticsData> <statExtStr></statExtStr> <ContentObject><contentStyle>2</contentStyle><title></title><description></description><mediaList></mediaList><contentUrl></contentUrl></ContentObject> <actionInfo><appMsg><messageAction></messageAction></appMsg></actionInfo> <location poiClassifyId="" poiName="" poiAddress="" poiClassifyType="0" city=""></location> <publicUserName></publicUserName> <streamvideo><streamvideourl></streamvideourl><streamvideothumburl></streamvideothumburl><streamvideoweburl></streamvideoweburl></streamvideo></TimelineObject> ',
+            id         : '12775981595019653292',
+            nick_name  : '小木匠',
+            user_name  : 'wxid_xxx'
+          }],
+        message: '',
+        page   : '81cb2ad01ebc219f',
+        status : 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async snsUserPage(userId, momentId = '') {
@@ -807,8 +1179,29 @@ class Padchat extends EventEmitter {
   /**
   * 查看朋友圈动态
   *
-  * @param {string} [momentId=''] 朋友圈消息id
+  * @param {string} [momentId=''] 朋友圈信息id
+  * 首次传入空即获取第一页，以后传入上次拉取的最后一条信息id
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        count: 1,
+        data :     //朋友圈信息结构数组（无评论和点赞数据）
+          [{
+            create_time: 1523015689,
+            description: '<TimelineObject><id>12775981595019653292</id><username>wxid_xxx</username><createTime>1523015689</createTime><contentDesc>来自代码发的朋友圈</contentDesc><contentDescShowType>0</contentDescShowType><contentDescScene>3</contentDescScene><private>0</private> <sightFolded>0</sightFolded> <appInfo><id></id><version></version><appName></appName><installUrl></installUrl><fromUrl></fromUrl><isForceUpdate>0</isForceUpdate></appInfo> <sourceUserName></sourceUserName> <sourceNickName></sourceNickName> <statisticsData></statisticsData> <statExtStr></statExtStr> <ContentObject><contentStyle>2</contentStyle><title></title><description></description><mediaList></mediaList><contentUrl></contentUrl></ContentObject> <actionInfo><appMsg><messageAction></messageAction></appMsg></actionInfo> <location poiClassifyId="" poiName="" poiAddress="" poiClassifyType="0" city=""></location> <publicUserName></publicUserName> <streamvideo><streamvideourl></streamvideourl><streamvideothumburl></streamvideothumburl><streamvideoweburl></streamvideoweburl></streamvideo></TimelineObject> ',
+            id         : '12775981595019653292',
+            nick_name  : '小木匠',
+            user_name  : 'wxid_xxx'
+          }],
+        message: '',
+        page   : '81cb2ad01ebc219f',
+        status : 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async snsTimeline(momentId = '') {
@@ -818,10 +1211,20 @@ class Padchat extends EventEmitter {
   }
 
   /**
-  * 获取朋友圈消息详情
+  * 获取朋友圈信息详情
   *
-  * @param {String} momentId 朋友圈消息id
+  * @param {String} momentId 朋友圈信息id
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      data   : {},   //朋友圈信息结构
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async snsGetObject(momentId) {
@@ -834,11 +1237,22 @@ class Padchat extends EventEmitter {
   * 评论朋友圈
   *
   * @param {String} userId 用户wxid
-  * @param {String} momentId 朋友圈消息id
+  * @param {String} momentId 朋友圈信息id
   * @param {String} content 内容文本
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      data   : {},   //朋友圈信息结构
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
+
   async snsComment(userId, momentId, content) {
     return await this.sendCmd('snsComment', {
       userId,
@@ -851,8 +1265,18 @@ class Padchat extends EventEmitter {
   * 朋友圈点赞
   *
   * @param {String} userId 用户wxid
-  * @param {String} momentId 朋友圈消息id
+  * @param {String} momentId 朋友圈信息id
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      data   : {},   //朋友圈信息结构
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async snsLike(userId, momentId) {
@@ -1232,10 +1656,6 @@ function onWsMsg(msg) {
   if (data.data) {
     // 转小驼峰
     data.data = Helper.toCamelCase(data.data)
-    if (data.data.data) {
-      data.data.data = Helper.toCamelCase(data.data.data || {})
-    }
-    //
   }
 
   this.emit('msg', data)
@@ -1291,7 +1711,7 @@ function onWsMsg(msg) {
       switch (data.event) {
         case 'warn': 
           // 如果success字段为true，则为不严重的问题
-          this.emit('warn', new Error('服务器返回错误提示：' + data.msg), data.success)
+          this.emit('warn', new Error('服务器返回错误提示：' + data.error), data.success)
           break
         case 'qrcode':   // 微信扫码登陆，推送二维码
         case 'scan'  :   // 微信账号扫码事件
@@ -1305,19 +1725,18 @@ function onWsMsg(msg) {
         case 'push': 
           if (!data.data || !Array.isArray(data.data.list) || data.data.list.length <= 0) {
             this.emit('error', new Error('推送数据异常！'))
-
             break
           }
           data.data.list.forEach(item => {
-            const type = item.msg_type
+            const type = item.msgType
             // 过滤无意义的2048和32768类型数据
             if (type === undefined || type === 2048 || type === 32768) {
               return null
             }
             // 当msg_type为5时，即表示推送的信息类型要用sub_type进行判断
             // 另外增加一个属性来存储好了
-            item.mType = item.msg_type === 5 ? item.sub_type : item.msg_type
-            this.emit('push', Helper.toCamelCase(item))
+            item.mType = item.msgType === 5 ? item.subType : item.msgType
+            this.emit('push', item)
           })
           break
         default: 
