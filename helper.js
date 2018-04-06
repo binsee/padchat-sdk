@@ -17,20 +17,28 @@ module.exports = {
  * @returns {Object} 转换后的object
  */
 function toCamelCase(obj, big = false) {
+  if (obj instanceof Array) {
+    return obj.map(item => toCamelCase(item))
+  }
   if (!(obj instanceof Object)) {
     return obj
   }
-  const newObj = {}
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
       let newKey = key.replace(/_(\w)/g, (match, val, offset) => { return val.toUpperCase() })
       if (big) {
         newKey = newKey.replace(/^(\w)/, (match, val, offset) => { return val.toUpperCase() })
       }
-      newObj[newKey] = obj[key]
+      if ((obj[key] instanceof Array) || (obj[key] instanceof Object)) {
+        obj[key] = toCamelCase(obj[key])
+      }
+      if (newKey !== key) {
+        obj[newKey] = obj[key]
+        delete obj[key]
+      }
     }
   }
-  return newObj
+  return obj
 }
 
 /**
@@ -82,4 +90,3 @@ function structureXml(obj) {
 <thumburl>${thumburl}</thumburl>
 </appmsg>`.replace(/\n/g, '')
 }
-
