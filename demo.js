@@ -190,13 +190,29 @@ wx
     // --------------------------------
     // 注意，如果是来自微信群的消息，data.content字段中包含发言人的wxid及其发言内容，需要自行提取
     // 各类复杂消息，data.content中是xml格式的文本内容，需要自行从中提取各类数据。（如好友请求）
-    if (data.mType != 2) {
+    if ((data.mType !== 2) && !(data.mType === 10002 && data.fromUser === 'weixin')) {
       // 输出除联系人以外的推送信息
       dLog.info('push', data)
     }
     switch (data.mType) {
       case 2: 
         logger.info('收到推送联系人：', data.nickName)
+        break
+
+      case 3: 
+        logger.info('收到来自 %s 的图片消息', data.fromUser)
+        await wx.getMsgImage(data)
+          .then(ret => {
+            logger.info('获取消息原始图片结果：', ret.data)
+          })
+        break
+
+      case 43: 
+        logger.info('收到来自 %s 的视频消息', data.fromUser)
+        await wx.getMsgVideo(data)
+          .then(ret => {
+            logger.info('获取消息原始视频结果：', ret.data)
+          })
         break
 
       case 1: 
@@ -212,6 +228,11 @@ wx
             .catch(e => {
               logger.warn('回复信息异常:', e.message)
             })
+        } else if (/^#.*/.test(data.content) || /^[\w]*:\n#.*/.test(data.content)) {
+          await onMsg(data)
+            .catch(e => {
+              logger.warn('处理信息异常：', e)
+            })
         }
         break
 
@@ -223,6 +244,11 @@ wx
           })
           .catch(e => {
             logger.warn('转发语音信息异常:', e.message)
+          })
+
+        await wx.getMsgVoice(data)
+          .then(ret => {
+            logger.info('获取消息原始语音结果：', ret.data)
           })
         break
 
@@ -289,14 +315,35 @@ wx
     logger.error('ws 错误:', e)
   })
   .on('warn', e => {
-    logger.error('任务出现错误:', e)
+    logger.error('任务出现错误:', e.message)
   })
   .on('cmdRet', (cmd, ret) => {
     //捕捉接口操作结果，补充接口文档用
     dLog.info(cmd, ret)
   })
 
+async function onMsg(data) {
+  const content        = data.content.replace(/^[\w:\n]*#/m, '')
+  let   [cmd, ...args] = content.split(' ')
 
+  args = args.map(str => {
+    try {
+      str = JSON.parse(str)
+    } catch (e) {
+    }
+    return str
+  })
+  if (cmd && wx[cmd] && typeof wx[cmd] === 'function') {
+    logger.info('执行函数 %s，参数：', cmd, args)
+    await wx[cmd](...args)
+      .then(ret => {
+        logger.info('执行函数 %s 结果：', cmd, ret)
+      })
+      .catch(e => {
+        logger.warn('执行函数 %s 异常：', e)
+      })
+  }
+}
 process.on('uncaughtException', e => {
   logger.error('Main', 'uncaughtException:', e)
 })
