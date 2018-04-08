@@ -3,6 +3,7 @@
 const log4js  = require('log4js')
 const Padchat = require('./index')
 const fs      = require('fs')
+const util    = require('util')
 
 /**
 * 创建日志目录
@@ -192,7 +193,7 @@ wx
     // 各类复杂消息，data.content中是xml格式的文本内容，需要自行从中提取各类数据。（如好友请求）
     if ((data.mType !== 2) && !(data.mType === 10002 && data.fromUser === 'weixin')) {
       // 输出除联系人以外的推送信息
-      dLog.info('push', data)
+      dLog.info('push: \n%o', data)
     }
     switch (data.mType) {
       case 2: 
@@ -258,10 +259,10 @@ wx
           logger.info('收到来自 %s 的红包：', data.fromUser, data)
           await wx.queryRedPacket(data)
             .then(ret => {
-              logger.info('查询来自 %s 的红包信息：', data.fromUser, ret)
+              logger.info('未领取，查询来自 %s 的红包信息：', data.fromUser, ret)
             })
             .catch(e => {
-              logger.warn('查询红包异常:', e.message)
+              logger.warn('未领取，查询红包异常:', e.message)
             })
           await wx.receiveRedPacket(data)
             .then(async ret => {
@@ -272,6 +273,13 @@ wx
                 })
                 .catch(e => {
                   logger.warn('打开红包异常:', e.message)
+                })
+              await wx.queryRedPacket(data)
+                .then(ret => {
+                  logger.info('打开后，查询来自 %s 的红包信息：', data.fromUser, ret)
+                })
+                .catch(e => {
+                  logger.warn('打开后，再次查询红包异常:', e.message)
                 })
             })
             .catch(e => {
@@ -292,6 +300,13 @@ wx
             })
             .catch(e => {
               logger.warn('接受转账异常:', e.message)
+            })
+          await wx.queryTransfer(data)
+            .then(ret => {
+              logger.info('接受后，查询来自 %s 的转账信息：', data.fromUser, ret)
+            })
+            .catch(e => {
+              logger.warn('接受后，查询转账异常:', e.message)
             })
         } else {
           logger.info('收到一条来自 %s 的appmsg富媒体消息：', data.fromUser, data)
@@ -319,7 +334,7 @@ wx
   })
   .on('cmdRet', (cmd, ret) => {
     //捕捉接口操作结果，补充接口文档用
-    dLog.info(cmd, ret)
+    dLog.info('%s ret: \n%s', cmd, util.inspect(ret, { depth: 10 }))
   })
 
 async function onMsg(data) {
@@ -337,7 +352,7 @@ async function onMsg(data) {
     logger.info('执行函数 %s，参数：', cmd, args)
     await wx[cmd](...args)
       .then(ret => {
-        logger.info('执行函数 %s 结果：', cmd, ret)
+        logger.info('执行函数 %s 结果：%o', cmd, ret)
       })
       .catch(e => {
         logger.warn('执行函数 %s 异常：', e)
