@@ -301,6 +301,7 @@ class Padchat extends EventEmitter {
   * @param {String} toUserName 接收者的wxid
   * @param {String} content 内容文本
   * @param {any} [atList=[]] 向群内发信息时，要@的用户wxid数组
+  * FIXME: 无法At用户
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
   * ```
   {
@@ -583,9 +584,16 @@ class Padchat extends EventEmitter {
     data   : 
       {
         chatroomId: 700000001,
-        count     : 3,
-        member    :             //群成员列表json文本，需要再使用JSON.parse进行解析
-        '[{"big_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/0","chatroom_nick_name":"","invited_by":"wxid_xxx002","nick_name":"杉木","small_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/132","user_name":"wxid_xxx001"},{"big_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/0","chatroom_nick_name":"","invited_by":"","nick_name":"小木匠","small_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/132","user_name":"wxid_xxx002"},{"big_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/0","chatroom_nick_name":"","invited_by":"wxid_xxx002","nick_name":"梦君君","small_head":"http://wx.qlogo.cn/mmhead/ver_1/xxx/132","user_name":"wxid_xxx003"}]\n',
+        count     : 3,           //群成员数量
+        member    :              //群成员列表
+         [{
+            bigHead         : 'http://wx.qlogo.cn/xxx/0',     //大头像url
+            chatroomNickName: '',                             //群内昵称
+            invitedBy       : 'binsee',                       //进群邀请人
+            nickName        : '小木匠',                          //昵称
+            smallHead       : 'http://wx.qlogo.cn/xxx/132',   //小头像url
+            userName        : 'wxid_xxxx'                     //wxid
+          }],
         message : '',
         status  : 0,
         userName: '5658541000@chatroom'  //群id
@@ -1122,7 +1130,7 @@ class Padchat extends EventEmitter {
           {
             create_time: 1523015689,
             description:              //朋友圈信息xml结构体文本
-            '<TimelineObject><id>12775981595019653292</id><username>wxid_8z66rux8lysr22</username><createTime>1523015689</createTime><contentDesc>来自代码发的朋友圈</contentDesc><contentDescShowType>0</contentDescShowType><contentDescScene>3</contentDescScene><private>0</private><sightFolded>0</sightFolded><appInfo><id></id><version></version><appName></appName><installUrl></installUrl><fromUrl></fromUrl><isForceUpdate>0</isForceUpdate></appInfo><sourceUserName></sourceUserName><sourceNickName></sourceNickName><statisticsData></statisticsData><statExtStr></statExtStr><ContentObject><contentStyle>2</contentStyle><title></title><description></description><mediaList></mediaList><contentUrl></contentUrl></ContentObject><actionInfo><appMsg><messageAction></messageAction></appMsg></actionInfo><location poiClassifyId="" poiName="" poiAddress="" poiClassifyType="0" city=""></location><publicUserName></publicUserName><streamvideo><streamvideourl></streamvideourl><streamvideothumburl></streamvideothumburl><streamvideoweburl></streamvideoweburl></streamvideo></TimelineObject>',
+            '<TimelineObject><id>12775981595019653292</id><username>wxid_xxx</username><createTime>1523015689</createTime><contentDesc>来自代码发的朋友圈</contentDesc><contentDescShowType>0</contentDescShowType><contentDescScene>3</contentDescScene><private>0</private><sightFolded>0</sightFolded><appInfo><id></id><version></version><appName></appName><installUrl></installUrl><fromUrl></fromUrl><isForceUpdate>0</isForceUpdate></appInfo><sourceUserName></sourceUserName><sourceNickName></sourceNickName><statisticsData></statisticsData><statExtStr></statExtStr><ContentObject><contentStyle>2</contentStyle><title></title><description></description><mediaList></mediaList><contentUrl></contentUrl></ContentObject><actionInfo><appMsg><messageAction></messageAction></appMsg></actionInfo><location poiClassifyId="" poiName="" poiAddress="" poiClassifyType="0" city=""></location><publicUserName></publicUserName><streamvideo><streamvideourl></streamvideourl><streamvideothumburl></streamvideothumburl><streamvideoweburl></streamvideoweburl></streamvideo></TimelineObject>',
             id       : '12775981595019653292',   //朋友圈信息id
             nick_name: '小木匠',
             user_name: 'wxid_xxxx'
@@ -1291,8 +1299,30 @@ class Padchat extends EventEmitter {
   /**
   * 同步收藏消息
   *
-  * @param {string} [favKey=''] 同步key
+  * @param {string} [favKey=''] 同步key，首次不用传入
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        continue: 0,
+        data    :     //收藏消息列表，如果没有则为null
+          [
+            {
+              flag: 0,            //首次标志，0为有效，1为已取消收藏
+              id  : 3,            //收藏id
+              seq : 652265243,    //收藏随机值
+              time: 1515042008,   //收藏时间
+              type: 5             //收藏类型：1文本;2图片;3语音;4视频;5图文消息
+            }
+          ],
+        key    : 'kzTKsdjD6PM0bbQv+oP7vQ==',   //下次的同步key，类似分页
+        message: '',
+        status : 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async syncFav(favKey = '') {
@@ -1319,6 +1349,34 @@ class Padchat extends EventEmitter {
   *
   * @param {Number} favId 收藏id
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        data: 
+          [
+            , {
+              flag  : 0,   //收藏状态：0为有效，1为无效(已删除)
+              id    : 3,   //收藏id，如果为0则为无效收藏
+              object:      //收藏对象结构体文本
+                '<favitem type="5"><desc>DaoCloud 首席架构师王天青：下一代应用转型之道、术、器</desc><source sourcetype="1" sourceid="5353367357590009973"><fromusr>gh_4b6a20bcdd8b</fromusr><tousr>wxid_xxx</tousr><msgid>5353367357590009973</msgid><link>http://mp.weixin.qq.com/s?__biz=MzA5MzA2Njk5OA==&amp;mid=2650096972&amp;idx=1&amp;sn=8707378d0c0bdc0d14d1ac93972c5862&amp;chksm=886266d5bf15efc386050508a2cafb1adb806196f40f4f1bde8e944926c7fb6c6e54a14875c7&amp;scene=0#rd</link><brandid>gh_4b6a20bcdd8b</brandid></source><datalist count="1"><dataitem datatype="5" dataid="1e241bc540e4d5da8f0e580fbb2f7c1a" dataillegaltype="0" datasourceid="5353367357590009973"><datatitle>DaoCloud 首席架构师王天青：下一代应用转型之道、术、器</datatitle><datadesc>DaoCloud 受邀出席第13届信息化领袖峰会，立足于 DaoCloud 为传统企业数字化转型旅途中的丰富实践，与大家共话《下一代应用转型之道、术、器》，探讨如何“用新技术原力现代化你的企业应用”。</datadesc><dataext>http://mmbiz.qpic.cn/mmbiz_jpg/icGWTH9VkFq315HbKuKtWeWlcVDNPAswdhYA0kIskz0GcEQp6nJetC2aSBNfpibp1wKNHf8kYjUibkCF6SgbMIocw/640?wxtype=jpeg&amp;wxfrom=0</dataext></dataitem></datalist><weburlitem><pagethumb_url>http://mmbiz.qpic.cn/mmbiz_jpg/icGWTH9VkFq315HbKuKtWeWlcVDNPAswdhYA0kIskz0GcEQp6nJetC2aSBNfpibp1wKNHf8kYjUibkCF6SgbMIocw/640?wxtype=jpeg&amp;wxfrom=0</pagethumb_url></weburlitem><recommendtaglist></recommendtaglist></favitem>',
+              //文本消息收藏结构
+              // '<favitem type="1"><desc>接收到你发送的内容了!&#x0A;&#x0A;原内容：sync</desc><source sourcetype="1" sourceid="5451059336571949850"><fromusr>wxid_xxx</fromusr><tousr>binsee</tousr><msgid>5451059336571949850</msgid></source><taglist><tag>ted</tag><tag>hj</tag></taglist></favitem>'
+              // 视频
+              // '<favitem type="2"><source sourcetype="1" sourceid="786100356842168336"><fromusr>wxid_xxx</fromusr><tousr>4674258153@chatroom</tousr><realchatname>wxid_xxx</realchatname><msgid>786100356842168336</msgid></source><datalist count="1"><dataitem datatype="2" dataid="2b4d63555959bd7ffb62722e8c186030" dataillegaltype="0" datasourceid="786100356842168336"><cdn_thumburl>304c02010004453043020100020408eddd7c02030f4fed020419a0360a02045ac9271704206162313437386338616237383833333266336564343335666166363435646331020227110201000400</cdn_thumburl><cdn_dataurl>304c02010004453043020100020408eddd7c02030f4fed0204b94c716402045ac9271704203865383031656465633132333661303939346365663837643165316539363663020227110201000400</cdn_dataurl><cdn_thumbkey>ab1478c8ab788332f3ed435faf645dc1</cdn_thumbkey><cdn_datakey>8e801edec1236a0994cef87d1e1e966c</cdn_datakey><fullmd5>8e801edec1236a0994cef87d1e1e966c</fullmd5><head256md5>324b6cffbba04142bfabf5cdd0621b40</head256md5><fullsize>92377</fullsize><thumbfullmd5>ab1478c8ab788332f3ed435faf645dc1</thumbfullmd5><thumbhead256md5>4fcedfae8fcaa571504c5fd9f2abfa0a</thumbhead256md5><thumbfullsize>5658</thumbfullsize><datadesc></datadesc><datatitle></datatitle></dataitem></datalist><recommendtaglist></recommendtaglist></favitem>'
+              // 语音
+              // '<favitem type=\'3\'><source sourcetype=\'1\' sourceid=\'3687245278820959898\'><fromusr>wxid_xxx</fromusr><tousr>4674258153@chatroom</tousr><realchatname>wxid_xxx</realchatname><msgid>3687245278820959898</msgid></source><datalist count=\'1\'><dataitem datatype=\'3\' dataid=\'b1b222bcf285270772bf8698b2933bc7\' dataillegaltype=\'0\' datasourceid=\'3687245278820959898\'><datafmt>silk</datafmt><cdn_dataurl>304c02010004453043020100020408eddd7c02030f4fed020419a2360a02045ac9271104203064643962326231623464663936626433383831313136646235333831343537020227110201000400</cdn_dataurl><cdn_datakey>0dd9b2b1b4df96bd3881116db5381457</cdn_datakey><duration>2465</duration><fullmd5>0dd9b2b1b4df96bd3881116db5381457</fullmd5><head256md5>d348a2942af6d188100855d48dc75373</head256md5><fullsize>4186</fullsize></dataitem></datalist></favitem>'
+              seq   : 652265243,
+              status: 0,           //0为有效收藏，1为无效收藏
+              time  : 1515042008
+            }
+          ],
+        message: '',
+        status : 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async getFav(favId) {
@@ -1332,6 +1390,27 @@ class Padchat extends EventEmitter {
   *
   * @param {Number} favId 收藏id
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        data: 
+          [
+            {
+              flag  : 0,
+              id    : 0,
+              object: '',
+              seq   : 0,
+              status: 1,    //返回删除的收藏id
+              time  : 0
+            },
+          ],
+        message: '',
+        status : 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async deleteFav(favId) {
@@ -1346,6 +1425,21 @@ class Padchat extends EventEmitter {
   * 获取所有标签
   *
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        label:   //标签列表
+          [{
+            id  : 1,      //标签id
+            name: '测试标签'  //标签名称
+          }],
+        message: '',
+        status : 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async getLabelList() {
@@ -1357,6 +1451,15 @@ class Padchat extends EventEmitter {
   *
   * @param {String} label 标签名称
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async addLabel(label) {
@@ -1368,8 +1471,17 @@ class Padchat extends EventEmitter {
   /**
   * 删除标签
   *
-  * @param {String} labelId 标签id
+  * @param {String} labelId 标签id，注意是id是String类型
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async deleteLabel(labelId) {
@@ -1377,14 +1489,6 @@ class Padchat extends EventEmitter {
       labelId,
     })
   }
-  /**
-  deleteLabel: {
-  auth: 'tag',
-  rule: {
-  labelId: 'string',
-  },
-  },
-  */
 
   /**
   * 设置用户标签
@@ -1392,6 +1496,15 @@ class Padchat extends EventEmitter {
   * @param {String} userId 用户wxid
   * @param {String} labelId 标签id
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async setLabel(userId, labelId) {
@@ -1410,19 +1523,43 @@ class Padchat extends EventEmitter {
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
   * ```
   {
-    error  : '',
     success: true,
     data   : 
       {
-        external: '{"trans_status":2001,"retcode":"0","retmsg":"ok","fee":20,"fee_type":"1","pay_time":152292100,"modify_time":1522922926,"refund_bank_type":"BANK","payer_name":"wxid_xxxxxx","receiver_name":"wxid_xxxxxx","status_desc":"已收钱","status_supplementary":"<_wc_custom_link_ href=\\"weixin:\\/\\/wcpay\\/transfer\\/watchbalance\\">查看零钱<\\/_wc_custom_link_>","delay_confirm_flag":0,"is_payer":false}',
-        message : '\n',
-        status  : 0
+        external: 
+          {
+            retcode       : '0',
+            retmsg        : 'ok',
+            fee           : 20,                      //转账金额(单位为分)
+            transStatus   : 2000,                    //状态:2000未收款;2001已收款
+            feeType       : '1',
+            payTime       : 1523176700,
+            modifyTime    : 0,
+            refundBankType: 'BANK',
+            payerName     : 'binsee',
+            receiverName  : 'wxid_8z66rux8lysr22',
+            statusDesc    : '待确认收款',                 //收款描述
+            // '已收钱'       //已收款
+            // '待%s确认收款' //等待对方收款
+            // '%s已收钱'     //对方已收款
+            statusSupplementary: '',   //状态补充信息
+            // 未领取：
+            // '1天内未确认，将退还给对方。<_wc_custom_link_ href="weixin://wcpay/transfer/rebacksendmsg">立即退还</_wc_custom_link_>',
+            delayConfirmFlag: 0,
+            //
+            // 已领取：
+            // '<_wc_custom_link_ href="weixin://wcpay/transfer/watchbalance">查看零钱</_wc_custom_link_>'
+            //
+            // 等待对方收款:
+            // '1天内朋友未确认，将退还给你。<_wc_custom_link_ href="weixin://wcpay/transfer/retrysendmsg">重发转账消息</_wc_custom_link_>'
+            isPayer: false
+            //
+            // 对方已收款为空
+          },
+        message: '',
+        status : 0
       }
   }
-  * ```
-  * 当未收款时 `external` 内容如下：
-  * ```
-    external: '{"trans_status":2000,"retcode":"0","retmsg":"ok","fee":20,"fee_type":"1","pay_time":152292100,"modify_time":0,"refund_bank_type":"BANK","payer_name":"wxid_xxxxxx","receiver_name":"wxid_xxxxxx","status_desc":"待确认收款","status_supplementary":"1天内未确认，将退还给对方。<_wc_custom_link_ href=\\"weixin:\\/\\/wcpay\\/transfer\\/rebacksendmsg\\">立即退还<\\/_wc_custom_link_>","delay_confirm_flag":0,"is_payer":false}',
   * ```
   * @memberof Padchat
   */
@@ -1439,13 +1576,20 @@ class Padchat extends EventEmitter {
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
   * ```
   {
-    error  : '',
     success: true,
     data   : 
       {
-        external: '{"fee":20,"fee_type":"1","payer":"085e9858ea9393320da704000","receiver":"085e9858ebbb4c57b6f1ba000","retcode":"0","retmsg":"ok"}',
-        message : '\n',
-        status  : 0
+        external: 
+          {
+            fee     : 20,          //转账金额(单位为分)
+            payer   : '085exxx',   //付款id
+            receiver: '085exxx',   //接收id
+            retcode : '0',
+            retmsg  : 'ok',
+            feeType : '1'
+          },
+        message: '',
+        status : 0
       }
   }
   * ```
@@ -1464,14 +1608,36 @@ class Padchat extends EventEmitter {
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
   * ```
   {
-    error  : '',
     success: true,
     data   : 
       {
-        external: '{"retcode":0,"retmsg":"ok","sendId":"1000039401201804056026435709000","wishing":"红包","isSender":1,"receiveStatus":2,"hbStatus":2,"statusMess":"","hbType":0,"watermark":"","agree_duty":{"title":"","service_protocol_wording":"","service_protocol_url":"","button_wording":"","delay_expired_time":0,"agreed_flag":1},"sendUserName":"wxid_xxxx","timingIdentifier":"D321E1FF9E302CC4A05BB75106F10000"}',
-        key     : 'D321E1FF9E302CC4A05BB75106F10000',
-        message : '\n',
-        status  : 0
+        external:   //扩展数据结构
+          {
+            retcode         : 0,
+            retmsg          : 'ok',
+            sendId          : '10000xxx',      //发送id
+            wishing         : '发3个红包',         //红包祝语
+            isSender        : 0,               //是否自己发送
+            receiveStatus   : 0,               //接收状态:0未接收;2已领取
+            hbStatus        : 3,               //红包状态：3未领取完;4已领取完毕
+            statusMess      : '发了一个红包，金额随机',   //
+            hbType          : 1,               //红包类型
+            watermark       : '',
+            sendUserName    : 'binsee',        //发送者wxid
+            timingIdentifier: 'C6E370xxx',
+            agreeDuty       :                  //未知含义，非必然
+              {
+                title                 : '',
+                serviceProtocolWording: '',
+                serviceProtocolUrl    : '',
+                buttonWording         : '',
+                delayExpiredTime      : 0,
+                agreedFlag            : 1
+              }
+          },
+        key    : 'C6E370xxx',   //红包key，用于领取红包
+        message: '',
+        status : 0
       }
   }
   * ```
@@ -1485,20 +1651,103 @@ class Padchat extends EventEmitter {
 
   /**
   * 查看红包信息
+  * NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取到红包信息
   *
   * @param {Object} rawMsgData 推送的消息结构体
   * @param {Number} [index=0] 列表索引。
   * 每页11个，查看第二页11，查看第三页22，以此类推
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * 未先接收红包返回结果：
   * ```
   {
-    error  : '',
     success: true,
     data   : 
       {
-        external: '{"retcode":0,"retmsg":"ok","recNum":0,"totalNum":1,"totalAmount":10,"sendId":"1000039401201804056026435709000","amount":0,"wishing":"红包","isSender":1,"receiveId":"","operationHeader":[],"hbType":0,"isContinue":0,"hbStatus":2,"headTitle":"红包金额0.10元，等待对方领取","canShare":0,"hbKind":1,"recAmount":0,"record":[],"operationTail":{"name":"未领取的红包，将于24小时后发起退款","type":"Text","content":"","enable":1,"iconUrl":"","ossKey":4294967000},"atomicFunc":{"enable":0},"jumpChange":1,"changeWording":"已存入零钱，可直接提现","sendUserName":"wxid_xxxxx"}',
-        message : '\n',
-        status  : 0
+        external:   //扩展数据
+          {
+            retcode        : 0,
+            retmsg         : 'ok',
+            operationHeader: [0],
+            record         : [0]
+          },
+        message: '',
+        status : 0
+      }
+  }
+  * ```
+  *
+  * 接收红包后查询结果：
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        external: 
+          {
+            retcode        : 0,
+            retmsg         : 'ok',
+            recNum         : 2,            //已领取数
+            totalNum       : 2,            //红包个数
+            totalAmount    : 100,          //红包总金额(单位为分)
+            sendId         : '10000xxx',   //发送id
+            amount         : 85,           //领取到金额(单位为分)
+            wishing        : 'Hello!',     //红包祝语
+            isSender       : 1,            //是否是自己发送的
+            receiveId      : '10000xxx',   //接收id
+            hasWriteAnswer : 1,            //是否已写回复
+            operationHeader: [],           //未知
+            hbType         : 1,            //红包类型
+            isContinue     : 0,            //是否已领取完
+            hbStatus       : 3,            //红包状态：2未领取;3未领取完;4已领取完毕
+            // 普通红包或单发红包是2，随机红包是3或4
+            receiveStatus: 2,        //接收状态:0未接收;2已领取
+            statusMess   : '成功领到',   //状态提示，未领取为空
+            headTitle    : '',       //红包头部标题
+            // '已领取1/2个，共0.01/0.02元'   //自己发的红包未领取完时
+            // '2个红包共1.00元，15秒被抢光'   //自己发的红包未领取完时
+            // '领取2/3个'                   //别人发的红包未领取完时
+            // '2个红包，42秒被抢光'          //别人发的红包未领取完时
+            canShare : 0,     //是否可分享
+            hbKind   : 1,     //红包种类
+            recAmount: 100,   //已领取金额(单位为分)
+            record   : 
+              [
+                {
+                  receiveAmount: 85,             //领取金额(单位为分)
+                  receiveTime  : '1523169782',   //领取时间戳字符串
+                  answer       : '',             //领取者留言，仅查询接口有效
+                  receiveId    : '10000xxx',
+                  state        : 1,
+                  gameTips     : '手气最佳',         //仅红包领取完毕时，手气最佳者有此字段
+                  receiveOpenId: '10000xxx',
+                  userName     : 'wxid_xxx'      //领取者wxid
+                },
+                {
+                  receiveAmount: 15,
+                  receiveTime  : '1523174612',
+                  answer       : '谢谢红包',
+                  receiveId    : '1000039501001804086017706218338',
+                  state        : 1,
+                  receiveOpenId: '1000039501001804086017706218338',
+                  userName     : 'binsee'
+                },
+              ],
+            operationTail:   //操作提示：仅自己发的红包有效
+              {
+                name   : '未领取的红包，将于24小时后发起退款',
+                type   : 'Text',
+                content: '',
+                enable : 1,
+                iconUrl: '',
+                ossKey : 4294967295
+              },
+            atomicFunc   : { enable: 0 },
+            jumpChange   : 1,
+            changeWording: '已存入零钱，可直接提现',   //查询接口返回'已存入零钱，可直接转账'
+            sendUserName : 'wxid_xxx'       //发送者wxid
+          },
+        message: '',
+        status : 0
       }
   }
   * ```
@@ -1517,15 +1766,82 @@ class Padchat extends EventEmitter {
   * @param {Object} rawMsgData 推送的消息结构体
   * @param {String} key 红包的验证key，通过调用 receiveRedPacket 获得
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * 已领取过红包：
   * ```
   {
-    error  : '',
     success: true,
     data   : 
       {
-        external: '{"retcode":0,"retmsg":"ok","sendId":"1000039401201804057020330940000","amount":10,"recNum":1,"recAmount":10,"totalNum":1,"totalAmount":10,"hasWriteAnswer":0,"hbType":0,"isSender":0,"isContinue":0,"receiveStatus":2,"hbStatus":4,"statusMess":"","wishing":"测试好吧","receiveId":"1000039401000804057020330940000","headTitle":"","canShare":0,"operationHeader":[],"record":[{"receiveAmount":10,"receiveTime":"1522923952","answer":"","receiveId":"1000039401000804057020330940000","state":1,"receiveOpenId":"1000039401000804057020330940000","userName":"wxid_xxxxxxx"}],"watermark":"","jumpChange":1,"changeWording":"已存入零钱，可用于发红包","sendUserName":"binxxx","real_name_info":{"guide_flag":0},"SystemMsgContext":"<img src=\\"SystemMessages_HongbaoIcon.png\\"\\/>  你领取了$binxxx$的<_wc_custom_link_ color=\\"#FD9931\\" href=\\"weixin:\\/\\/weixinhongbao\\/opendetail?sendid=1000039401201804057020330940000&sign=92f26327088efd6eaeeb013fc2ad173515ab3be0305f09dcb43e3de7093805f0009089a4fe5e2f69ba87576d7fc33316b2faef1b406617d8578b3e4b064e7316159ff73cd39e730d7e974c8a5fc32b99&ver=6\\">红包<\\/_wc_custom_link_>","sessionUserName":"wxid_xxxxxx"}',
-        message : '\n',
-        status  : 0
+        external: {
+          retcode: 268502336,
+          retmsg : '你已领取过该红包'
+        },
+        message: '',
+        status : 0
+      }
+  }
+  * ```
+  *
+  * 未领取过的红包：
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        external: 
+          {
+            retcode        : 0,
+            retmsg         : 'ok',
+            sendId         : '1000039501201804087013251181768',
+            amount         : 1,
+            recNum         : 2,
+            recAmount      : 2,
+            totalNum       : 3,
+            totalAmount    : 4,
+            hasWriteAnswer : 0,
+            hbType         : 1,
+            isSender       : 0,
+            isContinue     : 0,
+            receiveStatus  : 2,
+            hbStatus       : 3,
+            statusMess     : '',
+            wishing        : '发3个红包',
+            receiveId      : '1000039501001804087013251181768',
+            headTitle      : '领取2/3个',
+            canShare       : 0,
+            operationHeader: [],
+            record         : 
+              [
+                {
+                  receiveAmount: 1,
+                  receiveTime  : '1523171198',
+                  answer       : '',
+                  receiveId    : '1000039501001804087013251181768',
+                  state        : 1,
+                  receiveOpenId: '1000039501001804087013251181768',
+                  userName     : 'wxid_xxx'
+                },
+                {
+                  receiveAmount: 1,
+                  receiveTime  : '1523170992',
+                  answer       : '',
+                  receiveId    : '1000039501000804087013251181768',
+                  state        : 1,
+                  receiveOpenId: '1000039501000804087013251181768',
+                  userName     : 'binsee'
+                }
+              ],
+            watermark       : '',
+            jumpChange      : 1,
+            changeWording   : '已存入零钱，可直接提现',
+            sendUserName    : 'binsee',
+            SystemMsgContext:                 //系统消息内容
+            '<img src="SystemMessages_HongbaoIcon.png"/>  你领取了$binsee$的<_wc_custom_link_ color="#FD9931" href="weixin://weixinhongbao/opendetail?sendid=1000039501201804087013251181768&sign=68b9858edbc9ff8a88fb8c8fa987edaad88078b31daf6e7af4dba06e78849e50b29a3c1d10bad4893aff116a0db80c7d8a3aa96a5247e1ed095d88e66983fc6fd9f6f6dc8243411ef97727cf0bc698c3&ver=6">红包</_wc_custom_link_>',
+            sessionUserName: '4674258153@chatroom',   //会话wxid/chatroom
+            realNameInfo   : { guideFlag: 0 }
+          },
+        message: '',
+        status : 0
       }
   }
   * ```
@@ -1541,15 +1857,121 @@ class Padchat extends EventEmitter {
   /** 公众号系列接口 */
 
   /**
-  * 获取公众号gh名称
+  * 搜索公众号
   *
-  * @param {String} userId 公众号wxid
+  * @param {String} content 公众号名称等关键字
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        code: 0,
+        info: 
+          {
+            continueFlag: 1,   //仍有数据标志
+            cookies     :      //cookie数据
+              {
+                businessType: 1,
+                isHomepage  : 1,
+                query       : '"腾讯"',
+                scene       : 2
+              },
+            data:   //返回的搜索相关数据
+              [{
+                count: 20,
+                items:      //搜索结果列表
+                  [{
+                    aliasName: 'tencent',
+                    brandFlag: 2,
+                    brandInfo: 
+                      {
+                        urls: 
+                          [{
+                            title: '查看历史消息',
+                            url  : 
+                              'http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MzA3NDEyMDgzMw==#wechat_webview_type=1&wechat_redirect',
+                            titleKey: '__mp_wording__brandinfo_history_massmsg'
+                          }]
+                      },
+                    docID       : '3074120833',
+                    externalInfo: 
+                      {
+                        Appid      : 'wx06441a33a2a67de4',
+                        BindWxaInfo: 
+                          {
+                            wxaEntryInfo: 
+                              [{
+                                title   : '腾讯+',
+                                username: 'gh_3a5568e1268b@app',
+                                iconUrl : 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png'
+                              }]
+                          },
+                        FunctionFlag           : 1,
+                        InteractiveMode        : '2',
+                        IsAgreeProtocol        : '1',
+                        IsHideInputToolbarInMsg: '0',
+                        IsShowHeadImgInMsg     : '1',
+                        RegisterSource         : 
+                          {
+                            IntroUrl: 
+                              'http://mp.weixin.qq.com/mp/getverifyinfo?__biz=MzA3NDEyMDgzMw==&type=reg_info#wechat_redirect',
+                            RegisterBody: '深圳市腾讯计算机系统有限公司'
+                          },
+                        RoleId        : '1',
+                        ScanQRCodeType: 1,
+                        ServiceType   : 0,
+                        VerifySource  : 
+                          {
+                            Description: '深圳市腾讯计算机系统有限公司',
+                            IntroUrl   : 
+                              'http://mp.weixin.qq.com/mp/getverifyinfo?__biz=MzA3NDEyMDgzMw==#wechat_webview_type=1&wechat_redirect',
+                            Type         : 0,
+                            VerifyBizType: 1
+                          }
+                      },
+                    friendsFollowCount: 0,
+                    headHDImgUrl      : 'http://wx.qlogo.cn/mmhead/xxx/0',
+                    headImgUrl        : 'http://wx.qlogo.cn/mmhead/xxx/132',
+                    iconUrl           : 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png',
+                    nickName          : '腾讯',
+                    nickNameHighlight : '<em class="highlight">腾讯</em>',
+                    segQuery          : ' 腾讯',
+                    signature         : '腾讯公司唯一官方帐号。',
+                    signatureHighlight: '<em class="highlight">腾讯</em>公司唯一官方帐号。',
+                    userName          : 'gh_88b080670a71',
+                    verifyFlag        : 24
+                  }],
+                keywordList: ['腾讯'],
+                resultType : 0,
+                title      : '公众号',
+                totalCount : 1900,
+                type       : 1
+              }],
+            direction : 2,
+            exposeMs  : 500,
+            isDivide  : 0,
+            isExpose  : 1,
+            isHomePage: 1,
+            lang      : 'zh_CN',
+            monitorMs : 100,
+            offset    : 20,
+            query     : '"腾讯"',
+            resultType: 0,
+            ret       : 0,
+            searchID  : '18232918846508425807'
+          },
+        message: '',
+        offset : 20,
+        status : 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
-  async getMpInfo(userId) {
-    return await this.sendCmd('getMpInfo', {
-      userId,
+  async searchMp(content) {
+    return await this.sendCmd('searchMp', {
+      content,
     })
   }
 
@@ -1558,6 +1980,100 @@ class Padchat extends EventEmitter {
   *
   * @param {String} ghName 公众号gh名称，即`gh_`格式的id
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        info: 
+          {
+            Alias        : 'tencent',
+            Appid        : 'wx06441a33a2a67de4',
+            BigHeadImgUrl: 'http://wx.qlogo.cn/mmhead/xxx/0',
+            BindKFUin    : '0',
+            BindWxaInfo  : 
+              {
+                wxaEntryInfo: 
+                  [{
+                    username: 'gh_3a5568e1268b@app',
+                    title   : '腾讯+',
+                    iconUrl : 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png'
+                  }],
+                bizEntryInfo: []
+              },
+            BitMask     : '4294967295',
+            BrandIconURL: 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png',
+            BrandInfo   : 
+              {
+                urls: 
+                  [{
+                    title   : '查看历史消息',
+                    url     : 'http://mp.weixin.qq.com/mp/getmasssendmsg?xxxx',
+                    titleKey: '__mp_wording__brandinfo_history_massmsg'
+                  }]
+              },
+            FunctionFlag           : '1',
+            InteractiveMode        : '2',
+            IsAgreeProtocol        : '1',
+            IsHideInputToolbarInMsg: '0',
+            IsShowHeadImgInMsg     : '1',
+            MMBizMenu              : 
+              {
+                uin            : 3074120833,
+                version        : 425306837,
+                interactiveMode: 2,
+                updateTime     : 1518401098,
+                buttonList     : 
+                  [
+                    {
+                      id           : 425306837,
+                      type         : 0,
+                      name         : '产品体验',
+                      key          : 'rselfmenu_2',
+                      value        : '',
+                      subButtonList: 
+                        [{
+                          id           : 425306837,
+                          type         : 2,
+                          name         : '往期内测',
+                          key          : 'rselfmenu_2_1',
+                          value        : 'http://mp.weixin.qq.com/mp/xxxxx',
+                          subButtonList: [],
+                          nativeUrl    : ''
+                        }],
+                      nativeUrl: ''
+                    }]
+              },
+            NickName      : '腾讯',
+            PYInitial     : 'TX',
+            QuanPin       : 'tengxun',
+            RegisterSource: 
+              {
+                RegisterBody: '深圳市腾讯计算机系统有限公司',
+                IntroUrl    : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxxx'
+              },
+            RoleId         : '1',
+            ScanQRCodeType : '1',
+            ServiceType    : '0',
+            Signature      : '腾讯公司唯一官方帐号。',
+            SmallHeadImgUrl: 'http://wx.qlogo.cn/mmhead/xxx/132',
+            UserName       : 'gh_88b080670a71',
+            VerifyFlag     : '24',
+            VerifyInfo     : '深圳市腾讯计算机系统有限公司',
+            VerifySource   : 
+              {
+                Description  : '深圳市腾讯计算机系统有限公司',
+                IntroUrl     : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxx',
+                Type         : 0,
+                VerifyBizType: 1
+              }
+          },
+        message: ' ',
+        status : 0
+      }
+  }
+
+  * ```
   * @memberof Padchat
   */
   async getSubscriptionInfo(ghName) {
@@ -1573,6 +2089,15 @@ class Padchat extends EventEmitter {
   * @param {Number} menuId 菜单id
   * @param {String} menuKey 菜单key
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }
+  * ```
   * @memberof Padchat
   */
   async operateSubscription(ghName, menuId, menuKey) {
@@ -1589,6 +2114,25 @@ class Padchat extends EventEmitter {
   * @param {String} ghName 公众号gh名称，即`gh_`格式的id
   * @param {String} url 网页url
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        info: 
+          {
+            'X-WECHAT-KEY': 'xxxxxxxxxxxx',   //授权key
+            'X-WECHAT-UIN': 'MTQ5ODA2NDYw'    //授权uin
+          },
+        message: '',
+        status : 0,
+        fullUrl:      //完整授权访问url
+        'https://mp.weixin.qq.com/s?__biz=MzA5MDAwOTExMw==&mid=200126214&idx=1&sn=a1e7410ec56de5b6c4810dd7f7db8a47&chksm=1e0b3470297cbd666198666278421aed0a131d775561c08f52db0c82ce0e6a9546aac072a20e&mpshare=1&scene=1&srcid=0408bN3ACxqAH6jyq4vCBP9e&ascene=7&devicetype=iPad+iPhone+OS9.0.2&version=16060125&nettype=WIFI&lang=zh_CN&fontScale=100&pass_ticket=ZQW8EHr9vk%2BPGoWzmON4ev8I0MmliT4mp1ERTPEl8lc%3D&wx_header=1',
+        shareUrl:   //分享url
+        'http://mp.weixin.qq.com/s/QiB3FPE6fJmV6asvvxIkvA'
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async getRequestToken(ghName, url) {
@@ -1602,9 +2146,21 @@ class Padchat extends EventEmitter {
   * 访问网页
   *
   * @param {string} url 网页url地址
-  * @param {string} xKey 访问Key
-  * @param {string} xUin 访问uin
+  * @param {string} xKey 访问Key，用`getRequestToken`获取
+  * @param {string} xUin 访问uin，用`getRequestToken`获取
   * @returns {Promise} 返回Promise<Object>，注意捕捉catch
+  * ```
+  {
+    success: true,
+    data   : 
+      {
+        message : '',
+        response:      //完整的访问结果原始数据文本（包含http头数据）
+          'HTTP/1.1 200 OK\r\nContent-Security-Policy: script-src \'self\' \'unsafe-inline\' \'unsafe-eval\' http://*.qq.com https://*.qq.com http://*.weishi.com https://*.weishi.com xxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        status: 0
+      }
+  }
+  * ```
   * @memberof Padchat
   */
   async requestUrl(url, xKey, xUin) {
@@ -1654,11 +2210,75 @@ function onWsMsg(msg) {
   }
 
   if (data.data) {
+    if (data.data.data) {
+      // 解析扩展数据的json文本
+
+      if (data.data.data.external) {
+        try {
+          //解析红包及转账接口返回数据
+          data.data.data.external = JSON.parse(data.data.data.external)
+        } catch (e) { }
+      }
+
+      if (data.data.data.info) {
+        try {
+          //解析公众号接口返回数据
+          data.data.data.info = JSON.parse(data.data.data.info)
+
+          const info   = data.data.data.info
+          const fields = [
+            'BrandInfo',
+            'externalInfo',
+            'MMBizMenu',
+            'RegisterSource',
+            'VerifySource',
+            'Location',
+            'cookies',
+            'brandInfo',
+            'BindWxaInfo',
+          ]
+
+          // 解析`getSubscriptionInfo`接口返回数据字段
+          fields.forEach(field => {
+            if (!info[field]) { return }
+            try {
+              info[field] = JSON.parse(info[field])
+            } catch (e) { }
+          })
+
+          //解析`searchMp`接口返回数据字段
+          info.data.forEach((d_item, d_index) => {
+            //第一层数组
+            if (!d_item.items) { return }
+            const _item = info.data[d_index]
+
+            _item.items.forEach((item, index) => {
+              //第二层数组，即真实的搜索结果列表
+              const _item2 = _item.items[index]
+              fields.forEach(field => {
+                if (!_item2[field]) { return }
+                try {
+                  _item2[field] = JSON.parse(_item2[field])
+                } catch (e) { }
+              })
+            })
+          })
+        } catch (e) { }
+      }
+
+      if (data.data.data.member) {
+        try {
+          //解析获取群成员接口返回数据
+          data.data.data.member = JSON.parse(data.data.data.member)
+        } catch (e) { }
+      }
+    }
     // 转小驼峰
     data.data = Helper.toCamelCase(data.data)
   }
 
   this.emit('msg', data)
+  // TODO: 补充push数据格式
   // 返回数据结果
   // data = {
   //   type  : 'cmdRet',                                 //返回数据包类型
