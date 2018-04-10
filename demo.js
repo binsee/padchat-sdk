@@ -4,6 +4,7 @@ const log4js  = require('log4js')
 const Padchat = require('./index')
 const fs      = require('fs')
 const util    = require('util')
+const qrcode  = require('qrcode-terminal')
 
 /**
 * 创建日志目录
@@ -85,6 +86,12 @@ wx
     logger.info('使用qrcode登录模式！')
   })
   .on('qrcode', data => {
+    if (data.url) {
+      // 如果存在url，则直接在终端中生成二维码并显示
+      logger.info('登陆二维码如下，请使用微信扫码登陆!')
+      qrcode.generate(data.url, { small: false })
+      return
+    }
     if (!data.qrCode) {
       logger.error('没有在数据中获得登陆二维码！', data)
       return

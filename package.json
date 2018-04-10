@@ -17,6 +17,7 @@
     "@types/log4js": "^2.3.5",
     "@types/uuid": "^3.4.3",
     "@types/ws": "^4.0.2",
-    "log4js": "^2.5.3"
+    "log4js": "^2.5.3",
+    "qrcode-terminal": "^0.12.0"
   }
 }
