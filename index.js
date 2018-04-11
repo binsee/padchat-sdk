@@ -1987,11 +1987,11 @@ class Padchat extends EventEmitter {
       {
         info: 
           {
-            Alias        : 'tencent',
-            Appid        : 'wx06441a33a2a67de4',
-            BigHeadImgUrl: 'http://wx.qlogo.cn/mmhead/xxx/0',
-            BindKFUin    : '0',
-            BindWxaInfo  : 
+            alias        : 'tencent',
+            appid        : 'wx06441a33a2a67de4',
+            bigHeadImgUrl: 'http://wx.qlogo.cn/mmhead/xxx/0',
+            bindKFUin    : '0',
+            bindWxaInfo  : 
               {
                 wxaEntryInfo: 
                   [{
@@ -2001,9 +2001,9 @@ class Padchat extends EventEmitter {
                   }],
                 bizEntryInfo: []
               },
-            BitMask     : '4294967295',
-            BrandIconURL: 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png',
-            BrandInfo   : 
+            bitMask     : '4294967295',
+            brandIconURL: 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png',
+            brandInfo   : 
               {
                 urls: 
                   [{
@@ -2012,12 +2012,12 @@ class Padchat extends EventEmitter {
                     titleKey: '__mp_wording__brandinfo_history_massmsg'
                   }]
               },
-            FunctionFlag           : '1',
-            InteractiveMode        : '2',
-            IsAgreeProtocol        : '1',
-            IsHideInputToolbarInMsg: '0',
-            IsShowHeadImgInMsg     : '1',
-            MMBizMenu              : 
+            functionFlag           : '1',
+            interactiveMode        : '2',
+            isAgreeProtocol        : '1',
+            isHideInputToolbarInMsg: '0',
+            isShowHeadImgInMsg     : '1',
+            mmBizMenu              : 
               {
                 uin            : 3074120833,
                 version        : 425306837,
@@ -2044,35 +2044,34 @@ class Padchat extends EventEmitter {
                       nativeUrl: ''
                     }]
               },
-            NickName      : '腾讯',
-            PYInitial     : 'TX',
-            QuanPin       : 'tengxun',
-            RegisterSource: 
+            nickName      : '腾讯',
+            pyInitial     : 'TX',
+            quanPin       : 'tengxun',
+            registerSource: 
               {
-                RegisterBody: '深圳市腾讯计算机系统有限公司',
-                IntroUrl    : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxxx'
+                registerBody: '深圳市腾讯计算机系统有限公司',
+                introUrl    : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxxx'
               },
-            RoleId         : '1',
-            ScanQRCodeType : '1',
-            ServiceType    : '0',
-            Signature      : '腾讯公司唯一官方帐号。',
-            SmallHeadImgUrl: 'http://wx.qlogo.cn/mmhead/xxx/132',
-            UserName       : 'gh_88b080670a71',
-            VerifyFlag     : '24',
-            VerifyInfo     : '深圳市腾讯计算机系统有限公司',
-            VerifySource   : 
+            roleId         : '1',
+            scanQRCodeType : '1',
+            serviceType    : '0',
+            signature      : '腾讯公司唯一官方帐号。',
+            smallHeadImgUrl: 'http://wx.qlogo.cn/mmhead/xxx/132',
+            userName       : 'gh_88b080670a71',
+            verifyFlag     : '24',
+            verifyInfo     : '深圳市腾讯计算机系统有限公司',
+            verifySource   : 
               {
-                Description  : '深圳市腾讯计算机系统有限公司',
-                IntroUrl     : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxx',
-                Type         : 0,
-                VerifyBizType: 1
+                description  : '深圳市腾讯计算机系统有限公司',
+                introUrl     : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxx',
+                type         : 0,
+                verifyBizType: 1
               }
           },
         message: ' ',
         status : 0
       }
   }
-
   * ```
   * @memberof Padchat
   */

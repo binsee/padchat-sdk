@@ -11,6 +11,7 @@ module.exports = {
 
 /**
  * 将object中的属性名称从下划线转换为驼峰格式
+ * (包含子数据的属性名，会遍历转换)
  *
  * @param {any} obj 要转换的object
  * @param {boolean} [big=true] 是否转换为大驼峰格式
@@ -28,6 +29,10 @@ function toCamelCase(obj, big = false) {
       let newKey = key.replace(/_(\w)/g, (match, val, offset) => { return val.toUpperCase() })
       if (big) {
         newKey = newKey.replace(/^(\w)/, (match, val, offset) => { return val.toUpperCase() })
+      } else {
+        // 将首字母转换为小写（部分字段名称开头两个为大写，比如`PYInitial`/`MMBizMenu`）
+        // 跳过`X-WECHAT-KEY`和`X-WECHAT-UIN`这种字段
+        newKey = newKey.replace(/^(\w{2})/, (match, val, offset) => { return val.toLowerCase() })
       }
       if ((obj[key] instanceof Array) || (obj[key] instanceof Object)) {
         obj[key] = toCamelCase(obj[key])
