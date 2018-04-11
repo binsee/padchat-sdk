@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node demo",
     "doc": "node scripts/docVer.js >nul && jsdoc2md index.js >> docs/index.md",
-    "doc-minami": "jsdoc index.js -t ./node_modules/minami -d docs/minami",
+    "doc-minami": "node_modules/.bin/jsdoc --configure jsdoc.json --verbose",
     "eslint": "eslint {define,helper,index,demo}.js"
   },
   "author": "binsee",

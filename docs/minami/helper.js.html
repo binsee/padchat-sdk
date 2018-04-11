@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Padchat - Documentation</title>
+    <title>helper.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,199 +29,116 @@
 
 <div id="main">
     
-    <h1 class="page-title">Padchat</h1>
+    <h1 class="page-title">helper.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-            <span class="ancestors"><a href="Padchat.html">Padchat</a>.</span>
-        
-        Padchat
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="Padchat"><span class="type-signature"></span>new Padchat<span class="signature">(url<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Creates an instance of Padchat.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line54">line 54</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                <p>服务器url，默认为：<code>ws://127.0.0.1:7777</code></p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict'
+
+// 将object中的属性名称转换为全驼峰格式
+
+
+module.exports = {
+  toCamelCase,
+  toUnderLine,
+  structureXml,
+}
+
+/**
+ * 将object中的属性名称从下划线转换为驼峰格式
+ * (包含子数据的属性名，会遍历转换)
+ *
+ * @param {any} obj 要转换的object
+ * @param {boolean} [big=true] 是否转换为大驼峰格式
+ * @returns {Object} 转换后的object
+ */
+function toCamelCase(obj, big = false) {
+  if (obj instanceof Array) {
+    return obj.map(item => toCamelCase(item))
+  }
+  if (!(obj instanceof Object)) {
+    return obj
+  }
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      let newKey = key.replace(/_(\w)/g, (match, val, offset) => { return val.toUpperCase() })
+      if (big) {
+        newKey = newKey.replace(/^(\w)/, (match, val, offset) => { return val.toUpperCase() })
+      } else {
+        // 将首字母转换为小写（部分字段名称开头两个为大写，比如`PYInitial`/`MMBizMenu`）
+        // 跳过`X-WECHAT-KEY`和`X-WECHAT-UIN`这种字段
+        newKey = newKey.replace(/^(\w{2})/, (match, val, offset) => { return val.toLowerCase() })
+      }
+      if ((obj[key] instanceof Array) || (obj[key] instanceof Object)) {
+        obj[key] = toCamelCase(obj[key])
+      }
+      if (newKey !== key) {
+        obj[newKey] = obj[key]
+        delete obj[key]
+      }
+    }
+  }
+  return obj
+}
+
+/**
+ * 将object中的属性名称从驼峰转换为下划线格式
+ *
+ * @param {any} obj 要转换的object
+ * @returns {Object} 转换后的object
+ */
+function toUnderLine(obj) {
+  const newObj = {}
+  if (!(obj instanceof Object)) {
+    return obj
+  }
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const  newKey  = key.replace(/([A-Z])/g, (match, val, offset) => { return (offset ? '_' : '') + val }).toLowerCase()
+      newObj[newKey] = obj[key]
+    }
+  }
+  return newObj
+}
+
+/**
+ * 组装appmsg消息体
+ *
+ * @param {Object} obj 消息体参数
+   * ```
+   * {
+   * appid    = '',   //appid，忽略即可
+   * sdkver   = '',   //sdk版本，忽略即可
+   * title    = '',   //标题
+   * des      = '',   //描述
+   * url      = '',   //链接url
+   * thumburl = '',   //缩略图url
+   * }
+   * ```
+ * @returns {String} 组装的消息体
+ */
+function structureXml(obj) {
+  const { appid = '', sdkver = '', title = '', des = '', url = '', thumburl = '' } = obj
+  return `&lt;appmsg appid="${appid}" sdkver="${sdkver}">
+&lt;title>${title}&lt;/title>
+&lt;des>${des}&lt;/des>
+&lt;action>view&lt;/action>
+&lt;type>5&lt;/type>
+&lt;showtype>0&lt;/showtype>
+&lt;content>&lt;/content>
+&lt;url>${url}&lt;/url>
+&lt;thumburl>${thumburl}&lt;/thumburl>
+&lt;/appmsg>`.replace(/\n/g, '')
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
