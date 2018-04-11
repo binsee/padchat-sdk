@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node demo",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "doc": "node scripts/docVer.js >nul && jsdoc2md index.js >> docs/index.md",
+    "eslint": "eslint {define,helper,index,demo}.js"
   },
   "author": "binsee",
   "license": "ISC",
@@ -14,10 +15,29 @@
     "ws": "^5.1.1"
   },
   "devDependencies": {
+    "@types/eslint": "^4.16.0",
     "@types/log4js": "^2.3.5",
     "@types/uuid": "^3.4.3",
     "@types/ws": "^4.0.2",
+    "eslint": "^4.19.1",
+    "eslint-config-egg": "^7.0.0",
+    "jsdoc-to-markdown": "^4.0.1",
     "log4js": "^2.5.3",
     "qrcode-terminal": "^0.12.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/binsee/padchat-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/binsee/padchat-sdk/issues"
+  },
+  "homepage": "https://github.com/binsee/padchat-sdk#readme",
+  "files": [
+    "README.md",
+    "package.json",
+    "define.js",
+    "helper.js",
+    "index.js"
+  ]
 }
