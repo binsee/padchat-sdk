@@ -2402,6 +2402,13 @@ function onWsMsg(msg) {
             // 当msg_type为5时，即表示推送的信息类型要用sub_type进行判断
             // 另外增加一个属性来存储好了
             item.mType = item.msgType === 5 ? item.subType : item.msgType
+            // 解析群成员列表
+            if (item.member) {
+              try {
+                item.member = JSON.parse(item.member) || []
+              } catch (e) {
+              }
+            }
             this.emit('push', item)
           })
           break
