@@ -12,6 +12,7 @@
     - [数据规则约定](#数据规则约定)
   - [API请求结构](#api请求结构)
     - [data字段总述](#data字段总述)
+- [DEMO](#demo)
 - [API文档](#api文档)
 
 <!-- /TOC -->
@@ -196,6 +197,94 @@ API请求是以websocket协议发送的json数据，以下为json数据的字段
 | xUin             | 网页授权uin               | 以公众号授权方式访问网页需要提供授权uin             |
 | **其他**         |                           |
 | rawMsgData       | `Object`,push事件中的data | 用于接收红包、接收转账、获取原始图片                |
+
+## DEMO
+
+使用`npm i binsee/padchat-sdk`安装sdk包
+
+使用以下方式引用:
+
+```javascript
+'use strict'
+
+const Padchat = require('padchat-sdk')
+const qrcode  = require('qrcode-terminal')
+const url     = 'ws://52.80.182.103:7777'
+const wx      = new Padchat(url)
+
+wx
+  .on('open', async () => {
+    let ret
+    ret = await wx.init()
+    if (!ret.success) {
+      console.error('初始化失败! ret:', ret)
+      return
+    }
+    console.log('初始化成功! ret:', ret)
+
+    ret = await wx.login()
+    if (!ret.success) {
+      console.error('请求登录失败! ret:', ret)
+      return
+    }
+    console.log('请求登录成功! ret:', ret)
+  })
+  .on('qrcode', data => {
+    if (data.url) {
+      console.log('登陆二维码url: %s ,请扫码登陆：', data.url)
+      qrcode.generate(data.url)
+      return
+    } else if (data.qrCode) {
+      console.log('登陆二维码图片数据，请输出到文件扫码。')
+      return
+    }
+    console.error('没有发现二维码数据!')
+  })
+  .on('scan', data => {
+    switch (data.status) {
+      case 0:
+        console.log('等待扫码...', data)
+        break;
+      case 1:
+        console.log('已扫码，请在手机端确认登陆...', data)
+        break;
+      case 2:
+        switch (data.subStatus) {
+          case 0:
+            console.log('扫码成功！登陆成功！', data)
+            break;
+          case 1:
+            console.log('扫码成功！登陆失败！', data)
+            break;
+          default:
+            console.log('扫码成功！未知状态码！', data)
+            break;
+        }
+        break;
+      case 3:
+        console.log('二维码已过期', data)
+        break;
+      case 4:
+        console.log('手机端已取消登陆！', data)
+        break;
+      default:
+        break;
+    }
+  })
+  .on('login', () => {
+    console.log('登陆成功!')
+  })
+  .on('loaded', () => {
+    console.log('载入通讯录完成!')
+  })
+  .on('push', data => {
+    if (data.mType === 2) {
+      console.log('接收到联系人/群: %s', data.nickName)
+      return
+    }
+    console.log('收到新消息: %o', data)
+  })
+```
 
 ## API文档
 
