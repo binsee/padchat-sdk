@@ -813,10 +813,13 @@ class Padchat extends EventEmitter {
   }
 
   /**
-  * 获取用户信息
+  * 获取用户/群信息
   *
-  * @param {string} userId - 用户wxid
+  * @param {string} userId - 用户wxid/群id
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
+  *
+  * 微信用户/公众号返回：
+  *
   * ```
   {
     success: true,
@@ -843,6 +846,41 @@ class Padchat extends EventEmitter {
         ticket         : 'v2_xxx@stranger',              //用户v2码，如果非空则为单向好友(非对方好友)
         userName       : 'binxxx'                        //用户wxid
       }
+  }
+  * ```
+  *
+  * 微信群返回: 
+  *
+  * ```
+  {
+    success: true,
+    data   : {
+      city           : '',
+      country        : '',
+      intro          : '',
+      label          : '',
+      member         : [],                            //群成员wxid数组
+      message        : '',
+      provincia      : '',
+      remark         : '',
+      sex            : 0,
+      signature      : '',
+      status         : 0,
+      stranger       : 'v1_xxx@stranger',
+      ticket         : '',
+      bigHead        : '',
+      chatroomId     : 700001234,
+      chatroomOwner  : 'wxid_xxx',
+      maxMemberCount : 500,                           //群最大人数
+      memberCount    : 377,                           //群当前人数
+      nickName       : 'Wechaty Developers\' Home',   //群名称
+      pyInitial      : 'WECHATYDEVELOPERSHOME',
+      quanPin        : 'WechatyDevelopersHome',
+      remarkPyInitial: '',
+      remarkQuanPin  : '',
+      smallHead      : 'http://wx.qlogo.cn/xxx/0',    //群头像url
+      userName       : '1234567890@chatroom'
+    }
   }
   * ```
   * @memberof Padchat
