@@ -35,6 +35,7 @@
   "homepage": "https://github.com/binsee/padchat-sdk#readme",
   "files": [
     "README.md",
+    "docs/index.md",
     "package.json",
     "define.js",
     "helper.js",
