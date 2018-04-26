@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Padchat.html">Padchat</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#_send">_send</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#acceptTransfer">acceptTransfer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#acceptUser">acceptUser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addContact">addContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addFav">addFav</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addLabel">addLabel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addRoomMember">addRoomMember</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#asyncSend">asyncSend</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#close">close</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#createRoom">createRoom</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteContact">deleteContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteFav">deleteFav</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteLabel">deleteLabel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteRoomMember">deleteRoomMember</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getContact">getContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getContactQrcode">getContactQrcode</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getFav">getFav</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getLabelList">getLabelList</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getLoginToken">getLoginToken</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getMsgImage">getMsgImage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getMsgVideo">getMsgVideo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getMsgVoice">getMsgVoice</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getRequestToken">getRequestToken</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getRoomMembers">getRoomMembers</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getRoomQrcode">getRoomQrcode</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getSubscriptionInfo">getSubscriptionInfo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getWxData">getWxData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#init">init</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#inviteRoomMember">inviteRoomMember</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#login">login</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#logout">logout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#massMsg">massMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#openRedPacket">openRedPacket</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#operateSubscription">operateSubscription</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#queryRedPacket">queryRedPacket</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#queryTransfer">queryTransfer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#quitRoom">quitRoom</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#receiveRedPacket">receiveRedPacket</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#requestUrl">requestUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sayHello">sayHello</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#searchContact">searchContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#searchMp">searchMp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendAppMsg">sendAppMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendCmd">sendCmd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendImage">sendImage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendMsg">sendMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendVoice">sendVoice</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setHeadImg">setHeadImg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setLabel">setLabel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setRemark">setRemark</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setRoomAnnouncement">setRoomAnnouncement</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setRoomName">setRoomName</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#shareCard">shareCard</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsComment">snsComment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsGetobject">snsGetobject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsLike">snsLike</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsobjectOp">snsobjectOp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsSendMoment">snsSendMoment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsTimeline">snsTimeline</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsUpload">snsUpload</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsUserPage">snsUserPage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#syncContact">syncContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#syncFav">syncFav</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Padchat.Padchat.html">Padchat</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#clearRawMsg">clearRawMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getCmdRecv">getCmdRecv</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#onWsMsg">onWsMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#structureXml">structureXml</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toCamelCase">toCamelCase</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toUnderLine">toUnderLine</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>Padchat-SDK</h1><!-- TOC -->
+<ul>
+<li><a href="#说明">说明</a></li>
+<li><a href="#开发说明">开发说明</a></li>
+<li><a href="#接口功能列表">接口功能列表</a></li>
+<li><a href="#通讯约定">通讯约定</a><ul>
+<li><a href="#通信协议">通信协议</a><ul>
+<li><a href="#连接授权">连接授权</a></li>
+<li><a href="#api请求操作结果（识别异步请求）">API请求操作结果（识别异步请求）</a></li>
+<li><a href="#数据规则约定">数据规则约定</a></li>
+</ul>
+</li>
+<li><a href="#api请求结构">API请求结构</a><ul>
+<li><a href="#data字段总述">data字段总述</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#api文档">API文档</a></li>
+</ul>
+<!-- /TOC -->
+<h2>说明</h2><p>Padchat本地服务器的开发包。通过websocket协议与运行在windows平台上的微信ipad协议服务程序通讯，来登陆与操作微信。</p>
+<h2>开发说明</h2><p>请勿将配套的exe程序泄露给非项目协作者使用，否则将封key并拒绝再参与内部开发。</p>
+<h2>接口功能列表</h2><table>
+<thead>
+<tr>
+<th><strong>接口</strong></th>
+<th style="text-align:center"><strong>code</strong></th>
+<th><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>登陆管理</strong></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>初始化实例</td>
+<td style="text-align:center">init</td>
+<td>初始化任务实例</td>
+</tr>
+<tr>
+<td>登陆</td>
+<td style="text-align:center">login</td>
+<td>登陆账号</td>
+</tr>
+<tr>
+<td>注销登录</td>
+<td style="text-align:center">logout</td>
+<td>会退出账号登陆</td>
+</tr>
+<tr>
+<td>关闭实例</td>
+<td style="text-align:center">close</td>
+<td>关闭任务实例，不退出账号登陆</td>
+</tr>
+<tr>
+<td>获取设备登陆数据</td>
+<td style="text-align:center">getWxData</td>
+<td>固定设备登陆数据</td>
+</tr>
+<tr>
+<td>获取二次登陆数据</td>
+<td style="text-align:center">getLoginToken</td>
+<td>可使用二次登陆数据免扫码或免密码登陆</td>
+</tr>
+<tr>
+<td><strong>用户管理</strong></td>
+</tr>
+<tr>
+<td>获取用户信息</td>
+<td style="text-align:center">getContact</td>
+<td>获取用户详细信息</td>
+</tr>
+<tr>
+<td>搜索用户</td>
+<td style="text-align:center">searchContact</td>
+</tr>
+<tr>
+<td>通过好友请求</td>
+<td style="text-align:center">acceptUser</td>
+</tr>
+<tr>
+<td>添加好友</td>
+<td style="text-align:center">addContact</td>
+</tr>
+<tr>
+<td>打招呼</td>
+<td style="text-align:center">sayHello</td>
+<td></td>
+</tr>
+<tr>
+<td>删除好友</td>
+<td style="text-align:center">deleteContact</td>
+</tr>
+<tr>
+<td>设置好友备注</td>
+<td style="text-align:center">setRemark</td>
+</tr>
+<tr>
+<td>设置头像</td>
+<td style="text-align:center">setHeadImg</td>
+</tr>
+<tr>
+<td><del>设置个人资料</del></td>
+<td style="text-align:center"></td>
+<td>暂不开放</td>
+</tr>
+<tr>
+<td><del>主动同步通讯录</del></td>
+<td style="text-align:center">syncContact</td>
+<td>主动同步暂不可用</td>
+</tr>
+<tr>
+<td>获取用户二维码</td>
+<td style="text-align:center">getContactQrcode</td>
+<td>用于获取自己的二维码图片</td>
+</tr>
+<tr>
+<td><strong>群管理</strong></td>
+</tr>
+<tr>
+<td>创建群</td>
+<td style="text-align:center">createRoom</td>
+</tr>
+<tr>
+<td>获取群成员</td>
+<td style="text-align:center">getRoomMembers</td>
+</tr>
+<tr>
+<td>添加群成员</td>
+<td style="text-align:center">addRoomMember</td>
+</tr>
+<tr>
+<td>邀请好友进群</td>
+<td style="text-align:center">inviteRoomMember</td>
+</tr>
+<tr>
+<td>删除群成员</td>
+<td style="text-align:center">deleteRoomMember</td>
+</tr>
+<tr>
+<td>退出群</td>
+<td style="text-align:center">quitRoom</td>
+</tr>
+<tr>
+<td>设置群公告</td>
+<td style="text-align:center">setRoomAnnouncement</td>
+<td>设置群公告会自动@通知群内所有成员</td>
+</tr>
+<tr>
+<td>设置群名称</td>
+<td style="text-align:center">setRoomName</td>
+<td>修改微信群名称</td>
+</tr>
+<tr>
+<td>获取进群二维码</td>
+<td style="text-align:center">getRoomQrcode</td>
+<td>获取到的进群二维码有效期为7天</td>
+</tr>
+<tr>
+<td><strong>发送消息</strong></td>
+</tr>
+<tr>
+<td>发送文本消息</td>
+<td style="text-align:center">sendMsg</td>
+</tr>
+<tr>
+<td>发送App消息</td>
+<td style="text-align:center">sendAppMsg</td>
+<td>发送图文链接消息</td>
+</tr>
+<tr>
+<td>发送图片消息</td>
+<td style="text-align:center">sendImage</td>
+</tr>
+<tr>
+<td>发送语音消息</td>
+<td style="text-align:center">sendVoice</td>
+<td>语音文件必须是silk格式</td>
+</tr>
+<tr>
+<td>发送名片</td>
+<td style="text-align:center">shareCard</td>
+</tr>
+<tr>
+<td><del>群发消息</del></td>
+<td style="text-align:center">massMsg</td>
+<td>废弃接口</td>
+</tr>
+<tr>
+<td><del>发送视频</del></td>
+<td style="text-align:center"></td>
+<td>暂无接口</td>
+</tr>
+<tr>
+<td><del>发送文件</del></td>
+<td style="text-align:center"></td>
+<td>暂不可用</td>
+</tr>
+<tr>
+<td><strong>获取图片、文件</strong></td>
+</tr>
+<tr>
+<td>获取消息图片原图</td>
+<td style="text-align:center">getMsgImage</td>
+<td>获取图片消息的原始图片数据</td>
+</tr>
+<tr>
+<td>获取消息视频数据</td>
+<td style="text-align:center">getMsgVideo</td>
+<td>获取小视频消息的视频数据</td>
+</tr>
+<tr>
+<td>获取消息语音数据</td>
+<td style="text-align:center">getMsgVoice</td>
+<td>获取语音消息的语音数据</td>
+</tr>
+<tr>
+<td><del>获取文件</del></td>
+<td style="text-align:center"></td>
+<td>暂无接口</td>
+</tr>
+<tr>
+<td><strong>朋友圈操作</strong></td>
+</tr>
+<tr>
+<td>发朋友圈</td>
+<td style="text-align:center">snsSendMoment</td>
+<td>发表文字朋友圈信息</td>
+</tr>
+<tr>
+<td>朋友圈上传图片</td>
+<td style="text-align:center">snsUpload</td>
+<td>上传后仅能得到url，而非真正的发朋友圈</td>
+</tr>
+<tr>
+<td>查看用户朋友圈</td>
+<td style="text-align:center">snsUserPage</td>
+<td>查看指定用户朋友圈信息</td>
+</tr>
+<tr>
+<td>获取朋友圈动态</td>
+<td style="text-align:center">snsTimeline</td>
+<td>查看朋友圈时间轴信息</td>
+</tr>
+<tr>
+<td>获取朋友圈消息详情</td>
+<td style="text-align:center">snsGetObject</td>
+</tr>
+<tr>
+<td>操作朋友圈</td>
+<td style="text-align:center">snsObjectOp</td>
+<td></td>
+</tr>
+<tr>
+<td>发表评论</td>
+<td style="text-align:center">snsComment</td>
+</tr>
+<tr>
+<td>点赞</td>
+<td style="text-align:center">snsLike</td>
+</tr>
+<tr>
+<td><strong>收藏操作</strong></td>
+</tr>
+<tr>
+<td>同步收藏消息</td>
+<td style="text-align:center">syncFav</td>
+</tr>
+<tr>
+<td>添加收藏</td>
+<td style="text-align:center">addFav</td>
+</tr>
+<tr>
+<td>获取收藏消息详情</td>
+<td style="text-align:center">getFav</td>
+</tr>
+<tr>
+<td>删除收藏</td>
+<td style="text-align:center">deleteFav</td>
+</tr>
+<tr>
+<td><strong>标签管理</strong></td>
+</tr>
+<tr>
+<td>添加标签</td>
+<td style="text-align:center">addLabel</td>
+</tr>
+<tr>
+<td>删除标签</td>
+<td style="text-align:center">deleteLabel</td>
+</tr>
+<tr>
+<td>获取所有标签</td>
+<td style="text-align:center">getLabelList</td>
+</tr>
+<tr>
+<td>设置用户标签</td>
+<td style="text-align:center">setLabel</td>
+</tr>
+<tr>
+<td><strong>接收转账及红包</strong></td>
+</tr>
+<tr>
+<td>查看转账消息</td>
+<td style="text-align:center">queryTransfer</td>
+</tr>
+<tr>
+<td>接受转账</td>
+<td style="text-align:center">acceptTransfer</td>
+</tr>
+<tr>
+<td>接收红包</td>
+<td style="text-align:center">receiveRedPacket</td>
+<td>收到红包消息后要先接收才能领取和查询</td>
+</tr>
+<tr>
+<td>领取红包</td>
+<td style="text-align:center">openRedPacket</td>
+<td>领取红包前需先接收红包</td>
+</tr>
+<tr>
+<td>查看红包信息</td>
+<td style="text-align:center">queryRedPacket</td>
+<td>查询红包领取状态等信息</td>
+</tr>
+<tr>
+<td><strong>公众号操作</strong></td>
+</tr>
+<tr>
+<td>搜索公众号</td>
+<td style="text-align:center">searchMp</td>
+<td>根据关键字搜索公众号</td>
+</tr>
+<tr>
+<td>获取公众号信息</td>
+<td style="text-align:center">getSubscriptionInfo</td>
+</tr>
+<tr>
+<td>操作公众号菜单</td>
+<td style="text-align:center">operateSubscription</td>
+</tr>
+<tr>
+<td>获取公众号网页授权</td>
+<td style="text-align:center">getRequestToken</td>
+<td>需要授权才能访问的网页需要先授权</td>
+</tr>
+<tr>
+<td>访问授权页面</td>
+<td style="text-align:center">requestUrl</td>
+<td>以授权过的身份访问页面</td>
+</tr>
+<tr>
+<td><strong>小程序相关操作</strong></td>
+<td style="text-align:center"></td>
+<td><strong>不支持</strong></td>
+</tr>
+<tr>
+<td><strong>其他未开放接口</strong></td>
+<td style="text-align:center"></td>
+<td><strong>暂不考虑开放</strong></td>
+</tr>
+<tr>
+<td>扩展设备操作系列接口</td>
+<td style="text-align:center"></td>
+<td>操作如Ipad、PC、Web微信登陆的系列接口</td>
+</tr>
+<tr>
+<td>申诉相关接口</td>
+<td style="text-align:center"></td>
+<td>账号申诉相关接口</td>
+</tr>
+<tr>
+<td>注册账号接口</td>
+<td style="text-align:center"></td>
+<td>用于注册微信账号</td>
+</tr>
+</tbody>
+</table>
+<h2>通讯约定</h2><h3>通信协议</h3><p>WebSocket 通信协议</p>
+<ul>
+<li><a href="https://github.com/websockets">websockets 官方github</a></li>
+<li><a href="https://github.com/websockets/ws">NodeJs 参考</a></li>
+</ul>
+<h4>连接授权</h4><p>后续更新。</p>
+<h4>API请求操作结果（识别异步请求）</h4><p>由于websocket自身是异步操作，未原生支持识别请求返回的结果（即向服务端发送一个请求，服务端返回执行结果，客户端却无法确认是自己这个主动请求的结果，或者是另一个请求的返回结果，或者是服务端主动推送）。因此本服务增加了一个字段<code>cmdId</code>，用于标识请求，并在返回操作结果时一块返回。</p>
+<p>如果希望发送api请求后，能识别服务端执行本次请求后的返回结果，可提供<code>cmdId</code>字段，请一定提供随机值，建议使用<code>uuid</code>模块随机生成。当收到服务端推送过来的数据中包含<code>cmdId</code>字段时，即可确认为之前请求对应的执行结果。
+建议结合使用<code>Promise</code>+<code>Event.once(cmdId)</code>来实现。</p>
+<h4>数据规则约定</h4><blockquote>
+<p>在sdk内统一字段命名，统一转换为<code>小驼峰</code>写法。</p>
+</blockquote>
+<p>微信协议原生接口返回的所有数据字段名称下划线写法（如<code>user_name</code>），部分接口（公众号相关接口）返回的混合有大驼峰命名。在sdk内已经全部格式化为<code>小驼峰</code>写法。</p>
+<p>目前仅残留有部分xml结构文本内没有格式化，需自行解析提取与转换。</p>
+<p>如果遇到接口返回的某个字段是json文本，请发issues告知接口名称、返回数据样本，以便增加对其的解析。</p>
+<h3>API请求结构</h3><p>API请求是以websocket协议发送的json数据，以下为json数据的字段
+| <strong>名称</strong> | <strong>类型</strong> | <strong>描述</strong>                                                      | <strong>必选</strong> |
+| :------: | :------: | ------------------------------------------------------------- | :------: |
+| type     | String   | 请求类型：<code>sys</code>/<code>user</code>                                        | 是       |
+| cmd      | String   | API命令                                                       | 是       |
+| cmdId    | String   | 指令id。用于识别API异步操作结果，操作结果会增加此属性推送回来 | 否       |
+| data     | Object   | 取决于是不同的API要求                                         | 否       |</p>
+<h4>data字段总述</h4><p>此部分为请求API指令时，需要附加的data数据。根据使用的API不同，需要提供不同的字段及对应数据。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段名称</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>登陆</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">loginType</td>
+<td>登陆类型</td>
+<td>支持扫码、帐号密码、手机验证码、二次登陆、断线重连</td>
+</tr>
+<tr>
+<td style="text-align:center">wxData</td>
+<td>登陆设备数据</td>
+<td>使用已登陆过的设备数据登录,可避免封号</td>
+</tr>
+<tr>
+<td style="text-align:center">token</td>
+<td>二次登陆token</td>
+<td>结合<code>wxData</code>使用可免扫码、帐号登陆</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>发送消息</strong></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">toUserName</td>
+<td>目标用户/群id</td>
+<td>群id包含@chatroom部分</td>
+</tr>
+<tr>
+<td style="text-align:center">content</td>
+<td>文本内容</td>
+<td>文本消息内容、xml结构体文本、名片自定义标题</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td></td>
+<td>添加好友时，为验证信息</td>
+</tr>
+<tr>
+<td style="text-align:center">file</td>
+<td>文件buffer的base64编码</td>
+<td>发送图片/语音消息、上传头像、朋友圈上传图片</td>
+</tr>
+<tr>
+<td style="text-align:center">atList</td>
+<td><code>Array</code>,要at的用户用户</td>
+<td><code>[&quot;wxid1&quot;,&quot;wxid2&quot;]</code> 文本消息时有效</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>群及好友管理</strong></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">roomName</td>
+<td>群名称</td>
+</tr>
+<tr>
+<td style="text-align:center">userIds</td>
+<td><code>Array</code>,用户id列表数组</td>
+<td><code>[&quot;wxid1&quot;,&quot;wxid2&quot;]</code> 创建群</td>
+</tr>
+<tr>
+<td style="text-align:center">chatroom</td>
+<td>要操作的群id</td>
+</tr>
+<tr>
+<td style="text-align:center">remark</td>
+<td>备注名称</td>
+</tr>
+<tr>
+<td style="text-align:center">userId</td>
+<td>用户wxid</td>
+<td>主动添加好友、好友验证、添加/邀请用户进入群</td>
+</tr>
+<tr>
+<td style="text-align:center">stranger</td>
+<td>V1码，相对加密的userId</td>
+<td>接受好友请求(仅限stranger字段)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td></td>
+<td>主动添加好友(也可使用<code>userId</code>字段)</td>
+</tr>
+<tr>
+<td style="text-align:center">ticket</td>
+<td>V2码，好友请求中的ticket</td>
+<td>添加单向好友、接受好友请求</td>
+</tr>
+<tr>
+<td style="text-align:center">type</td>
+<td><code>Number</code>,操作类型</td>
+<td>添加好友来源、朋友圈操作类型</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>朋友圈</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">momentId</td>
+<td>朋友圈消息id</td>
+</tr>
+<tr>
+<td style="text-align:center">commentId</td>
+<td><code>Number</code>,朋友圈评论id</td>
+</tr>
+<tr>
+<td style="text-align:center">commentType</td>
+<td><code>Number</code>,朋友圈评论类型</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>收藏</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">favKey</td>
+<td>收藏分页key</td>
+<td>通过分页key来分页拉取收藏</td>
+</tr>
+<tr>
+<td style="text-align:center">favId</td>
+<td><code>Number</code>,收藏id</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>标签</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">label</td>
+<td>标签名称</td>
+</tr>
+<tr>
+<td style="text-align:center">labelId</td>
+<td>标签id</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>红包</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">index</td>
+<td>红包信息分页索引,<code>n*11</code></td>
+<td>红包领取记录每页11条记录，<code>n*11</code>即获取第<code>n+1</code>页记录</td>
+</tr>
+<tr>
+<td style="text-align:center">key</td>
+<td>红包领取key</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>公众号</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">ghName</td>
+<td>公众号id,<code>gh_</code>开头</td>
+</tr>
+<tr>
+<td style="text-align:center">menuId</td>
+<td><code>Number</code>,公众号菜单id</td>
+</tr>
+<tr>
+<td style="text-align:center">menuKey</td>
+<td>公众号菜单key</td>
+</tr>
+<tr>
+<td style="text-align:center">url</td>
+<td>网页url</td>
+</tr>
+<tr>
+<td style="text-align:center">xKey</td>
+<td>网页授权key</td>
+<td>以公众号授权方式访问网页需要提供授权key</td>
+</tr>
+<tr>
+<td style="text-align:center">xUin</td>
+<td>网页授权uin</td>
+<td>以公众号授权方式访问网页需要提供授权uin</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>其他</strong></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">rawMsgData</td>
+<td><code>Object</code>,push事件中的data</td>
+<td>用于接收红包、接收转账、获取原始图片</td>
+</tr>
+</tbody>
+</table>
+<h2>API文档</h2><p>SDK完整API文档见：<a href="docs/index.md">SDK Api文档</a>
+(beta)更美观的API为你当见 <a href="docs/minami/index.html">SDK Api文档(minami)</a></p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Apr 11 2018 10:45:28 GMT-0700 (PDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

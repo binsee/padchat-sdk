@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node demo",
     "doc": "node scripts/docVer.js >nul && jsdoc2md index.js >> docs/index.md",
+    "doc-minami": "node_modules/.bin/jsdoc --configure jsdoc.json --verbose",
     "eslint": "eslint {define,helper,index,demo}.js"
   },
   "author": "binsee",
@@ -21,8 +22,10 @@
     "@types/ws": "^4.0.2",
     "eslint": "^4.19.1",
     "eslint-config-egg": "^7.0.0",
+    "jsdoc": "^3.5.5",
     "jsdoc-to-markdown": "^4.0.1",
     "log4js": "^2.5.3",
+    "minami": "^1.2.3",
     "qrcode-terminal": "^0.12.0"
   },
   "repository": {

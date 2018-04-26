@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>helper.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Padchat.html">Padchat</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#_send">_send</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#acceptTransfer">acceptTransfer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#acceptUser">acceptUser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addContact">addContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addFav">addFav</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addLabel">addLabel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addRoomMember">addRoomMember</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#asyncSend">asyncSend</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#close">close</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#createRoom">createRoom</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteContact">deleteContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteFav">deleteFav</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteLabel">deleteLabel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteRoomMember">deleteRoomMember</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getContact">getContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getContactQrcode">getContactQrcode</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getFav">getFav</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getLabelList">getLabelList</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getLoginToken">getLoginToken</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getMsgImage">getMsgImage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getMsgVideo">getMsgVideo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getMsgVoice">getMsgVoice</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getRequestToken">getRequestToken</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getRoomMembers">getRoomMembers</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getRoomQrcode">getRoomQrcode</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getSubscriptionInfo">getSubscriptionInfo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getWxData">getWxData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#init">init</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#inviteRoomMember">inviteRoomMember</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#login">login</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#logout">logout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#massMsg">massMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#openRedPacket">openRedPacket</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#operateSubscription">operateSubscription</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#queryRedPacket">queryRedPacket</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#queryTransfer">queryTransfer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#quitRoom">quitRoom</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#receiveRedPacket">receiveRedPacket</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#requestUrl">requestUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sayHello">sayHello</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#searchContact">searchContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#searchMp">searchMp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendAppMsg">sendAppMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendCmd">sendCmd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendImage">sendImage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendMsg">sendMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendVoice">sendVoice</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setHeadImg">setHeadImg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setLabel">setLabel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setRemark">setRemark</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setRoomAnnouncement">setRoomAnnouncement</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setRoomName">setRoomName</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#shareCard">shareCard</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsComment">snsComment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsGetobject">snsGetobject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsLike">snsLike</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsobjectOp">snsobjectOp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsSendMoment">snsSendMoment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsTimeline">snsTimeline</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsUpload">snsUpload</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsUserPage">snsUserPage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#syncContact">syncContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#syncFav">syncFav</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Padchat.Padchat.html">Padchat</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#clearRawMsg">clearRawMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getCmdRecv">getCmdRecv</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#onWsMsg">onWsMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#structureXml">structureXml</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toCamelCase">toCamelCase</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toUnderLine">toUnderLine</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">helper.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict'
+
+// 将object中的属性名称转换为全驼峰格式
+
+
+module.exports = {
+  toCamelCase,
+  toUnderLine,
+  structureXml,
+}
+
+/**
+ * 将object中的属性名称从下划线转换为驼峰格式
+ * (包含子数据的属性名，会遍历转换)
+ *
+ * @param {any} obj 要转换的object
+ * @param {boolean} [big=true] 是否转换为大驼峰格式
+ * @returns {Object} 转换后的object
+ */
+function toCamelCase(obj, big = false) {
+  if (obj instanceof Array) {
+    return obj.map(item => toCamelCase(item))
+  }
+  if (!(obj instanceof Object)) {
+    return obj
+  }
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      let newKey = key.replace(/_(\w)/g, (match, val, offset) => { return val.toUpperCase() })
+      if (big) {
+        newKey = newKey.replace(/^(\w)/, (match, val, offset) => { return val.toUpperCase() })
+      } else {
+        // 将首字母转换为小写（部分字段名称开头两个为大写，比如`PYInitial`/`MMBizMenu`）
+        // 跳过`X-WECHAT-KEY`和`X-WECHAT-UIN`这种字段
+        newKey = newKey.replace(/^(\w{2})/, (match, val, offset) => { return val.toLowerCase() })
+      }
+      if ((obj[key] instanceof Array) || (obj[key] instanceof Object)) {
+        obj[key] = toCamelCase(obj[key])
+      }
+      if (newKey !== key) {
+        obj[newKey] = obj[key]
+        delete obj[key]
+      }
+    }
+  }
+  return obj
+}
+
+/**
+ * 将object中的属性名称从驼峰转换为下划线格式
+ *
+ * @param {any} obj 要转换的object
+ * @returns {Object} 转换后的object
+ */
+function toUnderLine(obj) {
+  const newObj = {}
+  if (!(obj instanceof Object)) {
+    return obj
+  }
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const  newKey  = key.replace(/([A-Z])/g, (match, val, offset) => { return (offset ? '_' : '') + val }).toLowerCase()
+      newObj[newKey] = obj[key]
+    }
+  }
+  return newObj
+}
+
+/**
+ * 组装appmsg消息体
+ *
+ * @param {Object} obj 消息体参数
+   * ```
+   * {
+   * appid    = '',   //appid，忽略即可
+   * sdkver   = '',   //sdk版本，忽略即可
+   * title    = '',   //标题
+   * des      = '',   //描述
+   * url      = '',   //链接url
+   * thumburl = '',   //缩略图url
+   * }
+   * ```
+ * @returns {String} 组装的消息体
+ */
+function structureXml(obj) {
+  const { appid = '', sdkver = '', title = '', des = '', url = '', thumburl = '' } = obj
+  return `&lt;appmsg appid="${appid}" sdkver="${sdkver}">
+&lt;title>${title}&lt;/title>
+&lt;des>${des}&lt;/des>
+&lt;action>view&lt;/action>
+&lt;type>5&lt;/type>
+&lt;showtype>0&lt;/showtype>
+&lt;content>&lt;/content>
+&lt;url>${url}&lt;/url>
+&lt;thumburl>${thumburl}&lt;/thumburl>
+&lt;/appmsg>`.replace(/\n/g, '')
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Apr 11 2018 10:45:28 GMT-0700 (PDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

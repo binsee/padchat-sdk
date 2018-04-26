@@ -290,3 +290,4 @@ wx
 ## API文档
 
 SDK完整API文档见：[SDK Api文档](docs/index.md)
+(beta)更美观的API为你当见 [SDK Api文档(minami)](docs/minami/index.html)

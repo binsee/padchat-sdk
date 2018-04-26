@@ -1,0 +1,12808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Padchat - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Padchat.html">Padchat</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#_send">_send</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#acceptTransfer">acceptTransfer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#acceptUser">acceptUser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addContact">addContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addFav">addFav</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addLabel">addLabel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#addRoomMember">addRoomMember</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#asyncSend">asyncSend</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#close">close</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#createRoom">createRoom</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteContact">deleteContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteFav">deleteFav</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteLabel">deleteLabel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#deleteRoomMember">deleteRoomMember</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getContact">getContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getContactQrcode">getContactQrcode</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getFav">getFav</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getLabelList">getLabelList</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getLoginToken">getLoginToken</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getMsgImage">getMsgImage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getMsgVideo">getMsgVideo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getMsgVoice">getMsgVoice</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getRequestToken">getRequestToken</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getRoomMembers">getRoomMembers</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getRoomQrcode">getRoomQrcode</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getSubscriptionInfo">getSubscriptionInfo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#getWxData">getWxData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#init">init</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#inviteRoomMember">inviteRoomMember</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#login">login</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#logout">logout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#massMsg">massMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#openRedPacket">openRedPacket</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#operateSubscription">operateSubscription</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#queryRedPacket">queryRedPacket</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#queryTransfer">queryTransfer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#quitRoom">quitRoom</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#receiveRedPacket">receiveRedPacket</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#requestUrl">requestUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sayHello">sayHello</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#searchContact">searchContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#searchMp">searchMp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendAppMsg">sendAppMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendCmd">sendCmd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendImage">sendImage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendMsg">sendMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#sendVoice">sendVoice</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setHeadImg">setHeadImg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setLabel">setLabel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setRemark">setRemark</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setRoomAnnouncement">setRoomAnnouncement</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#setRoomName">setRoomName</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#shareCard">shareCard</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsComment">snsComment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsGetobject">snsGetobject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsLike">snsLike</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsobjectOp">snsobjectOp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsSendMoment">snsSendMoment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsTimeline">snsTimeline</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsUpload">snsUpload</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#snsUserPage">snsUserPage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#syncContact">syncContact</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Padchat.html#syncFav">syncFav</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Padchat.Padchat.html">Padchat</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#clearRawMsg">clearRawMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getCmdRecv">getCmdRecv</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#onWsMsg">onWsMsg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#structureXml">structureXml</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toCamelCase">toCamelCase</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toUnderLine">toUnderLine</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Padchat</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        Padchat
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="Padchat"><span class="type-signature"></span>new Padchat<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Padchat模块</p>
+<p>使用websocket与服务器进行通讯，拥有以下事件</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>qrcode</td>
+<td>推送的二维码</td>
+</tr>
+<tr>
+<td>scan</td>
+<td>扫码状态</td>
+</tr>
+<tr>
+<td>push</td>
+<td>新信息事件</td>
+</tr>
+<tr>
+<td>login</td>
+<td>登录</td>
+</tr>
+<tr>
+<td>loaded</td>
+<td>通讯录载入完毕</td>
+</tr>
+<tr>
+<td>logout</td>
+<td>注销登录</td>
+</tr>
+<tr>
+<td>over</td>
+<td>实例注销（账号不退出）（要再登录需要重新调用init）</td>
+</tr>
+<tr>
+<td>warn</td>
+<td>错误信息</td>
+</tr>
+<tr>
+<td>sns</td>
+<td>朋友圈更新事件</td>
+</tr>
+</tbody>
+</table>
+<p><strong>接口返回数据结构：</strong> 所有接口均返回以下结构数据：</p>
+<pre class="prettyprint source"><code> {
+   success: true,   // 执行是否成功
+   err    : '',     // 错误提示
+   msg    : '',     // 附加信息
+   data   : {}      // 返回结果
+ }</code></pre><p>TODO: 补充各监听事件返回的数据定义</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>EventEmitter</li>
+    </ul>
+
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="Padchat.Padchat.html">Padchat</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="_send"><span class="type-signature">(async, private) </span>_send<span class="signature">(data)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>ws发送数据</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>数据</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回ws处理结果</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="acceptTransfer"><span class="type-signature">(async) </span>acceptTransfer<span class="signature">(rawMsgData)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>接受转账</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1633">line 1633</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rawMsgData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>推送的消息结构体，即<code>push</code>事件中收到的Object</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        external: 
+          {
+            fee     : 20,          //转账金额(单位为分)
+            payer   : '085exxx',   //付款id
+            receiver: '085exxx',   //接收id
+            retcode : '0',
+            retmsg  : 'ok',
+            feeType : '1'
+          },
+        message: '',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="acceptUser"><span class="type-signature">(async) </span>acceptUser<span class="signature">(stranger, ticket)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>通过好友验证</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line959">line 959</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>stranger</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户stranger数据</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ticket</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户ticket数据</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="addContact"><span class="type-signature">(async) </span>addContact<span class="signature">(stranger, ticket, type, content<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>添加好友</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1002">line 1002</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>stranger</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>用户stranger数据</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ticket</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>用户ticket数据</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    3
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>添加好友途径
+  × 值 | 说明
+  × ----|----
+  x 0 | 通过微信号搜索
+  × 1 | 搜索QQ号
+  x 3 | 通过微信号搜索
+  × 4 | 通过QQ好友添加
+  × 5 | 通过朋友验证消息
+  × 8 | 通过群聊
+  × 10 | 通过手机通讯录添加
+  × 12 | 来自QQ好友
+  × 13 | 通过手机通讯录添加
+  × 14 | 通过群聊
+  × 15 | 通过搜索手机号
+  × 17 | 通过名片分享           //未验证
+  × 22 | 通过摇一摇打招呼方式    //未验证
+  × 25 | 通过漂流瓶             //未验证
+  × 30 | 通过二维码方式         //未验证</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>验证信息</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0    //如果对方设置了验证，会返回-44
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="addFav"><span class="type-signature">(async) </span>addFav<span class="signature">(content)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>添加收藏</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1376">line 1376</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>内容文本</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="addLabel"><span class="type-signature">(async) </span>addLabel<span class="signature">(label)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>添加标签</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1500">line 1500</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>标签名称</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="addRoomMember"><span class="type-signature">(async) </span>addRoomMember<span class="signature">(groupId, userId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>添加群成员</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line663">line 663</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>groupId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>群id</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: 'Everything is OK',   //失败为`MemberList are wrong`
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="asyncSend"><span class="type-signature">(async, private) </span>asyncSend<span class="signature">(data, timeout)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>包装ws发送数据</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line99">line 99</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>要发送的数据</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    30000
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>发送超时时间</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回ws处理结果</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="close"><span class="type-signature">(async) </span>close<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>关闭微信实例（不退出登陆）</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line174">line 174</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="createRoom"><span class="type-signature">(async) </span>createRoom<span class="signature">(userList)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>创建群</p>
+<p>注意：如果有用户存在问题不能进群，则会建群失败。
+但判断是否成功应以<code>userName</code>字段</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line605">line 605</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Array.&lt;string></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户wxid数组</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        message : 'Everything is OK',    //操作结果提示，失败为`MemberList are wrong`
+        status  : 0,
+        userName: '5658541000@chatroom'  //如果建群成功，则返回群id
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="deleteContact"><span class="type-signature">(async) </span>deleteContact<span class="signature">(userId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>删除好友</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line908">line 908</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="deleteFav"><span class="type-signature">(async) </span>deleteFav<span class="signature">(favId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>删除收藏</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1451">line 1451</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>favId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>收藏id</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        data: 
+          [
+            {
+              flag  : 0,
+              id    : 0,
+              object: '',
+              seq   : 0,
+              status: 1,    //返回删除的收藏id
+              time  : 0
+            },
+          ],
+        message: '',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="deleteLabel"><span class="type-signature">(async) </span>deleteLabel<span class="signature">(labelId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>删除标签</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1522">line 1522</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>labelId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>标签id，注意是id是string类型</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="deleteRoomMember"><span class="type-signature">(async) </span>deleteRoomMember<span class="signature">(groupId, userId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>删除群成员</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line712">line 712</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>groupId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>群id</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getContact"><span class="type-signature">(async) </span>getContact<span class="signature">(userId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取用户信息</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line850">line 850</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        bigHead        : 'http://wx.qlogo.cn/xxx/0',     //大头像url
+        city           : 'mesa',                         //城市
+        country        : 'CN',                           //国家
+        intro          : '',                             //简介（公众号主体）
+        label          : '',                             //（标签）
+        message        : '',
+        nickName       : '杉木',                           //昵称
+        provincia      : 'Henan',                        //省份
+        pyInitial      : 'SM',                           //昵称拼音简写
+        quanPin        : 'shamu',                        //昵称拼音
+        remark         : '',                             //备注
+        remarkPyInitial: '',                             //备注拼音简写
+        remarkQuanPin  : '',                             //备注拼音
+        sex            : 1,                              //性别：1男2女
+        signature      : '签名',                           //个性签名
+        smallHead      : 'http://wx.qlogo.cn/xxx/132',   //小头像url
+        status         : 0,
+        stranger       : 'v1_xxx@stranger',              //用户v1码，从未加过好友则为空
+        ticket         : 'v2_xxx@stranger',              //用户v2码，如果非空则为单向好友(非对方好友)
+        userName       : 'binxxx'                        //用户wxid
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getContactQrcode"><span class="type-signature">(async) </span>getContactQrcode<span class="signature">(userId, style)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取用户二维码
+仅限获取自己的二维码，无法获取其他人的二维码</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line935">line 935</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>style</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>二维码风格。可用范围0-3</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        footer : '',
+        message: '',
+        qrCode : '',   //二维码图片base64
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getFav"><span class="type-signature">(async) </span>getFav<span class="signature">(favId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取收藏消息详情</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1417">line 1417</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>favId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>收藏id</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        data: 
+          [
+            , {
+              flag  : 0,   //收藏状态：0为有效，1为无效(已删除)
+              id    : 3,   //收藏id，如果为0则为无效收藏
+              object:      //收藏对象结构体文本
+                '&lt;favitem type=&quot;5&quot;>&lt;desc>DaoCloud 首席架构师王天青：下一代应用转型之道、术、器&lt;/desc>&lt;source sourcetype=&quot;1&quot; sourceid=&quot;5353367357590009973&quot;>&lt;fromusr>gh_4b6a20bcdd8b&lt;/fromusr>&lt;tousr>wxid_xxx&lt;/tousr>&lt;msgid>5353367357590009973&lt;/msgid>&lt;link>http://mp.weixin.qq.com/s?__biz=MzA5MzA2Njk5OA==&amp;mid=2650096972&amp;idx=1&amp;sn=8707378d0c0bdc0d14d1ac93972c5862&amp;chksm=886266d5bf15efc386050508a2cafb1adb806196f40f4f1bde8e944926c7fb6c6e54a14875c7&amp;scene=0#rd&lt;/link>&lt;brandid>gh_4b6a20bcdd8b&lt;/brandid>&lt;/source>&lt;datalist count=&quot;1&quot;>&lt;dataitem datatype=&quot;5&quot; dataid=&quot;1e241bc540e4d5da8f0e580fbb2f7c1a&quot; dataillegaltype=&quot;0&quot; datasourceid=&quot;5353367357590009973&quot;>&lt;datatitle>DaoCloud 首席架构师王天青：下一代应用转型之道、术、器&lt;/datatitle>&lt;datadesc>DaoCloud 受邀出席第13届信息化领袖峰会，立足于 DaoCloud 为传统企业数字化转型旅途中的丰富实践，与大家共话《下一代应用转型之道、术、器》，探讨如何“用新技术原力现代化你的企业应用”。&lt;/datadesc>&lt;dataext>http://mmbiz.qpic.cn/mmbiz_jpg/icGWTH9VkFq315HbKuKtWeWlcVDNPAswdhYA0kIskz0GcEQp6nJetC2aSBNfpibp1wKNHf8kYjUibkCF6SgbMIocw/640?wxtype=jpeg&amp;wxfrom=0&lt;/dataext>&lt;/dataitem>&lt;/datalist>&lt;weburlitem>&lt;pagethumb_url>http://mmbiz.qpic.cn/mmbiz_jpg/icGWTH9VkFq315HbKuKtWeWlcVDNPAswdhYA0kIskz0GcEQp6nJetC2aSBNfpibp1wKNHf8kYjUibkCF6SgbMIocw/640?wxtype=jpeg&amp;wxfrom=0&lt;/pagethumb_url>&lt;/weburlitem>&lt;recommendtaglist>&lt;/recommendtaglist>&lt;/favitem>',
+              //文本消息收藏结构
+              // '&lt;favitem type=&quot;1&quot;>&lt;desc>接收到你发送的内容了!&#x0A;&#x0A;原内容：sync&lt;/desc>&lt;source sourcetype=&quot;1&quot; sourceid=&quot;5451059336571949850&quot;>&lt;fromusr>wxid_xxx&lt;/fromusr>&lt;tousr>binsee&lt;/tousr>&lt;msgid>5451059336571949850&lt;/msgid>&lt;/source>&lt;taglist>&lt;tag>ted&lt;/tag>&lt;tag>hj&lt;/tag>&lt;/taglist>&lt;/favitem>'
+              // 视频
+              // '&lt;favitem type=&quot;2&quot;>&lt;source sourcetype=&quot;1&quot; sourceid=&quot;786100356842168336&quot;>&lt;fromusr>wxid_xxx&lt;/fromusr>&lt;tousr>4674258153@chatroom&lt;/tousr>&lt;realchatname>wxid_xxx&lt;/realchatname>&lt;msgid>786100356842168336&lt;/msgid>&lt;/source>&lt;datalist count=&quot;1&quot;>&lt;dataitem datatype=&quot;2&quot; dataid=&quot;2b4d63555959bd7ffb62722e8c186030&quot; dataillegaltype=&quot;0&quot; datasourceid=&quot;786100356842168336&quot;>&lt;cdn_thumburl>304c02010004453043020100020408eddd7c02030f4fed020419a0360a02045ac9271704206162313437386338616237383833333266336564343335666166363435646331020227110201000400&lt;/cdn_thumburl>&lt;cdn_dataurl>304c02010004453043020100020408eddd7c02030f4fed0204b94c716402045ac9271704203865383031656465633132333661303939346365663837643165316539363663020227110201000400&lt;/cdn_dataurl>&lt;cdn_thumbkey>ab1478c8ab788332f3ed435faf645dc1&lt;/cdn_thumbkey>&lt;cdn_datakey>8e801edec1236a0994cef87d1e1e966c&lt;/cdn_datakey>&lt;fullmd5>8e801edec1236a0994cef87d1e1e966c&lt;/fullmd5>&lt;head256md5>324b6cffbba04142bfabf5cdd0621b40&lt;/head256md5>&lt;fullsize>92377&lt;/fullsize>&lt;thumbfullmd5>ab1478c8ab788332f3ed435faf645dc1&lt;/thumbfullmd5>&lt;thumbhead256md5>4fcedfae8fcaa571504c5fd9f2abfa0a&lt;/thumbhead256md5>&lt;thumbfullsize>5658&lt;/thumbfullsize>&lt;datadesc>&lt;/datadesc>&lt;datatitle>&lt;/datatitle>&lt;/dataitem>&lt;/datalist>&lt;recommendtaglist>&lt;/recommendtaglist>&lt;/favitem>'
+              // 语音
+              // '&lt;favitem type=\'3\'>&lt;source sourcetype=\'1\' sourceid=\'3687245278820959898\'>&lt;fromusr>wxid_xxx&lt;/fromusr>&lt;tousr>4674258153@chatroom&lt;/tousr>&lt;realchatname>wxid_xxx&lt;/realchatname>&lt;msgid>3687245278820959898&lt;/msgid>&lt;/source>&lt;datalist count=\'1\'>&lt;dataitem datatype=\'3\' dataid=\'b1b222bcf285270772bf8698b2933bc7\' dataillegaltype=\'0\' datasourceid=\'3687245278820959898\'>&lt;datafmt>silk&lt;/datafmt>&lt;cdn_dataurl>304c02010004453043020100020408eddd7c02030f4fed020419a2360a02045ac9271104203064643962326231623464663936626433383831313136646235333831343537020227110201000400&lt;/cdn_dataurl>&lt;cdn_datakey>0dd9b2b1b4df96bd3881116db5381457&lt;/cdn_datakey>&lt;duration>2465&lt;/duration>&lt;fullmd5>0dd9b2b1b4df96bd3881116db5381457&lt;/fullmd5>&lt;head256md5>d348a2942af6d188100855d48dc75373&lt;/head256md5>&lt;fullsize>4186&lt;/fullsize>&lt;/dataitem>&lt;/datalist>&lt;/favitem>'
+              seq   : 652265243,
+              status: 0,           //0为有效收藏，1为无效收藏
+              time  : 1515042008
+            }
+          ],
+        message: '',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getLabelList"><span class="type-signature">(async) </span>getLabelList<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取所有标签</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1480">line 1480</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        label:   //标签列表
+          [{
+            id  : 1,      //标签id
+            name: '测试标签'  //标签名称
+          }],
+        message: '',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getLoginToken"><span class="type-signature">(async) </span>getLoginToken<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取二次登陆数据</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line313">line 313</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    error  : '',
+    success: true,
+    data   : 
+      {
+        message: '',
+        status : 0,
+        token  : 'xxxx',   //二次登陆token
+        uin    : 14900000  //微信号uin，唯一值
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getMsgImage"><span class="type-signature">(async) </span>getMsgImage<span class="signature">(rawMsgData)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取消息原始图片</p>
+<p>在push事件中收到的data数据是缩略图图片数据，使用本接口获取原图数据</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line523">line 523</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rawMsgData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>推送的消息结构体，即<code>push</code>事件中收到的Object</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        image  : 'base64_xxxx',   //base64编码的原图数据
+        message: '',
+        size   : 8139,            //图片数据尺寸
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getMsgVideo"><span class="type-signature">(async) </span>getMsgVideo<span class="signature">(rawMsgData)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取消息原始视频</p>
+<p>在push事件中只获得推送通知，不包含视频数据，需要使用本接口获取视频文件数据</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line551">line 551</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rawMsgData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>推送的消息结构体，即<code>push</code>事件中收到的Object</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        message: '',
+        size   : 160036,        //视频数据尺寸
+        status : 0,
+        video  : 'base64_xxxx'  //base64编码的视频数据
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getMsgVoice"><span class="type-signature">(async) </span>getMsgVoice<span class="signature">(rawMsgData)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取消息语音数据</p>
+<p>这个接口获取到的与push事件中接收到的数据一致，是base64编码的silk格式语音数据</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line578">line 578</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rawMsgData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>推送的消息结构体，即<code>push</code>事件中收到的Object</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        message: '',
+        size   : 2490,          //语音数据尺寸
+        status : 0,
+        voice  : 'base64_xxxx'  //base64编码的语音数据
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getRequestToken"><span class="type-signature">(async) </span>getRequestToken<span class="signature">(ghName, url)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取网页访问授权</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line2172">line 2172</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ghName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>公众号gh名称，即<code>gh_</code>格式的id</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>网页url</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        info: 
+          {
+            'X-WECHAT-KEY': 'xxxxxxxxxxxx',   //授权key
+            'X-WECHAT-UIN': 'MTQ5ODA2NDYw'    //授权uin
+          },
+        message: '',
+        status : 0,
+        fullUrl:      //完整授权访问url
+        'https://mp.weixin.qq.com/s?__biz=MzA5MDAwOTExMw==&mid=200126214&idx=1&sn=a1e7410ec56de5b6c4810dd7f7db8a47&chksm=1e0b3470297cbd666198666278421aed0a131d775561c08f52db0c82ce0e6a9546aac072a20e&mpshare=1&scene=1&srcid=0408bN3ACxqAH6jyq4vCBP9e&ascene=7&devicetype=iPad+iPhone+OS9.0.2&version=16060125&nettype=WIFI&lang=zh_CN&fontScale=100&pass_ticket=ZQW8EHr9vk%2BPGoWzmON4ev8I0MmliT4mp1ERTPEl8lc%3D&wx_header=1',
+        shareUrl:   //分享url
+        'http://mp.weixin.qq.com/s/QiB3FPE6fJmV6asvvxIkvA'
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getRoomMembers"><span class="type-signature">(async) </span>getRoomMembers<span class="signature">(groupId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取群成员信息</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line640">line 640</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>groupId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>群id</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        chatroomId: 700000001,
+        count     : 3,           //群成员数量
+        member    :              //群成员列表
+         [{
+            bigHead         : 'http://wx.qlogo.cn/xxx/0',     //大头像url
+            chatroomNickName: '',                             //群内昵称
+            invitedBy       : 'binsee',                       //进群邀请人
+            nickName        : '小木匠',                          //昵称
+            smallHead       : 'http://wx.qlogo.cn/xxx/132',   //小头像url
+            userName        : 'wxid_xxxx'                     //wxid
+          }],
+        message : '',
+        status  : 0,
+        userName: '5658541000@chatroom'  //群id
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getRoomQrcode"><span class="type-signature">(async) </span>getRoomQrcode<span class="signature">(groupId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取微信群二维码</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line808">line 808</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>groupId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>群id</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        footer : '该二维码7天内(4月13日前)有效，重新进入将更新',
+        message: '',
+        qrCode : '',                            //进群二维码图片base64
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getSubscriptionInfo"><span class="type-signature">(async) </span>getSubscriptionInfo<span class="signature">(ghName)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取公众号信息</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line2113">line 2113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ghName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>公众号gh名称，即<code>gh_</code>格式的id</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        info: 
+          {
+            alias        : 'tencent',
+            appid        : 'wx06441a33a2a67de4',
+            bigHeadImgUrl: 'http://wx.qlogo.cn/mmhead/xxx/0',
+            bindKFUin    : '0',
+            bindWxaInfo  : 
+              {
+                wxaEntryInfo: 
+                  [{
+                    username: 'gh_3a5568e1268b@app',
+                    title   : '腾讯+',
+                    iconUrl : 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png'
+                  }],
+                bizEntryInfo: []
+              },
+            bitMask     : '4294967295',
+            brandIconURL: 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png',
+            brandInfo   : 
+              {
+                urls: 
+                  [{
+                    title   : '查看历史消息',
+                    url     : 'http://mp.weixin.qq.com/mp/getmasssendmsg?xxxx',
+                    titleKey: '__mp_wording__brandinfo_history_massmsg'
+                  }]
+              },
+            functionFlag           : '1',
+            interactiveMode        : '2',
+            isAgreeProtocol        : '1',
+            isHideInputToolbarInMsg: '0',
+            isShowHeadImgInMsg     : '1',
+            mmBizMenu              : 
+              {
+                uin            : 3074120833,
+                version        : 425306837,
+                interactiveMode: 2,
+                updateTime     : 1518401098,
+                buttonList     : 
+                  [
+                    {
+                      id           : 425306837,
+                      type         : 0,
+                      name         : '产品体验',
+                      key          : 'rselfmenu_2',
+                      value        : '',
+                      subButtonList: 
+                        [{
+                          id           : 425306837,
+                          type         : 2,
+                          name         : '往期内测',
+                          key          : 'rselfmenu_2_1',
+                          value        : 'http://mp.weixin.qq.com/mp/xxxxx',
+                          subButtonList: [],
+                          nativeUrl    : ''
+                        }],
+                      nativeUrl: ''
+                    }]
+              },
+            nickName      : '腾讯',
+            pyInitial     : 'TX',
+            quanPin       : 'tengxun',
+            registerSource: 
+              {
+                registerBody: '深圳市腾讯计算机系统有限公司',
+                introUrl    : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxxx'
+              },
+            roleId         : '1',
+            scanQRCodeType : '1',
+            serviceType    : '0',
+            signature      : '腾讯公司唯一官方帐号。',
+            smallHeadImgUrl: 'http://wx.qlogo.cn/mmhead/xxx/132',
+            userName       : 'gh_88b080670a71',
+            verifyFlag     : '24',
+            verifyInfo     : '深圳市腾讯计算机系统有限公司',
+            verifySource   : 
+              {
+                description  : '深圳市腾讯计算机系统有限公司',
+                introUrl     : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxx',
+                type         : 0,
+                verifyBizType: 1
+              }
+          },
+        message: ' ',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getWxData"><span class="type-signature">(async) </span>getWxData<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取设备62数据</p>
+<p><strong>WARN: </strong> 如果使用62数据进行登陆，再获取到的62数据是无效的，一定不要用。
+事实上，只要你有一次登陆成功，以后一直用这个62数据，不需要更换。</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line290">line 290</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    error: '', success: true,
+    data : 
+      {
+        wxData: '62xxxxx'  //设备62数据
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="init"><span class="type-signature">(async) </span>init<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>初始化</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line164">line 164</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    error  : '',
+    success: true
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="inviteRoomMember"><span class="type-signature">(async) </span>inviteRoomMember<span class="signature">(groupId, userId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>邀请群成员
+会给对方发送一条邀请消息，无法判断对方是否真的接收到</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line688">line 688</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>groupId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>群id</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="login"><span class="type-signature">(async) </span>login<span class="signature">(type, data)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>登录账号
+首次登录不需要传入<code>wxData</code>，登陆成功后本地保存<code>wxData</code>和<code>token</code>，以后使用断线重连或二次登陆，可降低封号概率。
+任何登陆方式，使用成功登陆过的<code>wxData</code>都可降低封号概率。</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line233">line 233</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    qrcode
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>登录类型，默认为扫码登录
+<br> <code>token</code> <strong>断线重连</strong>，用于短时间使用<code>wxData</code>和<code>token</code>再次登录。<code>token</code>有效期很短，如果登陆失败，建议使用二次登陆方式
+<br> <code>request</code> <strong>二次登陆</strong>。需要提供<code>wxData</code>和<code>token</code>数据，手机端会弹出确认框，点击后登陆。不容易封号
+<br> <code>qrcode</code> <strong>扫码登录</strong>（现在此模式已经可以返回二维码内容的url了）
+<br> <code>phone</code> <strong>手机验证码登录</strong>，建议配合<code>wxData</code>使用
+<br> <code>user</code> <strong>账号密码登录</strong>，建议配合<code>wxData</code>使用</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>附加数据</p>
+                
+                    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>wxData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>设备信息数据，登录后使用 <code>getDeviceInfo</code> 接口获得。<br>使用此数据可免设备安全验证，不容易封号</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>token</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>使用用任意方式登录成功后，使用 <code>getAutoLoginData</code> 接口获得。 <br>此token有过期时间，断开登录状态一段时间后会过期。</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phone</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>手机号</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>code</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>手机验证码</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>用户名/qq号/手机号</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>密码</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    error  : '',
+    msg    : '请使用手机微信扫码登陆！',
+    success: true
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+<div class="section-examples">
+<h5>Examples</h5>
+
+        <p class="code-caption">扫码登陆</p>
+    
+    <pre class="prettyprint"><code>const wx = new Padchat()
+await wx.init()
+await wx.login('qrcode',{wxData:'xxx'})</code></pre>
+
+        <p class="code-caption">账号密码登陆</p>
+    
+    <pre class="prettyprint"><code>const wx = new Padchat()
+await wx.init()
+await wx.login('user',{wxData:'xxx',username:'name',password:'123456'})</code></pre>
+
+        <p class="code-caption">手机验证码</p>
+    
+    <pre class="prettyprint"><code>const wx = new Padchat()
+await wx.init()
+await wx.login('phone',{wxData:'xxx',phone:'13512345678',code:'123456'})</code></pre>
+
+        <p class="code-caption">断线重连</p>
+    
+    <pre class="prettyprint"><code>const wx = new Padchat()
+await wx.init()
+await wx.login('token',{wxData:'xxx',token:'xxxxx'})</code></pre>
+
+        <p class="code-caption">二次登陆</p>
+    
+    <pre class="prettyprint"><code>const wx = new Padchat()
+await wx.init()
+await wx.login('request',{wxData:'xxx',token:'xxxxx'})</code></pre>
+
+</div>
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="logout"><span class="type-signature">(async) </span>logout<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>退出登录</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line334">line 334</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="massMsg"><span class="type-signature">(async) </span>massMsg<span class="signature">(userList<span class="signature-attributes">opt</span>, content)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>群发文字信息</p>
+<p>FIXME: 此接口有问题，暂停使用</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line376">line 376</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Array.&lt;string></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    []
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>接收者wxid数组</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>内容文本</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="openRedPacket"><span class="type-signature">(async) </span>openRedPacket<span class="signature">(rawMsgData, key)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>领取红包</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1885">line 1885</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rawMsgData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>推送的消息结构体，即<code>push</code>事件中收到的Object</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>红包的验证key，通过调用 receiveRedPacket 获得</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch
+已领取过红包：</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        external: {
+          retcode: 268502336,
+          retmsg : '你已领取过该红包'
+        },
+        message: '',
+        status : 0
+      }
+  }</code></pre><p>未领取过的红包：</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        external: 
+          {
+            retcode        : 0,
+            retmsg         : 'ok',
+            sendId         : '1000039501201804087013251181768',
+            amount         : 1,
+            recNum         : 2,
+            recAmount      : 2,
+            totalNum       : 3,
+            totalAmount    : 4,
+            hasWriteAnswer : 0,
+            hbType         : 1,
+            isSender       : 0,
+            isContinue     : 0,
+            receiveStatus  : 2,
+            hbStatus       : 3,
+            statusMess     : '',
+            wishing        : '发3个红包',
+            receiveId      : '1000039501001804087013251181768',
+            headTitle      : '领取2/3个',
+            canShare       : 0,
+            operationHeader: [],
+            record         : 
+              [
+                {
+                  receiveAmount: 1,
+                  receiveTime  : '1523171198',
+                  answer       : '',
+                  receiveId    : '1000039501001804087013251181768',
+                  state        : 1,
+                  receiveOpenId: '1000039501001804087013251181768',
+                  userName     : 'wxid_xxx'
+                },
+                {
+                  receiveAmount: 1,
+                  receiveTime  : '1523170992',
+                  answer       : '',
+                  receiveId    : '1000039501000804087013251181768',
+                  state        : 1,
+                  receiveOpenId: '1000039501000804087013251181768',
+                  userName     : 'binsee'
+                }
+              ],
+            watermark       : '',
+            jumpChange      : 1,
+            changeWording   : '已存入零钱，可直接提现',
+            sendUserName    : 'binsee',
+            SystemMsgContext:                 //系统消息内容
+            '&lt;img src=&quot;SystemMessages_HongbaoIcon.png&quot;/>  你领取了$binsee$的&lt;_wc_custom_link_ color=&quot;#FD9931&quot; href=&quot;weixin://weixinhongbao/opendetail?sendid=1000039501201804087013251181768&sign=68b9858edbc9ff8a88fb8c8fa987edaad88078b31daf6e7af4dba06e78849e50b29a3c1d10bad4893aff116a0db80c7d8a3aa96a5247e1ed095d88e66983fc6fd9f6f6dc8243411ef97727cf0bc698c3&ver=6&quot;>红包&lt;/_wc_custom_link_>',
+            sessionUserName: '4674258153@chatroom',   //会话wxid/chatroom
+            realNameInfo   : { guideFlag: 0 }
+          },
+        message: '',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="operateSubscription"><span class="type-signature">(async) </span>operateSubscription<span class="signature">(ghName, menuId, menuKey)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>操作公众号菜单</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line2137">line 2137</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ghName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>公众号gh名称，即<code>gh_</code>格式的id</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>menuId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>菜单id</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>menuKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>菜单key</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="queryRedPacket"><span class="type-signature">(async) </span>queryRedPacket<span class="signature">(rawMsgData, index<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>查看红包信息
+NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取到红包信息</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1791">line 1791</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rawMsgData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>推送的消息结构体，即<code>push</code>事件中收到的Object</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>列表索引。
+每页11个，查看第二页11，查看第三页22，以此类推</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch
+未先接收红包返回结果：</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        external:   //扩展数据
+          {
+            retcode        : 0,
+            retmsg         : 'ok',
+            operationHeader: [0],
+            record         : [0]
+          },
+        message: '',
+        status : 0
+      }
+  }</code></pre><p>接收红包后查询结果：</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        external: 
+          {
+            retcode        : 0,
+            retmsg         : 'ok',
+            recNum         : 2,            //已领取数
+            totalNum       : 2,            //红包个数
+            totalAmount    : 100,          //红包总金额(单位为分)
+            sendId         : '10000xxx',   //发送id
+            amount         : 85,           //领取到金额(单位为分)
+            wishing        : 'Hello!',     //红包祝语
+            isSender       : 1,            //是否是自己发送的
+            receiveId      : '10000xxx',   //接收id
+            hasWriteAnswer : 1,            //是否已写回复
+            operationHeader: [],           //未知
+            hbType         : 1,            //红包类型
+            isContinue     : 0,            //是否已领取完
+            hbStatus       : 3,            //红包状态：2未领取;3未领取完;4已领取完毕
+            // 普通红包或单发红包是2，随机红包是3或4
+            receiveStatus: 2,        //接收状态:0未接收;2已领取
+            statusMess   : '成功领到',   //状态提示，未领取为空
+            headTitle    : '',       //红包头部标题
+            // '已领取1/2个，共0.01/0.02元'   //自己发的红包未领取完时
+            // '2个红包共1.00元，15秒被抢光'   //自己发的红包未领取完时
+            // '领取2/3个'                   //别人发的红包未领取完时
+            // '2个红包，42秒被抢光'          //别人发的红包未领取完时
+            canShare : 0,     //是否可分享
+            hbKind   : 1,     //红包种类
+            recAmount: 100,   //已领取金额(单位为分)
+            record   : 
+              [
+                {
+                  receiveAmount: 85,             //领取金额(单位为分)
+                  receiveTime  : '1523169782',   //领取时间戳字符串
+                  answer       : '',             //领取者留言，仅查询接口有效
+                  receiveId    : '10000xxx',
+                  state        : 1,
+                  gameTips     : '手气最佳',         //仅红包领取完毕时，手气最佳者有此字段
+                  receiveOpenId: '10000xxx',
+                  userName     : 'wxid_xxx'      //领取者wxid
+                },
+                {
+                  receiveAmount: 15,
+                  receiveTime  : '1523174612',
+                  answer       : '谢谢红包',
+                  receiveId    : '1000039501001804086017706218338',
+                  state        : 1,
+                  receiveOpenId: '1000039501001804086017706218338',
+                  userName     : 'binsee'
+                },
+              ],
+            operationTail:   //操作提示：仅自己发的红包有效
+              {
+                name   : '未领取的红包，将于24小时后发起退款',
+                type   : 'Text',
+                content: '',
+                enable : 1,
+                iconUrl: '',
+                ossKey : 4294967295
+              },
+            atomicFunc   : { enable: 0 },
+            jumpChange   : 1,
+            changeWording: '已存入零钱，可直接提现',   //查询接口返回'已存入零钱，可直接转账'
+            sendUserName : 'wxid_xxx'       //发送者wxid
+          },
+        message: '',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="queryTransfer"><span class="type-signature">(async) </span>queryTransfer<span class="signature">(rawMsgData)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>查看转账消息</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1601">line 1601</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rawMsgData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>推送的消息结构体，即<code>push</code>事件中收到的Object</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        external: 
+          {
+            retcode       : '0',
+            retmsg        : 'ok',
+            fee           : 20,                      //转账金额(单位为分)
+            transStatus   : 2000,                    //状态:2000未收款;2001已收款
+            feeType       : '1',
+            payTime       : 1523176700,
+            modifyTime    : 0,
+            refundBankType: 'BANK',
+            payerName     : 'binsee',
+            receiverName  : 'wxid_8z66rux8lysr22',
+            statusDesc    : '待确认收款',                 //收款描述
+            // '已收钱'       //已收款
+            // '待%s确认收款' //等待对方收款
+            // '%s已收钱'     //对方已收款
+            statusSupplementary: '',   //状态补充信息
+            // 未领取：
+            // '1天内未确认，将退还给对方。&lt;_wc_custom_link_ href=&quot;weixin://wcpay/transfer/rebacksendmsg&quot;>立即退还&lt;/_wc_custom_link_>',
+            delayConfirmFlag: 0,
+            //
+            // 已领取：
+            // '&lt;_wc_custom_link_ href=&quot;weixin://wcpay/transfer/watchbalance&quot;>查看零钱&lt;/_wc_custom_link_>'
+            //
+            // 等待对方收款:
+            // '1天内朋友未确认，将退还给你。&lt;_wc_custom_link_ href=&quot;weixin://wcpay/transfer/retrysendmsg&quot;>重发转账消息&lt;/_wc_custom_link_>'
+            isPayer: false
+            //
+            // 对方已收款为空
+          },
+        message: '',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="quitRoom"><span class="type-signature">(async) </span>quitRoom<span class="signature">(groupId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>退出群</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line735">line 735</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>groupId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>群id</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="receiveRedPacket"><span class="type-signature">(async) </span>receiveRedPacket<span class="signature">(rawMsgData)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>接收红包</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1681">line 1681</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rawMsgData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>推送的消息结构体，即<code>push</code>事件中收到的Object</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        external:   //扩展数据结构
+          {
+            retcode         : 0,
+            retmsg          : 'ok',
+            sendId          : '10000xxx',      //发送id
+            wishing         : '发3个红包',         //红包祝语
+            isSender        : 0,               //是否自己发送
+            receiveStatus   : 0,               //接收状态:0未接收;2已领取
+            hbStatus        : 3,               //红包状态：3未领取完;4已领取完毕
+            statusMess      : '发了一个红包，金额随机',   //
+            hbType          : 1,               //红包类型
+            watermark       : '',
+            sendUserName    : 'binsee',        //发送者wxid
+            timingIdentifier: 'C6E370xxx',
+            agreeDuty       :                  //未知含义，非必然
+              {
+                title                 : '',
+                serviceProtocolWording: '',
+                serviceProtocolUrl    : '',
+                buttonWording         : '',
+                delayExpiredTime      : 0,
+                agreedFlag            : 1
+              }
+          },
+        key    : 'C6E370xxx',   //红包key，用于领取红包
+        message: '',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="requestUrl"><span class="type-signature">(async) </span>requestUrl<span class="signature">(url, xKey, xUin)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>访问网页</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line2200">line 2200</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>网页url地址</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>访问Key，用<code>getRequestToken</code>获取</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xUin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>访问uin，用<code>getRequestToken</code>获取</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        message : '',
+        response:      //完整的访问结果原始数据文本（包含http头数据）
+          'HTTP/1.1 200 OK\r\nContent-Security-Policy: script-src \'self\' \'unsafe-inline\' \'unsafe-eval\' http://*.qq.com https://*.qq.com http://*.weishi.com https://*.weishi.com xxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        status: 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="sayHello"><span class="type-signature">(async) </span>sayHello<span class="signature">(stranger, ticket, content)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>打招呼
+如果已经是好友，会收到由系统自动发送，来自对方的一条文本信息
+“xx已通过你的朋友验证请求，现在可以开始聊天了”</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1031">line 1031</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>stranger</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户stranger数据</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ticket</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户ticket数据</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>打招呼内容</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="searchContact"><span class="type-signature">(async) </span>searchContact<span class="signature">(userId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>搜索用户
+可用此接口来判断是否已经加对方为好友</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line886">line 886</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        bigHead  : 'http://wx.qlogo.cn/xxx/0',     //大头像url
+        city     : 'mesa',                         //城市
+        country  : 'CN',                           //国家
+        message  : '',
+        nickName : '杉木',                           //昵称
+        provincia: 'Henan',                        //省份
+        pyInitial: 'SM',                           //昵称拼音简写
+        quanPin  : 'shamu',                        //昵称拼音
+        sex      : 1,                              //性别：1男2女
+        signature: '签名',                           //个性签名
+        smallHead: 'http://wx.qlogo.cn/xxx/132',   //小头像url
+        status   : 0,
+        stranger : 'v1_xxx@stranger',              //好友为空，非好友显示v2码
+        userName : 'binxxx'                        //是自己好友显示wxid，非好友为v1码
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="searchMp"><span class="type-signature">(async) </span>searchMp<span class="signature">(content)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>搜索公众号</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line2007">line 2007</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>公众号名称等关键字</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        code: 0,
+        info: 
+          {
+            continueFlag: 1,   //仍有数据标志
+            cookies     :      //cookie数据
+              {
+                businessType: 1,
+                isHomepage  : 1,
+                query       : '&quot;腾讯&quot;',
+                scene       : 2
+              },
+            data:   //返回的搜索相关数据
+              [{
+                count: 20,
+                items:      //搜索结果列表
+                  [{
+                    aliasName: 'tencent',
+                    brandFlag: 2,
+                    brandInfo: 
+                      {
+                        urls: 
+                          [{
+                            title: '查看历史消息',
+                            url  : 
+                              'http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MzA3NDEyMDgzMw==#wechat_webview_type=1&wechat_redirect',
+                            titleKey: '__mp_wording__brandinfo_history_massmsg'
+                          }]
+                      },
+                    docID       : '3074120833',
+                    externalInfo: 
+                      {
+                        Appid      : 'wx06441a33a2a67de4',
+                        BindWxaInfo: 
+                          {
+                            wxaEntryInfo: 
+                              [{
+                                title   : '腾讯+',
+                                username: 'gh_3a5568e1268b@app',
+                                iconUrl : 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png'
+                              }]
+                          },
+                        FunctionFlag           : 1,
+                        InteractiveMode        : '2',
+                        IsAgreeProtocol        : '1',
+                        IsHideInputToolbarInMsg: '0',
+                        IsShowHeadImgInMsg     : '1',
+                        RegisterSource         : 
+                          {
+                            IntroUrl: 
+                              'http://mp.weixin.qq.com/mp/getverifyinfo?__biz=MzA3NDEyMDgzMw==&type=reg_info#wechat_redirect',
+                            RegisterBody: '深圳市腾讯计算机系统有限公司'
+                          },
+                        RoleId        : '1',
+                        ScanQRCodeType: 1,
+                        ServiceType   : 0,
+                        VerifySource  : 
+                          {
+                            Description: '深圳市腾讯计算机系统有限公司',
+                            IntroUrl   : 
+                              'http://mp.weixin.qq.com/mp/getverifyinfo?__biz=MzA3NDEyMDgzMw==#wechat_webview_type=1&wechat_redirect',
+                            Type         : 0,
+                            VerifyBizType: 1
+                          }
+                      },
+                    friendsFollowCount: 0,
+                    headHDImgUrl      : 'http://wx.qlogo.cn/mmhead/xxx/0',
+                    headImgUrl        : 'http://wx.qlogo.cn/mmhead/xxx/132',
+                    iconUrl           : 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png',
+                    nickName          : '腾讯',
+                    nickNameHighlight : '&lt;em class=&quot;highlight&quot;>腾讯&lt;/em>',
+                    segQuery          : ' 腾讯',
+                    signature         : '腾讯公司唯一官方帐号。',
+                    signatureHighlight: '&lt;em class=&quot;highlight&quot;>腾讯&lt;/em>公司唯一官方帐号。',
+                    userName          : 'gh_88b080670a71',
+                    verifyFlag        : 24
+                  }],
+                keywordList: ['腾讯'],
+                resultType : 0,
+                title      : '公众号',
+                totalCount : 1900,
+                type       : 1
+              }],
+            direction : 2,
+            exposeMs  : 500,
+            isDivide  : 0,
+            isExpose  : 1,
+            isHomePage: 1,
+            lang      : 'zh_CN',
+            monitorMs : 100,
+            offset    : 20,
+            query     : '&quot;腾讯&quot;',
+            resultType: 0,
+            ret       : 0,
+            searchID  : '18232918846508425807'
+          },
+        message: '',
+        offset : 20,
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="sendAppMsg"><span class="type-signature">(async) </span>sendAppMsg<span class="signature">(toUserName, object)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>发送App消息</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line408">line 408</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>toUserName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>接收者的wxid</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>内容文本</p>
+                
+                    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>appid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>appid，忽略即可</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sdkver</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>sdk版本，忽略即可</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>标题</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>des</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>描述</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>链接url</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>thumburl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>缩略图url</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    error: '', success: true,
+    data : {
+      message: '',
+      msgId  : '2195811529497100215',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="sendCmd"><span class="type-signature">(async, private) </span>sendCmd<span class="signature">(cmd, data)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>包装ws发送指令数据包</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line130">line 130</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmd</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>要操作的接口</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>要发送的数据</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回ws处理结果</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="sendImage"><span class="type-signature">(async) </span>sendImage<span class="signature">(toUserName, file)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>发送图片消息</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line461">line 461</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>toUserName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>接收者的wxid</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>file</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Buffer</code></span>
+|
+
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>图片Buffer数据或base64</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    error: '', success: true,
+    data : {
+      message: '',
+      msgId  : '1797099903789182796',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="sendMsg"><span class="type-signature">(async) </span>sendMsg<span class="signature">(toUserName, content, atList<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>发送文字信息</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line358">line 358</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>toUserName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>接收者的wxid</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>内容文本</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>atList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Array.&lt;string></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    []
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>向群内发信息时，要@的用户wxid数组
+FIXME: 无法At用户</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    error: '', success: true,
+    data : {
+      message: '',
+      msgId  : '5172746684759824075',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="sendVoice"><span class="type-signature">(async) </span>sendVoice<span class="signature">(toUserName, file)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>发送语音消息
+注意：只能发送silk格式的语音文件</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line492">line 492</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>toUserName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>接收者的wxid</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>file</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Buffer</code></span>
+|
+
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>语音Buffer数据或base64</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    error: '', success: true,
+    data : {
+      data   : 2490,                   //语音文件尺寸
+      message: '',
+      msgId  : '136722815749654341',
+      size   : 0,
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="setHeadImg"><span class="type-signature">(async) </span>setHeadImg<span class="signature">(file)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>设置头像</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1084">line 1084</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>file</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Buffer</code></span>
+|
+
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>图片Buffer数据或base64</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>    {
+      success: true,
+      data   : 
+        {
+          bigHead  : 'http://wx.qlogo.cn/mmhead/ver_1/xxx/0',
+          data     : 1527,                                        //图片文件尺寸
+          message  : '',
+          size     : 1527,                                        //图片文件尺寸
+          smallHead: 'http://wx.qlogo.cn/mmhead/ver_1/xxx/132',
+          status   : 0
+        }
+    }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="setLabel"><span class="type-signature">(async) </span>setLabel<span class="signature">(userId, labelId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>设置用户标签</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1545">line 1545</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>labelId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>标签id</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="setRemark"><span class="type-signature">(async) </span>setRemark<span class="signature">(userId, remark)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>设置备注</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1056">line 1056</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>remark</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>备注名称</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="setRoomAnnouncement"><span class="type-signature">(async) </span>setRoomAnnouncement<span class="signature">(groupId, content)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>设置群公告</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line758">line 758</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>groupId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>群id</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>群公告内容</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="setRoomName"><span class="type-signature">(async) </span>setRoomName<span class="signature">(groupId, content)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>设置群名称</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line782">line 782</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>groupId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>群id</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>群名称</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="shareCard"><span class="type-signature">(async) </span>shareCard<span class="signature">(toUserName, content, userId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>分享名片</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line435">line 435</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>toUserName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>接收者的wxid</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>内容文本</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>被分享人wxid</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    error: '', success: true,
+    data : {
+      message: '',
+      msgId  : '1797099903789182796',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="snsComment"><span class="type-signature">(async) </span>snsComment<span class="signature">(userId, momentId, content)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>评论朋友圈</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1299">line 1299</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>momentId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>朋友圈信息id</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>内容文本</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      data   : {},   //朋友圈信息结构
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="snsGetobject"><span class="type-signature">(async) </span>snsGetobject<span class="signature">(momentId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>获取朋友圈信息详情</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1273">line 1273</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>momentId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>朋友圈信息id</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      data   : {},   //朋友圈信息结构
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="snsLike"><span class="type-signature">(async) </span>snsLike<span class="signature">(userId, momentId)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>朋友圈点赞</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1325">line 1325</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>momentId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>朋友圈信息id</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      data   : {},   //朋友圈信息结构
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="snsobjectOp"><span class="type-signature">(async) </span>snsobjectOp<span class="signature">(momentId, type, commentId, commentType)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>操作朋友圈</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1145">line 1145</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>momentId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>朋友圈信息id</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>操作类型，1为删除朋友圈，4为删除评论，5为取消赞</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>commentId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>操作类型，当type为4时，对应删除评论的id，其他状态为0</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>commentType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    2
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>操作类型，当删除评论时可用，需与评论type字段一致</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : {
+      message: '',
+      status : 0
+    }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="snsSendMoment"><span class="type-signature">(async) </span>snsSendMoment<span class="signature">(content)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>发朋友圈</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1180">line 1180</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>内容文本</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        data: 
+          {
+            create_time: 1523015689,
+            description:              //朋友圈信息xml结构体文本
+            '&lt;Timelineobject>&lt;id>12775981595019653292&lt;/id>&lt;username>wxid_xxx&lt;/username>&lt;createTime>1523015689&lt;/createTime>&lt;contentDesc>来自代码发的朋友圈&lt;/contentDesc>&lt;contentDescShowType>0&lt;/contentDescShowType>&lt;contentDescScene>3&lt;/contentDescScene>&lt;private>0&lt;/private>&lt;sightFolded>0&lt;/sightFolded>&lt;appInfo>&lt;id>&lt;/id>&lt;version>&lt;/version>&lt;appName>&lt;/appName>&lt;installUrl>&lt;/installUrl>&lt;fromUrl>&lt;/fromUrl>&lt;isForceUpdate>0&lt;/isForceUpdate>&lt;/appInfo>&lt;sourceUserName>&lt;/sourceUserName>&lt;sourceNickName>&lt;/sourceNickName>&lt;statisticsData>&lt;/statisticsData>&lt;statExtStr>&lt;/statExtStr>&lt;Contentobject>&lt;contentStyle>2&lt;/contentStyle>&lt;title>&lt;/title>&lt;description>&lt;/description>&lt;mediaList>&lt;/mediaList>&lt;contentUrl>&lt;/contentUrl>&lt;/Contentobject>&lt;actionInfo>&lt;appMsg>&lt;messageAction>&lt;/messageAction>&lt;/appMsg>&lt;/actionInfo>&lt;location poiClassifyId=&quot;&quot; poiName=&quot;&quot; poiAddress=&quot;&quot; poiClassifyType=&quot;0&quot; city=&quot;&quot;>&lt;/location>&lt;publicUserName>&lt;/publicUserName>&lt;streamvideo>&lt;streamvideourl>&lt;/streamvideourl>&lt;streamvideothumburl>&lt;/streamvideothumburl>&lt;streamvideoweburl>&lt;/streamvideoweburl>&lt;/streamvideo>&lt;/Timelineobject>',
+            id       : '12775981595019653292',   //朋友圈信息id
+            nick_name: '小木匠',
+            user_name: 'wxid_xxxx'
+          },
+        message: '',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="snsTimeline"><span class="type-signature">(async) </span>snsTimeline<span class="signature">(momentId<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>查看朋友圈动态</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1250">line 1250</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>momentId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>朋友圈信息id
+首次传入空即获取第一页，以后传入上次拉取的最后一条信息id</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        count: 1,
+        data :     //朋友圈信息结构数组（无评论和点赞数据）
+          [{
+            create_time: 1523015689,
+            description: '&lt;Timelineobject>&lt;id>12775981595019653292&lt;/id>&lt;username>wxid_xxx&lt;/username>&lt;createTime>1523015689&lt;/createTime>&lt;contentDesc>来自代码发的朋友圈&lt;/contentDesc>&lt;contentDescShowType>0&lt;/contentDescShowType>&lt;contentDescScene>3&lt;/contentDescScene>&lt;private>0&lt;/private> &lt;sightFolded>0&lt;/sightFolded> &lt;appInfo>&lt;id>&lt;/id>&lt;version>&lt;/version>&lt;appName>&lt;/appName>&lt;installUrl>&lt;/installUrl>&lt;fromUrl>&lt;/fromUrl>&lt;isForceUpdate>0&lt;/isForceUpdate>&lt;/appInfo> &lt;sourceUserName>&lt;/sourceUserName> &lt;sourceNickName>&lt;/sourceNickName> &lt;statisticsData>&lt;/statisticsData> &lt;statExtStr>&lt;/statExtStr> &lt;Contentobject>&lt;contentStyle>2&lt;/contentStyle>&lt;title>&lt;/title>&lt;description>&lt;/description>&lt;mediaList>&lt;/mediaList>&lt;contentUrl>&lt;/contentUrl>&lt;/Contentobject> &lt;actionInfo>&lt;appMsg>&lt;messageAction>&lt;/messageAction>&lt;/appMsg>&lt;/actionInfo> &lt;location poiClassifyId=&quot;&quot; poiName=&quot;&quot; poiAddress=&quot;&quot; poiClassifyType=&quot;0&quot; city=&quot;&quot;>&lt;/location> &lt;publicUserName>&lt;/publicUserName> &lt;streamvideo>&lt;streamvideourl>&lt;/streamvideourl>&lt;streamvideothumburl>&lt;/streamvideothumburl>&lt;streamvideoweburl>&lt;/streamvideoweburl>&lt;/streamvideo>&lt;/Timelineobject> ',
+            id         : '12775981595019653292',
+            nick_name  : '小木匠',
+            user_name  : 'wxid_xxx'
+          }],
+        message: '',
+        page   : '81cb2ad01ebc219f',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="snsUpload"><span class="type-signature">(async) </span>snsUpload<span class="signature">(file)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>上传图片到朋友圈
+NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1117">line 1117</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>file</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Buffer</code></span>
+|
+
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>图片Buffer数据或base64</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>    {
+      success: true,
+      data   : 
+        {
+          bigHead  : 'http://mmsns.qpic.cn/mmsns/xxx/0',
+          data     : 1527,                                   //图片文件尺寸
+          message  : '',
+          size     : 1527,                                   //图片文件尺寸
+          smallHead: 'http://mmsns.qpic.cn/mmsns/xxx/150',
+          status   : 0
+        }
+    }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="snsUserPage"><span class="type-signature">(async) </span>snsUserPage<span class="signature">(userId, momentId<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>查看用户朋友圈</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1215">line 1215</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>用户wxid</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>momentId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>朋友圈信息id
+首次传入空即获取第一页，以后传入上次拉取的最后一条信息id</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        count: 1,
+        data :     //朋友圈信息结构数组（无评论和点赞数据）
+          [{
+            create_time: 1523015689,
+            description: '&lt;Timelineobject>&lt;id>12775981595019653292&lt;/id>&lt;username>wxid_xxx&lt;/username>&lt;createTime>1523015689&lt;/createTime>&lt;contentDesc>来自代码发的朋友圈&lt;/contentDesc>&lt;contentDescShowType>0&lt;/contentDescShowType>&lt;contentDescScene>3&lt;/contentDescScene>&lt;private>0&lt;/private> &lt;sightFolded>0&lt;/sightFolded> &lt;appInfo>&lt;id>&lt;/id>&lt;version>&lt;/version>&lt;appName>&lt;/appName>&lt;installUrl>&lt;/installUrl>&lt;fromUrl>&lt;/fromUrl>&lt;isForceUpdate>0&lt;/isForceUpdate>&lt;/appInfo> &lt;sourceUserName>&lt;/sourceUserName> &lt;sourceNickName>&lt;/sourceNickName> &lt;statisticsData>&lt;/statisticsData> &lt;statExtStr>&lt;/statExtStr> &lt;Contentobject>&lt;contentStyle>2&lt;/contentStyle>&lt;title>&lt;/title>&lt;description>&lt;/description>&lt;mediaList>&lt;/mediaList>&lt;contentUrl>&lt;/contentUrl>&lt;/Contentobject> &lt;actionInfo>&lt;appMsg>&lt;messageAction>&lt;/messageAction>&lt;/appMsg>&lt;/actionInfo> &lt;location poiClassifyId=&quot;&quot; poiName=&quot;&quot; poiAddress=&quot;&quot; poiClassifyType=&quot;0&quot; city=&quot;&quot;>&lt;/location> &lt;publicUserName>&lt;/publicUserName> &lt;streamvideo>&lt;streamvideourl>&lt;/streamvideourl>&lt;streamvideothumburl>&lt;/streamvideothumburl>&lt;streamvideoweburl>&lt;/streamvideoweburl>&lt;/streamvideo>&lt;/Timelineobject> ',
+            id         : '12775981595019653292',
+            nick_name  : '小木匠',
+            user_name  : 'wxid_xxx'
+          }],
+        message: '',
+        page   : '81cb2ad01ebc219f',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="syncContact"><span class="type-signature">(async) </span>syncContact<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>同步通讯录
+<strong>WARN: </strong> 调用此接口后，会再次接收到前一段时间内的消息推送，需自行处理过滤。</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line324">line 324</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="syncFav"><span class="type-signature">(async) </span>syncFav<span class="signature">(favKey<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>同步收藏消息</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1363">line 1363</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>favKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>同步key，首次不用传入</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>返回Promise<object>，注意捕捉catch</p>
+<pre class="prettyprint source"><code>  {
+    success: true,
+    data   : 
+      {
+        continue: 0,
+        data    :     //收藏消息列表，如果没有则为null
+          [
+            {
+              flag: 0,            //首次标志，0为有效，1为已取消收藏
+              id  : 3,            //收藏id
+              seq : 652265243,    //收藏随机值
+              time: 1515042008,   //收藏时间
+              type: 5             //收藏类型：1文本;2图片;3语音;4视频;5图文消息
+            }
+          ],
+        key    : 'kzTKsdjD6PM0bbQv+oP7vQ==',   //下次的同步key，类似分页
+        message: '',
+        status : 0
+      }
+  }</code></pre>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Apr 11 2018 10:45:28 GMT-0700 (PDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
