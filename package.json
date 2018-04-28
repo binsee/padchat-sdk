@@ -7,7 +7,7 @@
     "start": "node demo",
     "doc": "node scripts/docVer.js >nul && jsdoc2md index.js >> docs/index.md",
     "eslint": "eslint {define,helper,index,demo}.js",
-    "release": "npm run doc && standard-version --skip.tag",
+    "release": "standard-version --skip.tag -a --scripts.postbump \"npm run doc && git add docs/index.md\"",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "author": "binsee",
