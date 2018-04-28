@@ -1,4 +1,4 @@
-# Padchat Sdk v0.4.0 Documentation
+# Padchat Sdk v0.4.2 Documentation
 
 <a name="Padchat"></a>
 
@@ -76,33 +76,13 @@
 <a name="new_Padchat_new"></a>
 
 ### new Padchat()
-Padchat模块
-
-使用websocket与服务器进行通讯，拥有以下事件
-
-Event | 说明
----- | ----
-qrcode | 推送的二维码
-scan | 扫码状态
-push | 新信息事件
-login | 登录
-loaded | 通讯录载入完毕
-logout | 注销登录
-over | 实例注销（账号不退出）（要再登录需要重新调用init）
-warn | 错误信息
-sns | 朋友圈更新事件
-
-**接口返回数据结构：** 所有接口均返回以下结构数据：
-```
+Padchat模块使用websocket与服务器进行通讯，拥有以下事件Event | 说明---- | ----qrcode | 推送的二维码scan | 扫码状态push | 新信息事件login | 登录loaded | 通讯录载入完毕logout | 注销登录over | 实例注销（账号不退出）（要再登录需要重新调用init）warn | 错误信息sns | 朋友圈更新事件**接口返回数据结构：** 所有接口均返回以下结构数据：```
  {
    success: true,   // 执行是否成功
    err    : '',     // 错误提示
    msg    : '',     // 附加信息
    data   : {}      // 返回结果
- }
-```
-
-TODO: 补充各监听事件返回的数据定义
+ }```TODO: 补充各监听事件返回的数据定义
 
 <a name="Padchat+init"></a>
 
@@ -110,13 +90,11 @@ TODO: 补充各监听事件返回的数据定义
 初始化
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     error  : '',
     success: true
-  }
-```  
+  }```  
 <a name="Padchat+close"></a>
 
 ### padchat.close() ⇒ <code>Promise.&lt;object&gt;</code>
@@ -127,19 +105,15 @@ TODO: 补充各监听事件返回的数据定义
 <a name="Padchat+login"></a>
 
 ### padchat.login(type, data) ⇒ <code>Promise.&lt;object&gt;</code>
-登录账号
-首次登录不需要传入`wxData`，登陆成功后本地保存`wxData`和`token`，以后使用断线重连或二次登陆，可降低封号概率。
-任何登陆方式，使用成功登陆过的`wxData`都可降低封号概率。
+登录账号首次登录不需要传入`wxData`，登陆成功后本地保存`wxData`和`token`，以后使用断线重连或二次登陆，可降低封号概率。任何登陆方式，使用成功登陆过的`wxData`都可降低封号概率。
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     error  : '',
     msg    : '请使用手机微信扫码登陆！',
     success: true
-  }
-```  
+  }```  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -185,30 +159,24 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 <a name="Padchat+getWxData"></a>
 
 ### padchat.getWxData() ⇒ <code>Promise.&lt;object&gt;</code>
-获取设备62数据
-
-**WARN: ** 如果使用62数据进行登陆，再获取到的62数据是无效的，一定不要用。
-事实上，只要你有一次登陆成功，以后一直用这个62数据，不需要更换。
+获取设备62数据**WARN: ** 如果使用62数据进行登陆，再获取到的62数据是无效的，一定不要用。事实上，只要你有一次登陆成功，以后一直用这个62数据，不需要更换。
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     error: '', success: true,
     data : 
       {
         wxData: '62xxxxx'  //设备62数据
       }
-  }
-```  
+  }```  
 <a name="Padchat+getLoginToken"></a>
 
 ### padchat.getLoginToken() ⇒ <code>Promise.&lt;object&gt;</code>
 获取二次登陆数据
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     error  : '',
     success: true,
@@ -219,13 +187,11 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
         token  : 'xxxx',   //二次登陆token
         uin    : 14900000  //微信号uin，唯一值
       }
-  }
-```  
+  }```  
 <a name="Padchat+syncContact"></a>
 
 ### padchat.syncContact() ⇒ <code>Promise.&lt;object&gt;</code>
-同步通讯录
-**WARN: ** 调用此接口后，会再次接收到前一段时间内的消息推送，需自行处理过滤。
+同步通讯录**WARN: ** 调用此接口后，会再次接收到前一段时间内的消息推送，需自行处理过滤。
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch  
@@ -242,8 +208,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 发送文字信息
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     error: '', success: true,
     data : {
@@ -251,8 +216,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
       msgId  : '5172746684759824075',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -263,9 +227,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 <a name="Padchat+massMsg"></a>
 
 ### padchat.massMsg([userList], content) ⇒ <code>Promise.&lt;object&gt;</code>
-群发文字信息
-
-FIXME: 此接口有问题，暂停使用
+群发文字信息FIXME: 此接口有问题，暂停使用
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch  
@@ -281,8 +243,7 @@ FIXME: 此接口有问题，暂停使用
 发送App消息
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     error: '', success: true,
     data : {
@@ -290,8 +251,7 @@ FIXME: 此接口有问题，暂停使用
       msgId  : '2195811529497100215',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -310,8 +270,7 @@ FIXME: 此接口有问题，暂停使用
 分享名片
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     error: '', success: true,
     data : {
@@ -319,8 +278,7 @@ FIXME: 此接口有问题，暂停使用
       msgId  : '1797099903789182796',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -334,8 +292,7 @@ FIXME: 此接口有问题，暂停使用
 发送图片消息
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     error: '', success: true,
     data : {
@@ -343,8 +300,7 @@ FIXME: 此接口有问题，暂停使用
       msgId  : '1797099903789182796',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -354,12 +310,10 @@ FIXME: 此接口有问题，暂停使用
 <a name="Padchat+sendVoice"></a>
 
 ### padchat.sendVoice(toUserName, file) ⇒ <code>Promise.&lt;object&gt;</code>
-发送语音消息
-注意：只能发送silk格式的语音文件
+发送语音消息注意：只能发送silk格式的语音文件
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     error: '', success: true,
     data : {
@@ -369,8 +323,7 @@ FIXME: 此接口有问题，暂停使用
       size   : 0,
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -380,13 +333,10 @@ FIXME: 此接口有问题，暂停使用
 <a name="Padchat+getMsgImage"></a>
 
 ### padchat.getMsgImage(rawMsgData) ⇒ <code>Promise.&lt;object&gt;</code>
-获取消息原始图片
-
-在push事件中收到的data数据是缩略图图片数据，使用本接口获取原图数据
+获取消息原始图片在push事件中收到的data数据是缩略图图片数据，使用本接口获取原图数据
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -396,8 +346,7 @@ FIXME: 此接口有问题，暂停使用
         size   : 8139,            //图片数据尺寸
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -406,13 +355,10 @@ FIXME: 此接口有问题，暂停使用
 <a name="Padchat+getMsgVideo"></a>
 
 ### padchat.getMsgVideo(rawMsgData) ⇒ <code>Promise.&lt;object&gt;</code>
-获取消息原始视频
-
-在push事件中只获得推送通知，不包含视频数据，需要使用本接口获取视频文件数据
+获取消息原始视频在push事件中只获得推送通知，不包含视频数据，需要使用本接口获取视频文件数据
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -422,8 +368,7 @@ FIXME: 此接口有问题，暂停使用
         status : 0,
         video  : 'base64_xxxx'  //base64编码的视频数据
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -432,13 +377,10 @@ FIXME: 此接口有问题，暂停使用
 <a name="Padchat+getMsgVoice"></a>
 
 ### padchat.getMsgVoice(rawMsgData) ⇒ <code>Promise.&lt;object&gt;</code>
-获取消息语音数据
-
-这个接口获取到的与push事件中接收到的数据一致，是base64编码的silk格式语音数据
+获取消息语音数据这个接口获取到的与push事件中接收到的数据一致，是base64编码的silk格式语音数据
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -448,8 +390,7 @@ FIXME: 此接口有问题，暂停使用
         status : 0,
         voice  : 'base64_xxxx'  //base64编码的语音数据
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -458,14 +399,10 @@ FIXME: 此接口有问题，暂停使用
 <a name="Padchat+createRoom"></a>
 
 ### padchat.createRoom(userList) ⇒ <code>Promise.&lt;object&gt;</code>
-创建群
-
-注意：如果有用户存在问题不能进群，则会建群失败。
-但判断是否成功应以`userName`字段
+创建群注意：如果有用户存在问题不能进群，则会建群失败。但判断是否成功应以`userName`字段
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -474,8 +411,7 @@ FIXME: 此接口有问题，暂停使用
         status  : 0,
         userName: '5658541000@chatroom'  //如果建群成功，则返回群id
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -487,8 +423,7 @@ FIXME: 此接口有问题，暂停使用
 获取群成员信息
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -508,8 +443,7 @@ FIXME: 此接口有问题，暂停使用
         status  : 0,
         userName: '5658541000@chatroom'  //群id
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -521,16 +455,14 @@ FIXME: 此接口有问题，暂停使用
 添加群成员
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: 'Everything is OK',   //失败为`MemberList are wrong`
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -540,20 +472,17 @@ FIXME: 此接口有问题，暂停使用
 <a name="Padchat+inviteRoomMember"></a>
 
 ### padchat.inviteRoomMember(groupId, userId) ⇒ <code>Promise.&lt;object&gt;</code>
-邀请群成员
-会给对方发送一条邀请消息，无法判断对方是否真的接收到
+邀请群成员会给对方发送一条邀请消息，无法判断对方是否真的接收到
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -566,16 +495,14 @@ FIXME: 此接口有问题，暂停使用
 删除群成员
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -588,16 +515,14 @@ FIXME: 此接口有问题，暂停使用
 退出群
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -609,16 +534,14 @@ FIXME: 此接口有问题，暂停使用
 设置群公告
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -631,16 +554,14 @@ FIXME: 此接口有问题，暂停使用
 设置群名称
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -653,8 +574,7 @@ FIXME: 此接口有问题，暂停使用
 获取微信群二维码
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -664,8 +584,7 @@ FIXME: 此接口有问题，暂停使用
         qrCode : '',                            //进群二维码图片base64
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -674,11 +593,10 @@ FIXME: 此接口有问题，暂停使用
 <a name="Padchat+getContact"></a>
 
 ### padchat.getContact(userId) ⇒ <code>Promise.&lt;object&gt;</code>
-获取用户信息
+获取用户/群信息
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch微信用户/公众号返回：```
   {
     success: true,
     data   : 
@@ -704,22 +622,49 @@ FIXME: 此接口有问题，暂停使用
         ticket         : 'v2_xxx@stranger',              //用户v2码，如果非空则为单向好友(非对方好友)
         userName       : 'binxxx'                        //用户wxid
       }
-  }
-```  
+  }```微信群返回: ```
+  {
+    success: true,
+    data   : {
+      city           : '',
+      country        : '',
+      intro          : '',
+      label          : '',
+      member         : [],                            //群成员wxid数组
+      message        : '',
+      provincia      : '',
+      remark         : '',
+      sex            : 0,
+      signature      : '',
+      status         : 0,
+      stranger       : 'v1_xxx@stranger',
+      ticket         : '',
+      bigHead        : '',
+      chatroomId     : 700001234,
+      chatroomOwner  : 'wxid_xxx',
+      maxMemberCount : 500,                           //群最大人数
+      memberCount    : 377,                           //群当前人数
+      nickName       : 'Wechaty Developers\' Home',   //群名称
+      pyInitial      : 'WECHATYDEVELOPERSHOME',
+      quanPin        : 'WechatyDevelopersHome',
+      remarkPyInitial: '',
+      remarkQuanPin  : '',
+      smallHead      : 'http://wx.qlogo.cn/xxx/0',    //群头像url
+      userName       : '1234567890@chatroom'
+    }
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| userId | <code>string</code> | 用户wxid |
+| userId | <code>string</code> | 用户wxid/群id |
 
 <a name="Padchat+searchContact"></a>
 
 ### padchat.searchContact(userId) ⇒ <code>Promise.&lt;object&gt;</code>
-搜索用户
-可用此接口来判断是否已经加对方为好友
+搜索用户可用此接口来判断是否已经加对方为好友
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -739,8 +684,7 @@ FIXME: 此接口有问题，暂停使用
         stranger : 'v1_xxx@stranger',              //好友为空，非好友显示v2码
         userName : 'binxxx'                        //是自己好友显示wxid，非好友为v1码
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -752,16 +696,14 @@ FIXME: 此接口有问题，暂停使用
 删除好友
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -770,12 +712,10 @@ FIXME: 此接口有问题，暂停使用
 <a name="Padchat+getContactQrcode"></a>
 
 ### padchat.getContactQrcode(userId, style) ⇒ <code>Promise.&lt;object&gt;</code>
-获取用户二维码
-仅限获取自己的二维码，无法获取其他人的二维码
+获取用户二维码仅限获取自己的二维码，无法获取其他人的二维码
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -785,8 +725,7 @@ FIXME: 此接口有问题，暂停使用
         qrCode : '',   //二维码图片base64
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -799,16 +738,14 @@ FIXME: 此接口有问题，暂停使用
 通过好友验证
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -821,42 +758,36 @@ FIXME: 此接口有问题，暂停使用
 添加好友
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0    //如果对方设置了验证，会返回-44
     }
-  }
-```  
+  }```  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | stranger | <code>string</code> |  | 用户stranger数据 |
 | ticket | <code>string</code> |  | 用户ticket数据 |
-| type | <code>Number</code> | <code>3</code> | 添加好友途径   × 值 | 说明   × ----|----   x 0 | 通过微信号搜索   × 1 | 搜索QQ号   x 3 | 通过微信号搜索   × 4 | 通过QQ好友添加   × 5 | 通过朋友验证消息   × 8 | 通过群聊   × 10 | 通过手机通讯录添加   × 12 | 来自QQ好友   × 13 | 通过手机通讯录添加   × 14 | 通过群聊   × 15 | 通过搜索手机号   × 17 | 通过名片分享           //未验证   × 22 | 通过摇一摇打招呼方式    //未验证   × 25 | 通过漂流瓶             //未验证   × 30 | 通过二维码方式         //未验证 |
+| type | <code>Number</code> | <code>3</code> | 添加好友途径   × 值 | 说明   × ----|----   x 0 | 通过微信号搜索   × 1 | 搜索QQ号   x 3 | 通过微信号搜索   × 4 | 通过QQ好友添加   × 8 | 通过群聊   × 12 | 来自QQ好友   × 14 | 通过群聊   × 15 | 通过搜索手机号   × 17 | 通过名片分享           //未验证   × 22 | 通过摇一摇打招呼方式    //未验证   × 25 | 通过漂流瓶             //未验证   × 30 | 通过二维码方式         //未验证 |
 | [content] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | 验证信息 |
 
 <a name="Padchat+sayHello"></a>
 
 ### padchat.sayHello(stranger, ticket, content) ⇒ <code>Promise.&lt;object&gt;</code>
-打招呼
-如果已经是好友，会收到由系统自动发送，来自对方的一条文本信息
-“xx已通过你的朋友验证请求，现在可以开始聊天了”
+打招呼如果已经是好友，会收到由系统自动发送，来自对方的一条文本信息“xx已通过你的朋友验证请求，现在可以开始聊天了”
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -870,16 +801,14 @@ FIXME: 此接口有问题，暂停使用
 设置备注
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -892,8 +821,7 @@ FIXME: 此接口有问题，暂停使用
 设置头像
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
     {
       success: true,
       data   : 
@@ -905,8 +833,7 @@ FIXME: 此接口有问题，暂停使用
           smallHead: 'http://wx.qlogo.cn/mmhead/ver_1/xxx/132',
           status   : 0
         }
-    }
-```  
+    }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -915,12 +842,10 @@ FIXME: 此接口有问题，暂停使用
 <a name="Padchat+snsUpload"></a>
 
 ### padchat.snsUpload(file) ⇒ <code>Promise.&lt;object&gt;</code>
-上传图片到朋友圈
-NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
+上传图片到朋友圈NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
     {
       success: true,
       data   : 
@@ -932,8 +857,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
           smallHead: 'http://mmsns.qpic.cn/mmsns/xxx/150',
           status   : 0
         }
-    }
-```  
+    }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -945,16 +869,14 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 操作朋友圈
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -969,8 +891,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 发朋友圈
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -987,8 +908,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
         message: '',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1000,8 +920,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 查看用户朋友圈
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1019,8 +938,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
         page   : '81cb2ad01ebc219f',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1033,8 +951,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 查看朋友圈动态
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1052,8 +969,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
         page   : '81cb2ad01ebc219f',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1065,8 +981,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 获取朋友圈信息详情
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
@@ -1074,8 +989,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1087,8 +1001,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 评论朋友圈
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
@@ -1096,8 +1009,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1111,8 +1023,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 朋友圈点赞
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
@@ -1120,8 +1031,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1134,8 +1044,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 同步收藏消息
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1155,8 +1064,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
         message: '',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1180,8 +1088,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 获取收藏消息详情
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1207,8 +1114,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
         message: '',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1220,8 +1126,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 删除收藏
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1240,8 +1145,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
         message: '',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1253,8 +1157,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 获取所有标签
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1267,24 +1170,21 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
         message: '',
         status : 0
       }
-  }
-```  
+  }```  
 <a name="Padchat+addLabel"></a>
 
 ### padchat.addLabel(label) ⇒ <code>Promise.&lt;object&gt;</code>
 添加标签
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1296,16 +1196,14 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 删除标签
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1317,16 +1215,14 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 设置用户标签
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1339,8 +1235,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 查看转账消息
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1378,8 +1273,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
         message: '',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1391,8 +1285,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 接受转账
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1409,8 +1302,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
         message: '',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1422,8 +1314,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 接收红包
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1456,8 +1347,7 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
         message: '',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1466,13 +1356,10 @@ NOTE: 此接口只能上传图片，并不会将图片发到朋友圈中
 <a name="Padchat+queryRedPacket"></a>
 
 ### padchat.queryRedPacket(rawMsgData, [index]) ⇒ <code>Promise.&lt;object&gt;</code>
-查看红包信息
-NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取到红包信息
+查看红包信息NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取到红包信息
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-未先接收红包返回结果：
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch未先接收红包返回结果：```
   {
     success: true,
     data   : 
@@ -1487,11 +1374,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
         message: '',
         status : 0
       }
-  }
-```
-
-接收红包后查询结果：
-```
+  }```接收红包后查询结果：```
   {
     success: true,
     data   : 
@@ -1563,8 +1446,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
         message: '',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1577,9 +1459,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
 领取红包
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-已领取过红包：
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch已领取过红包：```
   {
     success: true,
     data   : 
@@ -1591,11 +1471,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
         message: '',
         status : 0
       }
-  }
-```
-
-未领取过的红包：
-```
+  }```未领取过的红包：```
   {
     success: true,
     data   : 
@@ -1655,8 +1531,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
         message: '',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1669,8 +1544,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
 搜索公众号
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1774,8 +1648,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
         offset : 20,
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1787,8 +1660,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
 获取公众号信息
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1879,8 +1751,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
         message: ' ',
         status : 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1892,16 +1763,14 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
 操作公众号菜单
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : {
       message: '',
       status : 0
     }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1915,8 +1784,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
 获取网页访问授权
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1933,8 +1801,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
         shareUrl:   //分享url
         'http://mp.weixin.qq.com/s/QiB3FPE6fJmV6asvvxIkvA'
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1947,8 +1814,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
 访问网页
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
-**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch
-```
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
     data   : 
@@ -1958,8 +1824,7 @@ NOTE: 如果是别人发的红包，未领取且未领取完毕时，无法取�
           'HTTP/1.1 200 OK\r\nContent-Security-Policy: script-src \'self\' \'unsafe-inline\' \'unsafe-eval\' http://*.qq.com https://*.qq.com http://*.weishi.com https://*.weishi.com xxxxxxxxxxxxxxxxxxxxxxxxxxx',
         status: 0
       }
-  }
-```  
+  }```  
 
 | Param | Type | Description |
 | --- | --- | --- |

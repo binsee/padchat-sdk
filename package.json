@@ -1,12 +1,14 @@
 {
   "name": "padchat-sdk",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "padchat的本地服务器开发包",
   "main": "index.js",
   "scripts": {
     "start": "node demo",
     "doc": "node scripts/docVer.js >nul && jsdoc2md index.js >> docs/index.md",
-    "eslint": "eslint {define,helper,index,demo}.js"
+    "eslint": "eslint {define,helper,index,demo}.js",
+    "release": "standard-version --skip.tag -a --scripts.postbump \"npm run doc && git add docs/index.md\"",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "author": "binsee",
   "license": "ISC",
