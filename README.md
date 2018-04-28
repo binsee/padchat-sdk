@@ -1,5 +1,7 @@
 # Padchat-SDK
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/binsee/padchat-sdk.svg)](https://greenkeeper.io/)
+
 <!-- TOC -->
 
 - [说明](#说明)
