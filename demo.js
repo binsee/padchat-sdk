@@ -202,25 +202,42 @@ wx
       // 输出除联系人以外的推送信息
       dLog.info('push: \n%o', data)
     }
+    let rawFile
     switch (data.mType) {
       case 2: 
         logger.info('收到推送联系人：', data.nickName)
         break
 
       case 3: 
-        logger.info('收到来自 %s 的图片消息', data.fromUser)
+        logger.info('收到来自 %s 的图片消息，包含图片数据：%s，xml内容：\n%s', data.fromUser, !!data.data, data.content)
+        rawFile = data.data || null
+        logger.info('图片缩略图数据base64尺寸：%d', rawFile.length)
         await wx.getMsgImage(data)
           .then(ret => {
-            logger.info('获取消息原始图片结果：', ret.data)
+            rawFile = ret.data.image || ''
+            logger.info('获取消息原始图片结果：%s, 获得图片base64尺寸：%d', ret.success, rawFile.length)
+          })
+        logger.info('图片数据base64尺寸：%d', rawFile.length)
+        await wx.sendImage('filehelper', rawFile)
+          .then(ret => {
+            logger.info('转发图片信息给 %s 结果：', 'filehelper', ret)
+          })
+          .catch(e => {
+            logger.warn('转发图片信息异常:', e.message)
           })
         break
 
       case 43: 
-        logger.info('收到来自 %s 的视频消息', data.fromUser)
-        await wx.getMsgVideo(data)
-          .then(ret => {
-            logger.info('获取消息原始视频结果：', ret.data)
-          })
+        logger.info('收到来自 %s 的视频消息，包含视频数据：%s，xml内容：\n%s', data.fromUser, !!data.data, data.content)
+        rawFile = data.data || null
+        if (!rawFile) {
+          await wx.getMsgVideo(data)
+            .then(ret => {
+              rawFile = ret.data.video || ''
+              logger.info('获取消息原始视频结果：%s, 获得视频base64尺寸：%d', ret.success, rawFile.length)
+            })
+        }
+        logger.info('视频数据base64尺寸：%d', rawFile.length)
         break
 
       case 1: 
@@ -245,18 +262,28 @@ wx
         break
 
       case 34: 
-        logger.info('收到来自 %s 的语言消息，现在转发给文件传输助手', data.fromUser)
-        await wx.sendVoice('filehelper', data.data)
+        logger.info('收到来自 %s 的语音消息，包含语音数据：%s，xml内容：\n%s', data.fromUser, !!data.data, data.content)
+        // 超过30Kb的语音数据不会包含在推送信息中，需要主动拉取
+        rawFile = data.data || null
+        if (!rawFile) {
+          // BUG: 超过60Kb的语音数据，只能拉取到60Kb，也就是说大约36~40秒以上的语音会丢失后边部分语音内容
+          await wx.getMsgVoice(data)
+            .then(ret => {
+                    rawFile = ret.data.voice || ''
+              const match   = data.content.match(/length="(\d+)" voicelength="(\d+)"/) || []
+              const length  = match[1] || 0
+              const ms      = match[2] || 0
+              logger.info('获取消息原始语音结果：%s, 获得语音base64尺寸：%d', ret.success, rawFile.length)
+              logger.info('语音数据语音长度：%d ms，xml内记录尺寸：%d，拉取到数据尺寸：%d', ms, length, ret.data.size)
+            })
+        }
+        logger.info('语音数据base64尺寸：%d', rawFile.length)
+        await wx.sendVoice('filehelper', rawFile)
           .then(ret => {
-            logger.info('转发语音信息给%s 结果：', data.fromUser, ret)
+            logger.info('转发语音信息给 %s 结果：', 'filehelper', ret)
           })
           .catch(e => {
             logger.warn('转发语音信息异常:', e.message)
-          })
-
-        await wx.getMsgVoice(data)
-          .then(ret => {
-            logger.info('获取消息原始语音结果：', ret.data)
           })
         break
 
