@@ -1,4 +1,4 @@
-# Padchat Sdk v0.4.2 Documentation
+# Padchat Sdk v0.4.3 Documentation
 
 <a name="Padchat"></a>
 
@@ -48,7 +48,7 @@
         * [.snsSendMoment(content)](#Padchat+snsSendMoment) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.snsUserPage(userId, [momentId])](#Padchat+snsUserPage) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.snsTimeline([momentId])](#Padchat+snsTimeline) ⇒ <code>Promise.&lt;object&gt;</code>
-        * [.snsGetobject(momentId)](#Padchat+snsGetobject) ⇒ <code>Promise.&lt;object&gt;</code>
+        * [.snsGetObject(momentId)](#Padchat+snsGetObject) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.snsComment(userId, momentId, content)](#Padchat+snsComment) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.snsLike(userId, momentId)](#Padchat+snsLike) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.syncFav([favKey])](#Padchat+syncFav) ⇒ <code>Promise.&lt;object&gt;</code>
@@ -377,7 +377,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 <a name="Padchat+getMsgVoice"></a>
 
 ### padchat.getMsgVoice(rawMsgData) ⇒ <code>Promise.&lt;object&gt;</code>
-获取消息语音数据这个接口获取到的与push事件中接收到的数据一致，是base64编码的silk格式语音数据
+获取消息语音数据这个接口获取到的与push事件中接收到的数据一致，是base64编码的silk格式语音数据BUG: 超过60Kb的语音数据，只能拉取到60Kb，也就是说大约36~40秒以上的语音会丢失后边部分语音内容
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
@@ -912,7 +912,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 
 | Param | Type | Description |
 | --- | --- | --- |
-| content | <code>string</code> | 内容文本 |
+| content | <code>string</code> | 文本内容或`Timelineobject`结构体文本 |
 
 <a name="Padchat+snsUserPage"></a>
 
@@ -975,9 +975,9 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 | --- | --- | --- | --- |
 | [momentId] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | 朋友圈信息id 首次传入空即获取第一页，以后传入上次拉取的最后一条信息id |
 
-<a name="Padchat+snsGetobject"></a>
+<a name="Padchat+snsGetObject"></a>
 
-### padchat.snsGetobject(momentId) ⇒ <code>Promise.&lt;object&gt;</code>
+### padchat.snsGetObject(momentId) ⇒ <code>Promise.&lt;object&gt;</code>
 获取朋友圈信息详情
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  

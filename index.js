@@ -559,6 +559,8 @@ class Padchat extends EventEmitter {
   *
   * 这个接口获取到的与push事件中接收到的数据一致，是base64编码的silk格式语音数据
   *
+  * BUG: 超过60Kb的语音数据，只能拉取到60Kb，也就是说大约36~40秒以上的语音会丢失后边部分语音内容
+  *
   * @param {object} rawMsgData - 推送的消息结构体，即`push`事件中收到的Object
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * ```
@@ -1189,7 +1191,7 @@ class Padchat extends EventEmitter {
   /**
   * 发朋友圈
   *
-  * @param {string} content - 内容文本
+  * @param {string} content - 文本内容或`Timelineobject`结构体文本
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * ```
   {
@@ -1305,8 +1307,8 @@ class Padchat extends EventEmitter {
   * ```
   * @memberof Padchat
   */
-  async snsGetobject(momentId) {
-    return await this.sendCmd('snsGetobject', {
+  async snsGetObject(momentId) {
+    return await this.sendCmd('snsGetObject', {
       momentId,
     })
   }
