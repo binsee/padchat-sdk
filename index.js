@@ -1307,8 +1307,8 @@ class Padchat extends EventEmitter {
   * ```
   * @memberof Padchat
   */
-  async snsGetobject(momentId) {
-    return await this.sendCmd('snsGetobject', {
+  async snsGetObject(momentId) {
+    return await this.sendCmd('snsGetObject', {
       momentId,
     })
   }
