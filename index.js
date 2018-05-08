@@ -1191,7 +1191,7 @@ class Padchat extends EventEmitter {
   /**
   * 发朋友圈
   *
-  * @param {string} content - 内容文本
+  * @param {string} content - 文本内容或`Timelineobject`结构体文本
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * ```
   {
