@@ -373,7 +373,7 @@ wx
 
 async function onMsg(data) {
   const content        = data.content.replace(/^[\w:\n]*#/m, '')
-  let   [cmd, ...args] = content.split(' ')
+  let   [cmd, ...args] = content.split('\n')
 
   args = args.map(str => {
     try {
