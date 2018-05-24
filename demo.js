@@ -37,7 +37,7 @@ const autoData = {
 }
 let server = ''
     server = 'ws://127.0.0.1:7777'
-// server = 'ws://52.80.182.103:7777'
+// server = 'ws://52.80.188.251:7777'
 
 try {
   const tmpBuf          = fs.readFileSync('./config.json')
@@ -69,7 +69,22 @@ wx
     }
     logger.info('新建任务成功, json: ', ret)
 
+    //先尝试使用断线重连方式登陆
     if (autoData.token) {
+      ret = await wx.login('token', autoData)
+      if (ret.success) {
+        logger.info('断线重连成功！', ret)
+        return
+      }
+      logger.warn('断线重连失败！', ret)
+
+      // 断线重连失败会自动关闭任务实例，需要重新初始化
+      ret = await wx.init()
+      if (!ret.success) {
+        logger.error('重新初始化失败！', ret)
+        return
+      }
+
       ret = await wx.login('request', autoData)
       if (ret.success) {
         logger.info('自动登录成功！', ret)
@@ -92,6 +107,8 @@ wx
       qrcode.generate(data.url, { small: false })
       return
     }
+    // 如果服务端解析二维码失败，则没有url字段
+    // qrCode字段为获取到的登陆二维码图片数据
     if (!data.qrCode) {
       logger.error('没有在数据中获得登陆二维码！', data)
       return
@@ -101,32 +118,55 @@ wx
   })
   .on('scan', data => {
     switch (data.status) {
-      case 0: 
+      case 0:
         logger.info('等待扫码...', data)
         break;
-      case 1: 
+      case 1:
+        // {
+        //   status     : 1,
+        //   expiredTime: 239,
+        //   headUrl    : 'http://wx.qlogo.cn/mmhead/ver_1/xxxxxxx/0', //头像url
+        //   nickName   : '木匠' //昵称
+        // }
         logger.info('已扫码，请在手机端确认登陆...', data)
         break;
-      case 2: 
+      case 2:
+        // {
+        //   password   : '***hide***',   // 可忽略
+        //   status     : 2,
+        //   expiredTime: 238,
+        //   headUrl    : 'http://wx.qlogo.cn/mmhead/ver_1/xxxxxxx/0',  //头像url
+        //   subStatus  : 0               // 登陆操作状态码
+        //   以下字段仅在登录成功时有效
+        //   external   : '1',
+        //   email      : '',
+        //   uin        : 149806460,      // 微信账号uin，全局唯一
+        //   deviceType : 'android',      // 登陆的主设备类型
+        //   nickName   : '木匠'          //昵称
+        //   userName   : 'wxid_xxxxxx',  // 微信账号id，全局唯一
+        //   phoneNumber: '18012345678',  // 微信账号绑定的手机号
+        // }
         switch (data.subStatus) {
-          case 0: 
+          case 0:
             logger.info('扫码成功！登陆成功！', data)
             break;
-          case 1: 
+          case 1:
             logger.info('扫码成功！登陆失败！', data)
             break;
-          default: 
+          default:
             logger.info('扫码成功！未知状态码！', data)
             break;
         }
         break;
-      case 3: 
-        logger.info('二维码已过期！', data)
+      // 如果等待登陆超时或手机上点击了取消登陆，需要重新调用登陆
+      case 3:
+        logger.info('二维码已过期！请重新调用登陆接口！', data)
         break;
-      case 4: 
-        logger.info('手机端已取消登陆！', data)
+      case 4:
+        logger.info('手机端已取消登陆！请重新调用登陆接口！', data)
         break;
-      default: 
+      default:
+        logger.warn('未知登陆状态！请重新调用登陆接口！', data)
         break;
     }
   })
@@ -204,11 +244,11 @@ wx
     }
     let rawFile
     switch (data.mType) {
-      case 2: 
+      case 2:
         logger.info('收到推送联系人：', data.nickName)
         break
 
-      case 3: 
+      case 3:
         logger.info('收到来自 %s 的图片消息，包含图片数据：%s，xml内容：\n%s', data.fromUser, !!data.data, data.content)
         rawFile = data.data || null
         logger.info('图片缩略图数据base64尺寸：%d', rawFile.length)
@@ -227,7 +267,7 @@ wx
           })
         break
 
-      case 43: 
+      case 43:
         logger.info('收到来自 %s 的视频消息，包含视频数据：%s，xml内容：\n%s', data.fromUser, !!data.data, data.content)
         rawFile = data.data || null
         if (!rawFile) {
@@ -240,7 +280,7 @@ wx
         logger.info('视频数据base64尺寸：%d', rawFile.length)
         break
 
-      case 1: 
+      case 1:
         if (data.fromUser === 'newsapp') { // 腾讯新闻发的信息太长
           break
         }
@@ -261,7 +301,7 @@ wx
         }
         break
 
-      case 34: 
+      case 34:
         logger.info('收到来自 %s 的语音消息，包含语音数据：%s，xml内容：\n%s', data.fromUser, !!data.data, data.content)
         // 超过30Kb的语音数据不会包含在推送信息中，需要主动拉取
         rawFile = data.data || null
@@ -287,7 +327,7 @@ wx
           })
         break
 
-      case 49: 
+      case 49:
 
         if (data.content.indexOf('<![CDATA[微信红包]]>') > 0) {
           logger.info('收到来自 %s 的红包：', data.fromUser, data)
@@ -347,7 +387,7 @@ wx
         }
         break
 
-      case 10002: 
+      case 10002:
         if (data.fromUser === 'weixin') {
           //每次登陆，会收到一条系统垃圾推送，过滤掉
           break
@@ -355,7 +395,7 @@ wx
         logger.info('用户 %s 撤回了一条消息：', data.fromUser, data)
         break
 
-      default: 
+      default:
         logger.info('收到推送消息：', data)
         break
     }
