@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.4"></a>
+## [0.4.4](https://github.com/binsee/padchat-sdk/compare/v0.4.0...v0.4.4) (2018-05-24)
+
+
+### Bug Fixes
+
+* 修复接口名称错误 ([98245fa](https://github.com/binsee/padchat-sdk/commit/98245fa))
+* 增加解析push联系人事件中的群成员列表 ([8547c97](https://github.com/binsee/padchat-sdk/commit/8547c97))
+
+
+
 <a name="0.4.3"></a>
 ## [0.4.3](https://github.com/binsee/padchat-sdk/compare/v0.4.0...v0.4.3) (2018-05-08)
 
