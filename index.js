@@ -240,7 +240,7 @@ class Padchat extends EventEmitter {
     }
 
     switch (type) {
-      case 'token'  : 
+      case 'token':
       case 'request':
         if (!data.token || !data.wxData) {
           throw new Error('login data error!')
@@ -1971,10 +1971,10 @@ class Padchat extends EventEmitter {
                             titleKey: '__mp_wording__brandinfo_history_massmsg'
                           }]
                       },
-                    docID       : '3074120833',
+                    docID: '3074120833',
                     externalInfo:
                       {
-                        Appid      : 'wx06441a33a2a67de4',
+                        Appid: 'wx06441a33a2a67de4',
                         BindWxaInfo:
                           {
                             wxaEntryInfo:
@@ -2103,11 +2103,11 @@ class Padchat extends EventEmitter {
                 buttonList     :
                   [
                     {
-                      id           : 425306837,
-                      type         : 0,
-                      name         : '产品体验',
-                      key          : 'rselfmenu_2',
-                      value        : '',
+                      id   : 425306837,
+                      type : 0,
+                      name : '产品体验',
+                      key  : 'rselfmenu_2',
+                      value: '',
                       subButtonList:
                         [{
                           id           : 425306837,
@@ -2121,9 +2121,9 @@ class Padchat extends EventEmitter {
                       nativeUrl: ''
                     }]
               },
-            nickName      : '腾讯',
-            pyInitial     : 'TX',
-            quanPin       : 'tengxun',
+            nickName : '腾讯',
+            pyInitial: 'TX',
+            quanPin  : 'tengxun',
             registerSource:
               {
                 registerBody: '深圳市腾讯计算机系统有限公司',
