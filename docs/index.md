@@ -1,4 +1,4 @@
-# Padchat Sdk v0.4.4 Documentation
+# Padchat Sdk v0.5.0 Documentation
 
 <a name="Padchat"></a>
 
@@ -14,7 +14,7 @@
         * [.login(type, data)](#Padchat+login) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.getWxData()](#Padchat+getWxData) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.getLoginToken()](#Padchat+getLoginToken) ⇒ <code>Promise.&lt;object&gt;</code>
-        * [.syncContact()](#Padchat+syncContact) ⇒ <code>Promise.&lt;object&gt;</code>
+        * [.syncContact([reset])](#Padchat+syncContact) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.logout()](#Padchat+logout) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.sendMsg(toUserName, content, [atList])](#Padchat+sendMsg) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.massMsg([userList], content)](#Padchat+massMsg) ⇒ <code>Promise.&lt;object&gt;</code>
@@ -165,7 +165,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     error: '', success: true,
-    data : 
+    data :
       {
         wxData: '62xxxxx'  //设备62数据
       }
@@ -180,7 +180,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
   {
     error  : '',
     success: true,
-    data   : 
+    data   :
       {
         message: '',
         status : 0,
@@ -190,11 +190,16 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
   }```  
 <a name="Padchat+syncContact"></a>
 
-### padchat.syncContact() ⇒ <code>Promise.&lt;object&gt;</code>
-同步通讯录**WARN: ** 调用此接口后，会再次接收到前一段时间内的消息推送，需自行处理过滤。
+### padchat.syncContact([reset]) ⇒ <code>Promise.&lt;object&gt;</code>
+同步通讯录使用此接口可以触发同步通讯录，如果设置`reset`为`true`，则会强制同步通讯录。但会再次接收到前一段时间内的消息推送，需自行处理过滤。
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [reset] | <code>boolean</code> | <code>false</code> | 是否重置同步状态 |
+
 <a name="Padchat+logout"></a>
 
 ### padchat.logout() ⇒ <code>Promise.&lt;object&gt;</code>
@@ -339,7 +344,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         image  : 'base64_xxxx',   //base64编码的原图数据
         message: '',
@@ -361,7 +366,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         message: '',
         size   : 160036,        //视频数据尺寸
@@ -383,7 +388,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         message: '',
         size   : 2490,          //语音数据尺寸
@@ -405,7 +410,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         message : 'Everything is OK',    //操作结果提示，失败为`MemberList are wrong`
         status  : 0,
@@ -426,7 +431,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         chatroomId: 700000001,
         count     : 3,           //群成员数量
@@ -577,7 +582,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         footer : '该二维码7天内(4月13日前)有效，重新进入将更新',
         message: '',
@@ -599,7 +604,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch微信用户/公众号返回：```
   {
     success: true,
-    data   : 
+    data   :
       {
         bigHead        : 'http://wx.qlogo.cn/xxx/0',     //大头像url
         city           : 'mesa',                         //城市
@@ -622,7 +627,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
         ticket         : 'v2_xxx@stranger',              //用户v2码，如果非空则为单向好友(非对方好友)
         userName       : 'binxxx'                        //用户wxid
       }
-  }```微信群返回: ```
+  }```微信群返回:```
   {
     success: true,
     data   : {
@@ -667,7 +672,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         bigHead  : 'http://wx.qlogo.cn/xxx/0',     //大头像url
         city     : 'mesa',                         //城市
@@ -718,7 +723,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         footer : '',
         message: '',
@@ -824,7 +829,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
     {
       success: true,
-      data   : 
+      data   :
         {
           bigHead  : 'http://wx.qlogo.cn/mmhead/ver_1/xxx/0',
           data     : 1527,                                        //图片文件尺寸
@@ -848,7 +853,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
     {
       success: true,
-      data   : 
+      data   :
         {
           bigHead  : 'http://mmsns.qpic.cn/mmsns/xxx/0',
           data     : 1527,                                   //图片文件尺寸
@@ -894,9 +899,9 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
-        data: 
+        data:
           {
             create_time: 1523015689,
             description:              //朋友圈信息xml结构体文本
@@ -923,7 +928,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         count: 1,
         data :     //朋友圈信息结构数组（无评论和点赞数据）
@@ -954,7 +959,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         count: 1,
         data :     //朋友圈信息结构数组（无评论和点赞数据）
@@ -1047,7 +1052,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         continue: 0,
         data    :     //收藏消息列表，如果没有则为null
@@ -1091,9 +1096,9 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
-        data: 
+        data:
           [
             , {
               flag  : 0,   //收藏状态：0为有效，1为无效(已删除)
@@ -1129,9 +1134,9 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
-        data: 
+        data:
           [
             {
               flag  : 0,
@@ -1160,7 +1165,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         label:   //标签列表
           [{
@@ -1238,9 +1243,9 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
-        external: 
+        external:
           {
             retcode       : '0',
             retmsg        : 'ok',
@@ -1288,9 +1293,9 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
-        external: 
+        external:
           {
             fee     : 20,          //转账金额(单位为分)
             payer   : '085exxx',   //付款id
@@ -1317,7 +1322,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         external:   //扩展数据结构
           {
@@ -1362,7 +1367,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch未先接收红包返回结果：```
   {
     success: true,
-    data   : 
+    data   :
       {
         external:   //扩展数据
           {
@@ -1377,9 +1382,9 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
   }```接收红包后查询结果：```
   {
     success: true,
-    data   : 
+    data   :
       {
-        external: 
+        external:
           {
             retcode        : 0,
             retmsg         : 'ok',
@@ -1407,7 +1412,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
             canShare : 0,     //是否可分享
             hbKind   : 1,     //红包种类
             recAmount: 100,   //已领取金额(单位为分)
-            record   : 
+            record   :
               [
                 {
                   receiveAmount: 85,             //领取金额(单位为分)
@@ -1462,7 +1467,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch已领取过红包：```
   {
     success: true,
-    data   : 
+    data   :
       {
         external: {
           retcode: 268502336,
@@ -1474,9 +1479,9 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
   }```未领取过的红包：```
   {
     success: true,
-    data   : 
+    data   :
       {
-        external: 
+        external:
           {
             retcode        : 0,
             retmsg         : 'ok',
@@ -1498,7 +1503,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
             headTitle      : '领取2/3个',
             canShare       : 0,
             operationHeader: [],
-            record         : 
+            record         :
               [
                 {
                   receiveAmount: 1,
@@ -1547,10 +1552,10 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         code: 0,
-        info: 
+        info:
           {
             continueFlag: 1,   //仍有数据标志
             cookies     :      //cookie数据
@@ -1567,23 +1572,23 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
                   [{
                     aliasName: 'tencent',
                     brandFlag: 2,
-                    brandInfo: 
+                    brandInfo:
                       {
-                        urls: 
+                        urls:
                           [{
                             title: '查看历史消息',
-                            url  : 
+                            url  :
                               'http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MzA3NDEyMDgzMw==#wechat_webview_type=1&wechat_redirect',
                             titleKey: '__mp_wording__brandinfo_history_massmsg'
                           }]
                       },
-                    docID       : '3074120833',
-                    externalInfo: 
+                    docID: '3074120833',
+                    externalInfo:
                       {
-                        Appid      : 'wx06441a33a2a67de4',
-                        BindWxaInfo: 
+                        Appid: 'wx06441a33a2a67de4',
+                        BindWxaInfo:
                           {
-                            wxaEntryInfo: 
+                            wxaEntryInfo:
                               [{
                                 title   : '腾讯+',
                                 username: 'gh_3a5568e1268b@app',
@@ -1595,19 +1600,19 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
                         IsAgreeProtocol        : '1',
                         IsHideInputToolbarInMsg: '0',
                         IsShowHeadImgInMsg     : '1',
-                        RegisterSource         : 
+                        RegisterSource         :
                           {
-                            IntroUrl: 
+                            IntroUrl:
                               'http://mp.weixin.qq.com/mp/getverifyinfo?__biz=MzA3NDEyMDgzMw==&type=reg_info#wechat_redirect',
                             RegisterBody: '深圳市腾讯计算机系统有限公司'
                           },
                         RoleId        : '1',
                         ScanQRCodeType: 1,
                         ServiceType   : 0,
-                        VerifySource  : 
+                        VerifySource  :
                           {
                             Description: '深圳市腾讯计算机系统有限公司',
-                            IntroUrl   : 
+                            IntroUrl   :
                               'http://mp.weixin.qq.com/mp/getverifyinfo?__biz=MzA3NDEyMDgzMw==#wechat_webview_type=1&wechat_redirect',
                             Type         : 0,
                             VerifyBizType: 1
@@ -1663,17 +1668,17 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
-        info: 
+        info:
           {
             alias        : 'tencent',
             appid        : 'wx06441a33a2a67de4',
             bigHeadImgUrl: 'http://wx.qlogo.cn/mmhead/xxx/0',
             bindKFUin    : '0',
-            bindWxaInfo  : 
+            bindWxaInfo  :
               {
-                wxaEntryInfo: 
+                wxaEntryInfo:
                   [{
                     username: 'gh_3a5568e1268b@app',
                     title   : '腾讯+',
@@ -1683,9 +1688,9 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
               },
             bitMask     : '4294967295',
             brandIconURL: 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png',
-            brandInfo   : 
+            brandInfo   :
               {
-                urls: 
+                urls:
                   [{
                     title   : '查看历史消息',
                     url     : 'http://mp.weixin.qq.com/mp/getmasssendmsg?xxxx',
@@ -1697,21 +1702,21 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
             isAgreeProtocol        : '1',
             isHideInputToolbarInMsg: '0',
             isShowHeadImgInMsg     : '1',
-            mmBizMenu              : 
+            mmBizMenu              :
               {
                 uin            : 3074120833,
                 version        : 425306837,
                 interactiveMode: 2,
                 updateTime     : 1518401098,
-                buttonList     : 
+                buttonList     :
                   [
                     {
-                      id           : 425306837,
-                      type         : 0,
-                      name         : '产品体验',
-                      key          : 'rselfmenu_2',
-                      value        : '',
-                      subButtonList: 
+                      id   : 425306837,
+                      type : 0,
+                      name : '产品体验',
+                      key  : 'rselfmenu_2',
+                      value: '',
+                      subButtonList:
                         [{
                           id           : 425306837,
                           type         : 2,
@@ -1724,10 +1729,10 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
                       nativeUrl: ''
                     }]
               },
-            nickName      : '腾讯',
-            pyInitial     : 'TX',
-            quanPin       : 'tengxun',
-            registerSource: 
+            nickName : '腾讯',
+            pyInitial: 'TX',
+            quanPin  : 'tengxun',
+            registerSource:
               {
                 registerBody: '深圳市腾讯计算机系统有限公司',
                 introUrl    : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxxx'
@@ -1740,7 +1745,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
             userName       : 'gh_88b080670a71',
             verifyFlag     : '24',
             verifyInfo     : '深圳市腾讯计算机系统有限公司',
-            verifySource   : 
+            verifySource   :
               {
                 description  : '深圳市腾讯计算机系统有限公司',
                 introUrl     : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxx',
@@ -1787,9 +1792,9 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
-        info: 
+        info:
           {
             'X-WECHAT-KEY': 'xxxxxxxxxxxx',   //授权key
             'X-WECHAT-UIN': 'MTQ5ODA2NDYw'    //授权uin
@@ -1817,7 +1822,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
   {
     success: true,
-    data   : 
+    data   :
       {
         message : '',
         response:      //完整的访问结果原始数据文本（包含http头数据）
