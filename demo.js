@@ -37,7 +37,7 @@ const autoData = {
 }
 let server = ''
     server = 'ws://127.0.0.1:7777'
-// server = 'ws://52.80.188.251:7777'
+    server = 'ws://52.80.188.251:7777'
 
 try {
   const tmpBuf          = fs.readFileSync('./config.json')
