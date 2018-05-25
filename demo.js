@@ -37,7 +37,7 @@ const autoData = {
 }
 let server = ''
     server = 'ws://127.0.0.1:7777'
-// server = 'ws://52.80.188.251:7777'
+    server = 'ws://52.80.188.251:7777'
 
 try {
   const tmpBuf          = fs.readFileSync('./config.json')
@@ -173,6 +173,10 @@ wx
   .on('login', async () => {
     logger.info('微信账号登陆成功！')
     let ret
+
+    // 同步通讯录
+    await wx.syncContact()
+
     if (!autoData.wxData) {
       // 如果已经存在设备参数，则不再获取
       ret = await wx.getWxData()

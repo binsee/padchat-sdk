@@ -240,14 +240,14 @@ class Padchat extends EventEmitter {
     }
 
     switch (type) {
-      case 'token'  : 
-      case 'request': 
+      case 'token':
+      case 'request':
         if (!data.token || !data.wxData) {
           throw new Error('login data error!')
         }
         _data.token = data.token || null
         break
-      case 'phone': 
+      case 'phone':
         if (!data.phone) {
           // code
           throw new Error('login data error!')
@@ -255,14 +255,14 @@ class Padchat extends EventEmitter {
         _data.phone = data.phone
         _data.code  = data.code
         break
-      case 'user': 
+      case 'user':
         if (!data.username || !data.password) {
           throw new Error('login data error!')
         }
         _data.username = data.username
         _data.password = data.password
         break
-      default: 
+      default:
         break
     }
     _data.loginType = loginType[type]
@@ -279,7 +279,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     error: '', success: true,
-    data : 
+    data :
       {
         wxData: '62xxxxx'  //设备62数据
       }
@@ -299,7 +299,7 @@ class Padchat extends EventEmitter {
   {
     error  : '',
     success: true,
-    data   : 
+    data   :
       {
         message: '',
         status : 0,
@@ -316,13 +316,18 @@ class Padchat extends EventEmitter {
 
   /**
   * 同步通讯录
-  * **WARN: ** 调用此接口后，会再次接收到前一段时间内的消息推送，需自行处理过滤。
   *
+  * 使用此接口可以触发同步通讯录，如果设置`reset`为`true`，则会强制同步通讯录。
+  * 但会再次接收到前一段时间内的消息推送，需自行处理过滤。
+  *
+  * @param {boolean} [reset=false] 是否重置同步状态
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * @memberof Padchat
   */
-  async syncContact() {
-    return await this.sendCmd('syncContact', {})
+  async syncContact(reset = false) {
+    return await this.sendCmd('syncContact', {
+      reset
+    })
   }
 
   /**
@@ -509,7 +514,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         image  : 'base64_xxxx',   //base64编码的原图数据
         message: '',
@@ -536,7 +541,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         message: '',
         size   : 160036,        //视频数据尺寸
@@ -566,7 +571,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         message: '',
         size   : 2490,          //语音数据尺寸
@@ -594,7 +599,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         message : 'Everything is OK',    //操作结果提示，失败为`MemberList are wrong`
         status  : 0,
@@ -618,7 +623,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         chatroomId: 700000001,
         count     : 3,           //群成员数量
@@ -796,7 +801,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         footer : '该二维码7天内(4月13日前)有效，重新进入将更新',
         message: '',
@@ -825,7 +830,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         bigHead        : 'http://wx.qlogo.cn/xxx/0',     //大头像url
         city           : 'mesa',                         //城市
@@ -851,7 +856,7 @@ class Padchat extends EventEmitter {
   }
   * ```
   *
-  * 微信群返回: 
+  * 微信群返回:
   *
   * ```
   {
@@ -902,7 +907,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         bigHead  : 'http://wx.qlogo.cn/xxx/0',     //大头像url
         city     : 'mesa',                         //城市
@@ -961,7 +966,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         footer : '',
         message: '',
@@ -1105,7 +1110,7 @@ class Padchat extends EventEmitter {
   * ```
     {
       success: true,
-      data   : 
+      data   :
         {
           bigHead  : 'http://wx.qlogo.cn/mmhead/ver_1/xxx/0',
           data     : 1527,                                        //图片文件尺寸
@@ -1138,7 +1143,7 @@ class Padchat extends EventEmitter {
   * ```
     {
       success: true,
-      data   : 
+      data   :
         {
           bigHead  : 'http://mmsns.qpic.cn/mmsns/xxx/0',
           data     : 1527,                                   //图片文件尺寸
@@ -1196,9 +1201,9 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
-        data: 
+        data:
           {
             create_time: 1523015689,
             description:              //朋友圈信息xml结构体文本
@@ -1230,7 +1235,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         count: 1,
         data :     //朋友圈信息结构数组（无评论和点赞数据）
@@ -1265,7 +1270,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         count: 1,
         data :     //朋友圈信息结构数组（无评论和点赞数据）
@@ -1376,7 +1381,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         continue: 0,
         data    :     //收藏消息列表，如果没有则为null
@@ -1424,9 +1429,9 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
-        data: 
+        data:
           [
             , {
               flag  : 0,   //收藏状态：0为有效，1为无效(已删除)
@@ -1465,9 +1470,9 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
-        data: 
+        data:
           [
             {
               flag  : 0,
@@ -1500,7 +1505,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         label:   //标签列表
           [{
@@ -1596,9 +1601,9 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
-        external: 
+        external:
           {
             retcode       : '0',
             retmsg        : 'ok',
@@ -1649,9 +1654,9 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
-        external: 
+        external:
           {
             fee     : 20,          //转账金额(单位为分)
             payer   : '085exxx',   //付款id
@@ -1681,7 +1686,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         external:   //扩展数据结构
           {
@@ -1733,7 +1738,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         external:   //扩展数据
           {
@@ -1752,9 +1757,9 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
-        external: 
+        external:
           {
             retcode        : 0,
             retmsg         : 'ok',
@@ -1782,7 +1787,7 @@ class Padchat extends EventEmitter {
             canShare : 0,     //是否可分享
             hbKind   : 1,     //红包种类
             recAmount: 100,   //已领取金额(单位为分)
-            record   : 
+            record   :
               [
                 {
                   receiveAmount: 85,             //领取金额(单位为分)
@@ -1842,7 +1847,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         external: {
           retcode: 268502336,
@@ -1858,9 +1863,9 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
-        external: 
+        external:
           {
             retcode        : 0,
             retmsg         : 'ok',
@@ -1882,7 +1887,7 @@ class Padchat extends EventEmitter {
             headTitle      : '领取2/3个',
             canShare       : 0,
             operationHeader: [],
-            record         : 
+            record         :
               [
                 {
                   receiveAmount: 1,
@@ -1936,10 +1941,10 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         code: 0,
-        info: 
+        info:
           {
             continueFlag: 1,   //仍有数据标志
             cookies     :      //cookie数据
@@ -1956,23 +1961,23 @@ class Padchat extends EventEmitter {
                   [{
                     aliasName: 'tencent',
                     brandFlag: 2,
-                    brandInfo: 
+                    brandInfo:
                       {
-                        urls: 
+                        urls:
                           [{
                             title: '查看历史消息',
-                            url  : 
+                            url  :
                               'http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MzA3NDEyMDgzMw==#wechat_webview_type=1&wechat_redirect',
                             titleKey: '__mp_wording__brandinfo_history_massmsg'
                           }]
                       },
-                    docID       : '3074120833',
-                    externalInfo: 
+                    docID: '3074120833',
+                    externalInfo:
                       {
-                        Appid      : 'wx06441a33a2a67de4',
-                        BindWxaInfo: 
+                        Appid: 'wx06441a33a2a67de4',
+                        BindWxaInfo:
                           {
-                            wxaEntryInfo: 
+                            wxaEntryInfo:
                               [{
                                 title   : '腾讯+',
                                 username: 'gh_3a5568e1268b@app',
@@ -1984,19 +1989,19 @@ class Padchat extends EventEmitter {
                         IsAgreeProtocol        : '1',
                         IsHideInputToolbarInMsg: '0',
                         IsShowHeadImgInMsg     : '1',
-                        RegisterSource         : 
+                        RegisterSource         :
                           {
-                            IntroUrl: 
+                            IntroUrl:
                               'http://mp.weixin.qq.com/mp/getverifyinfo?__biz=MzA3NDEyMDgzMw==&type=reg_info#wechat_redirect',
                             RegisterBody: '深圳市腾讯计算机系统有限公司'
                           },
                         RoleId        : '1',
                         ScanQRCodeType: 1,
                         ServiceType   : 0,
-                        VerifySource  : 
+                        VerifySource  :
                           {
                             Description: '深圳市腾讯计算机系统有限公司',
-                            IntroUrl   : 
+                            IntroUrl   :
                               'http://mp.weixin.qq.com/mp/getverifyinfo?__biz=MzA3NDEyMDgzMw==#wechat_webview_type=1&wechat_redirect',
                             Type         : 0,
                             VerifyBizType: 1
@@ -2055,17 +2060,17 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
-        info: 
+        info:
           {
             alias        : 'tencent',
             appid        : 'wx06441a33a2a67de4',
             bigHeadImgUrl: 'http://wx.qlogo.cn/mmhead/xxx/0',
             bindKFUin    : '0',
-            bindWxaInfo  : 
+            bindWxaInfo  :
               {
-                wxaEntryInfo: 
+                wxaEntryInfo:
                   [{
                     username: 'gh_3a5568e1268b@app',
                     title   : '腾讯+',
@@ -2075,9 +2080,9 @@ class Padchat extends EventEmitter {
               },
             bitMask     : '4294967295',
             brandIconURL: 'http://mmbiz.qpic.cn/mmbiz_png/xxx/0?wx_fmt=png',
-            brandInfo   : 
+            brandInfo   :
               {
-                urls: 
+                urls:
                   [{
                     title   : '查看历史消息',
                     url     : 'http://mp.weixin.qq.com/mp/getmasssendmsg?xxxx',
@@ -2089,21 +2094,21 @@ class Padchat extends EventEmitter {
             isAgreeProtocol        : '1',
             isHideInputToolbarInMsg: '0',
             isShowHeadImgInMsg     : '1',
-            mmBizMenu              : 
+            mmBizMenu              :
               {
                 uin            : 3074120833,
                 version        : 425306837,
                 interactiveMode: 2,
                 updateTime     : 1518401098,
-                buttonList     : 
+                buttonList     :
                   [
                     {
-                      id           : 425306837,
-                      type         : 0,
-                      name         : '产品体验',
-                      key          : 'rselfmenu_2',
-                      value        : '',
-                      subButtonList: 
+                      id   : 425306837,
+                      type : 0,
+                      name : '产品体验',
+                      key  : 'rselfmenu_2',
+                      value: '',
+                      subButtonList:
                         [{
                           id           : 425306837,
                           type         : 2,
@@ -2116,10 +2121,10 @@ class Padchat extends EventEmitter {
                       nativeUrl: ''
                     }]
               },
-            nickName      : '腾讯',
-            pyInitial     : 'TX',
-            quanPin       : 'tengxun',
-            registerSource: 
+            nickName : '腾讯',
+            pyInitial: 'TX',
+            quanPin  : 'tengxun',
+            registerSource:
               {
                 registerBody: '深圳市腾讯计算机系统有限公司',
                 introUrl    : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxxx'
@@ -2132,7 +2137,7 @@ class Padchat extends EventEmitter {
             userName       : 'gh_88b080670a71',
             verifyFlag     : '24',
             verifyInfo     : '深圳市腾讯计算机系统有限公司',
-            verifySource   : 
+            verifySource   :
               {
                 description  : '深圳市腾讯计算机系统有限公司',
                 introUrl     : 'http://mp.weixin.qq.com/mp/getverifyinfo?xxx',
@@ -2188,9 +2193,9 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
-        info: 
+        info:
           {
             'X-WECHAT-KEY': 'xxxxxxxxxxxx',   //授权key
             'X-WECHAT-UIN': 'MTQ5ODA2NDYw'    //授权uin
@@ -2223,7 +2228,7 @@ class Padchat extends EventEmitter {
   * ```
   {
     success: true,
-    data   : 
+    data   :
       {
         message : '',
         response:      //完整的访问结果原始数据文本（包含http头数据）
@@ -2401,7 +2406,7 @@ function onWsMsg(msg) {
 
   let hasOn
   switch (data.type) {
-    case 'cmdRet': 
+    case 'cmdRet':
       if (data.type === 'cmdRet' && data.cmdId) {
         hasOn = this.emit('RET#' + data.cmdId, data)
         if (!hasOn) {
@@ -2410,9 +2415,9 @@ function onWsMsg(msg) {
       }
       break;
 
-    case 'userEvent': 
+    case 'userEvent':
       switch (data.event) {
-        case 'warn': 
+        case 'warn':
           // 如果success字段为true，则为不严重的问题
           this.emit('warn', new Error('服务器返回错误提示：' + data.error), data.success)
           break
@@ -2425,7 +2430,7 @@ function onWsMsg(msg) {
         case 'sns'   :   // 朋友圈事件：新评论
           this.emit(data.event, data.data || {}, data.msg)
           break
-        case 'push': 
+        case 'push':
           if (!data.data || !Array.isArray(data.data.list) || data.data.list.length <= 0) {
             this.emit('error', new Error('推送数据异常！'))
             break
@@ -2449,12 +2454,12 @@ function onWsMsg(msg) {
             this.emit('push', item)
           })
           break
-        default: 
+        default:
           this.emit('other', data)
           break
       }
       break
-    default: 
+    default:
       this.emit('other', data)
       break;
   }
