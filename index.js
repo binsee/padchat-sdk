@@ -315,6 +315,27 @@ class Padchat extends EventEmitter {
   }
 
   /**
+  * 获取微信号信息
+  *
+  * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
+  * ```
+  {
+    error  : '',
+    success: true,
+    data:
+      {
+        userName: 'wxid_xxxx',   //微信号id，注意不一定是微信号，全局唯一
+        uin     : 101234567      //微信号uin，全局唯一
+      }
+  }
+  * ```
+  * @memberof Padchat
+  */
+  async getMyInfo() {
+    return await this.sendCmd('getMyInfo')
+  }
+
+  /**
   * 同步通讯录
   *
   * 使用此接口可以触发同步通讯录，如果设置`reset`为`true`，则会强制同步通讯录。

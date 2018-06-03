@@ -174,6 +174,9 @@ wx
     logger.info('微信账号登陆成功！')
     let ret
 
+    ret = await wx.getMyInfo()
+    logger.info('当前账号信息：', ret.data)
+
     // 同步通讯录
     await wx.syncContact()
 
