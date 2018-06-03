@@ -252,7 +252,7 @@ wx
     let rawFile
     switch (data.mType) {
       case 2:
-        logger.info('收到推送联系人：', data.nickName)
+        logger.info('收到推送联系人：%s - %s', data.userName, data.nickName)
         break
 
       case 3:
