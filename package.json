@@ -8,6 +8,9 @@
     "doc": "node scripts/docVer.js >nul && jsdoc2md index.js >> docs/index.md",
     "eslint": "eslint {define,helper,index,demo}.js",
     "release": "standard-version --skip.tag -a --scripts.postbump \"npm run doc && git add docs/index.md\"",
+    "release:major": "npm run release -- -r major",
+    "release:minor": "npm run release -- -r minor",
+    "release:patch": "npm run release -- -r patch",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "author": "binsee",
