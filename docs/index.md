@@ -1,4 +1,4 @@
-# Padchat Sdk v0.5.0 Documentation
+# Padchat Sdk v0.5.1 Documentation
 
 <a name="Padchat"></a>
 
@@ -14,6 +14,7 @@
         * [.login(type, data)](#Padchat+login) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.getWxData()](#Padchat+getWxData) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.getLoginToken()](#Padchat+getLoginToken) ⇒ <code>Promise.&lt;object&gt;</code>
+        * [.getMyInfo()](#Padchat+getMyInfo) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.syncContact([reset])](#Padchat+syncContact) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.logout()](#Padchat+logout) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.sendMsg(toUserName, content, [atList])](#Padchat+sendMsg) ⇒ <code>Promise.&lt;object&gt;</code>
@@ -186,6 +187,22 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
         status : 0,
         token  : 'xxxx',   //二次登陆token
         uin    : 14900000  //微信号uin，唯一值
+      }
+  }```  
+<a name="Padchat+getMyInfo"></a>
+
+### padchat.getMyInfo() ⇒ <code>Promise.&lt;object&gt;</code>
+获取微信号信息
+
+**Kind**: instance method of [<code>Padchat</code>](#Padchat)  
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
+  {
+    error  : '',
+    success: true,
+    data:
+      {
+        userName: 'wxid_xxxx',   //微信号id，注意不一定是微信号，全局唯一
+        uin     : 101234567      //微信号uin，全局唯一
       }
   }```  
 <a name="Padchat+syncContact"></a>

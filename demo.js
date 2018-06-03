@@ -174,6 +174,9 @@ wx
     logger.info('微信账号登陆成功！')
     let ret
 
+    ret = await wx.getMyInfo()
+    logger.info('当前账号信息：', ret.data)
+
     // 同步通讯录
     await wx.syncContact()
 
@@ -249,7 +252,7 @@ wx
     let rawFile
     switch (data.mType) {
       case 2:
-        logger.info('收到推送联系人：', data.nickName)
+        logger.info('收到推送联系人：%s - %s', data.userName, data.nickName)
         break
 
       case 3:
