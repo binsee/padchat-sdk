@@ -336,6 +336,19 @@ class Padchat extends EventEmitter {
   }
 
   /**
+  * 同步消息
+  *
+  * 使用此接口手动触发同步消息，一般用于刚登陆后调用，可立即开始同步消息。
+  * 否则会在有新消息时才开始同步消息。
+  *
+  * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
+  * @memberof Padchat
+  */
+  async syncMsg() {
+    return await this.sendCmd('syncMsg')
+  }
+
+  /**
   * 同步通讯录
   *
   * 使用此接口可以触发同步通讯录，如果设置`reset`为`true`，则会强制同步通讯录。
