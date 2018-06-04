@@ -1,4 +1,4 @@
-# Padchat Sdk v0.5.1 Documentation
+# Padchat Sdk v0.5.2 Documentation
 
 <a name="Padchat"></a>
 
@@ -15,6 +15,7 @@
         * [.getWxData()](#Padchat+getWxData) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.getLoginToken()](#Padchat+getLoginToken) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.getMyInfo()](#Padchat+getMyInfo) ⇒ <code>Promise.&lt;object&gt;</code>
+        * [.syncMsg()](#Padchat+syncMsg) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.syncContact([reset])](#Padchat+syncContact) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.logout()](#Padchat+logout) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.sendMsg(toUserName, content, [atList])](#Padchat+sendMsg) ⇒ <code>Promise.&lt;object&gt;</code>
@@ -205,10 +206,17 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
         uin     : 101234567      //微信号uin，全局唯一
       }
   }```  
+<a name="Padchat+syncMsg"></a>
+
+### padchat.syncMsg() ⇒ <code>Promise.&lt;object&gt;</code>
+同步消息使用此接口手动触发同步消息，一般用于刚登陆后调用，可立即开始同步消息。否则会在有新消息时才开始同步消息。
+
+**Kind**: instance method of [<code>Padchat</code>](#Padchat)  
+**Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch  
 <a name="Padchat+syncContact"></a>
 
 ### padchat.syncContact([reset]) ⇒ <code>Promise.&lt;object&gt;</code>
-同步通讯录使用此接口可以触发同步通讯录，如果设置`reset`为`true`，则会强制同步通讯录。但会再次接收到前一段时间内的消息推送，需自行处理过滤。
+同步通讯录使用此接口可以触发同步通讯录，如果设置`reset`为`true`，则会先重置同步状态。重置同步状态后，会再次接收到前一段时间内的消息推送，需自行处理过滤。
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch  
