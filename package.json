@@ -7,7 +7,7 @@
     "start": "node demo",
     "doc": "node scripts/docVer.js >nul && jsdoc2md index.js >> docs/index.md",
     "eslint": "eslint {define,helper,index,demo}.js",
-    "release": "standard-version --skip.tag -a --scripts.postbump \"npm run doc && git add docs/index.md\"",
+    "release": "standard-version -a --scripts.postbump \"npm run doc && git add docs/index.md\"",
     "release:major": "npm run release -- -r major",
     "release:minor": "npm run release -- -r minor",
     "release:patch": "npm run release -- -r patch",
