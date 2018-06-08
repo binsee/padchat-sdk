@@ -1,3 +1,17 @@
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="0.5.3"></a>
+## [0.5.3](https://github.com/binsee/padchat-sdk/compare/v0.5.2...v0.5.3) (2018-06-08)
+
+
+### Bug Fixes
+
+* 修复发送语音显示时间为1秒问题 ([dbb9b24](https://github.com/binsee/padchat-sdk/commit/dbb9b24))
+
+
+
 <a name="0.5.2"></a>
 ## [0.5.2](https://github.com/binsee/padchat-sdk/compare/v0.5.1...v0.5.2) (2018-06-04)
 
@@ -112,6 +126,3 @@
 ### Features
 
 * v0.1.0 ([613b2ae](https://github.com/binsee/padchat-sdk/commit/613b2ae))
-
-
-
