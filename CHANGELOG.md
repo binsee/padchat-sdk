@@ -2,51 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-<a name="0.5.2"></a>
-## [0.5.2](https://github.com/binsee/padchat-sdk/compare/v0.4.0...v0.5.2) (2018-06-04)
+<a name="0.5.3"></a>
+## [0.5.3](https://github.com/binsee/padchat-sdk/compare/v0.5.2...v0.5.3) (2018-06-08)
 
 
 ### Bug Fixes
 
-* 修复接口名称错误 ([98245fa](https://github.com/binsee/padchat-sdk/commit/98245fa))
-* 增加解析push联系人事件中的群成员列表 ([8547c97](https://github.com/binsee/padchat-sdk/commit/8547c97))
+* 修复发送语音显示时间为1秒问题 ([dbb9b24](https://github.com/binsee/padchat-sdk/commit/dbb9b24))
+
+
+
+<a name="0.5.2"></a>
+## [0.5.2](https://github.com/binsee/padchat-sdk/compare/v0.5.1...v0.5.2) (2018-06-04)
 
 
 ### Features
 
-* syncContact增加参数`reset`，明确是否强制同步 ([b298327](https://github.com/binsee/padchat-sdk/commit/b298327))
-* **demo:** 登陆成功后不再自动同步通讯录，根据需要调用syncContact来同步通讯录 ([a28f684](https://github.com/binsee/padchat-sdk/commit/a28f684))
-* 增加getMyInfo接口，用于获取当前微信号的wxid和uin ([e67fa16](https://github.com/binsee/padchat-sdk/commit/e67fa16))
 * 增加syncMsg接口，用于手动触发同步消息 ([2c0d488](https://github.com/binsee/padchat-sdk/commit/2c0d488))
 
 
 
 <a name="0.5.1"></a>
-## [0.5.1](https://github.com/binsee/padchat-sdk/compare/v0.4.0...v0.5.1) (2018-06-03)
-
-
-### Bug Fixes
-
-* 修复接口名称错误 ([98245fa](https://github.com/binsee/padchat-sdk/commit/98245fa))
-* 增加解析push联系人事件中的群成员列表 ([8547c97](https://github.com/binsee/padchat-sdk/commit/8547c97))
+## [0.5.1](https://github.com/binsee/padchat-sdk/compare/v0.5.0...v0.5.1) (2018-06-03)
 
 
 ### Features
 
-* syncContact增加参数`reset`，明确是否强制同步 ([b298327](https://github.com/binsee/padchat-sdk/commit/b298327))
-* **demo:** 登陆成功后不再自动同步通讯录，根据需要调用syncContact来同步通讯录 ([a28f684](https://github.com/binsee/padchat-sdk/commit/a28f684))
 * 增加getMyInfo接口，用于获取当前微信号的wxid和uin ([e67fa16](https://github.com/binsee/padchat-sdk/commit/e67fa16))
 
 
 
 <a name="0.5.0"></a>
-# [0.5.0](https://github.com/binsee/padchat-sdk/compare/v0.4.0...v0.5.0) (2018-05-25)
-
-
-### Bug Fixes
-
-* 修复接口名称错误 ([98245fa](https://github.com/binsee/padchat-sdk/commit/98245fa))
-* 增加解析push联系人事件中的群成员列表 ([8547c97](https://github.com/binsee/padchat-sdk/commit/8547c97))
+# [0.5.0](https://github.com/binsee/padchat-sdk/compare/v0.4.4...v0.5.0) (2018-05-25)
 
 
 ### Features
@@ -57,24 +44,17 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="0.4.4"></a>
-## [0.4.4](https://github.com/binsee/padchat-sdk/compare/v0.4.0...v0.4.4) (2018-05-24)
-
-
-### Bug Fixes
-
-* 修复接口名称错误 ([98245fa](https://github.com/binsee/padchat-sdk/commit/98245fa))
-* 增加解析push联系人事件中的群成员列表 ([8547c97](https://github.com/binsee/padchat-sdk/commit/8547c97))
+## [0.4.4](https://github.com/binsee/padchat-sdk/compare/v0.4.3...v0.4.4) (2018-05-24)
 
 
 
 <a name="0.4.3"></a>
-## [0.4.3](https://github.com/binsee/padchat-sdk/compare/v0.4.0...v0.4.3) (2018-05-08)
+## [0.4.3](https://github.com/binsee/padchat-sdk/compare/v0.4.2...v0.4.3) (2018-05-08)
 
 
 ### Bug Fixes
 
 * 修复接口名称错误 ([98245fa](https://github.com/binsee/padchat-sdk/commit/98245fa))
-* 增加解析push联系人事件中的群成员列表 ([8547c97](https://github.com/binsee/padchat-sdk/commit/8547c97))
 
 
 
@@ -146,6 +126,3 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * v0.1.0 ([613b2ae](https://github.com/binsee/padchat-sdk/commit/613b2ae))
-
-
-

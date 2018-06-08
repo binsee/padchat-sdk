@@ -177,7 +177,7 @@ wx
     ret = await wx.getMyInfo()
     logger.info('当前账号信息：', ret.data)
 
-    // 同步通讯录
+    // 主动同步通讯录
     await wx.syncContact()
 
     if (!autoData.wxData) {
@@ -212,6 +212,9 @@ wx
   .on('loaded', async () => {
     logger.info('通讯录同步完毕！')
 
+    // 主动触发同步消息
+    await wx.syncMsg()
+
     const ret = await wx.sendMsg('filehelper', '你登录了！')
     logger.info('发送信息结果：', ret)
   })
@@ -219,7 +222,7 @@ wx
     logger.info('收到朋友圈事件！请查看朋友圈新消息哦！', msg)
   })
   .on('push', async data => {
-    // 消息类型 data.msgType
+    // 消息类型 data.mType
     // 1  文字消息
     // 2  好友信息推送，包含好友，群，公众号信息
     // 3  收到图片消息
@@ -316,22 +319,26 @@ wx
           // BUG: 超过60Kb的语音数据，只能拉取到60Kb，也就是说大约36~40秒以上的语音会丢失后边部分语音内容
           await wx.getMsgVoice(data)
             .then(ret => {
-                    rawFile = ret.data.voice || ''
-              const match   = data.content.match(/length="(\d+)" voicelength="(\d+)"/) || []
-              const length  = match[1] || 0
-              const ms      = match[2] || 0
-              logger.info('获取消息原始语音结果：%s, 获得语音base64尺寸：%d', ret.success, rawFile.length)
-              logger.info('语音数据语音长度：%d ms，xml内记录尺寸：%d，拉取到数据尺寸：%d', ms, length, ret.data.size)
+              rawFile = ret.data.voice || ''
+              logger.info('获取消息原始语音结果：%s, 获得语音base64尺寸：%d，拉取到数据尺寸：%d', ret.success, rawFile.length, ret.data.size)
             })
         }
         logger.info('语音数据base64尺寸：%d', rawFile.length)
-        await wx.sendVoice('filehelper', rawFile)
-          .then(ret => {
-            logger.info('转发语音信息给 %s 结果：', 'filehelper', ret)
-          })
-          .catch(e => {
-            logger.warn('转发语音信息异常:', e.message)
-          })
+        if (rawFile.length > 0) {
+          let   match  = data.content.match(/length="(\d+)"/) || []
+          const length = match[1] || 0
+                match  = data.content.match(/voicelength="(\d+)"/) || []
+          const ms     = match[1] || 0
+          logger.info('语音数据语音长度：%d ms，xml内记录尺寸：%d', ms, length)
+
+          await wx.sendVoice('filehelper', rawFile, ms)
+            .then(ret => {
+              logger.info('转发语音信息给 %s 结果：', 'filehelper', ret)
+            })
+            .catch(e => {
+              logger.warn('转发语音信息异常:', e.message)
+            })
+        }
         break
 
       case 49:
