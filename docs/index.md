@@ -1,4 +1,4 @@
-# Padchat Sdk v0.5.2 Documentation
+# Padchat Sdk v0.5.3 Documentation
 
 <a name="Padchat"></a>
 
@@ -23,7 +23,7 @@
         * [.sendAppMsg(toUserName, object)](#Padchat+sendAppMsg) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.shareCard(toUserName, content, userId)](#Padchat+shareCard) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.sendImage(toUserName, file)](#Padchat+sendImage) ⇒ <code>Promise.&lt;object&gt;</code>
-        * [.sendVoice(toUserName, file)](#Padchat+sendVoice) ⇒ <code>Promise.&lt;object&gt;</code>
+        * [.sendVoice(toUserName, file, time)](#Padchat+sendVoice) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.getMsgImage(rawMsgData)](#Padchat+getMsgImage) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.getMsgVideo(rawMsgData)](#Padchat+getMsgVideo) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.getMsgVoice(rawMsgData)](#Padchat+getMsgVoice) ⇒ <code>Promise.&lt;object&gt;</code>
@@ -339,7 +339,7 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 
 <a name="Padchat+sendVoice"></a>
 
-### padchat.sendVoice(toUserName, file) ⇒ <code>Promise.&lt;object&gt;</code>
+### padchat.sendVoice(toUserName, file, time) ⇒ <code>Promise.&lt;object&gt;</code>
 发送语音消息注意：只能发送silk格式的语音文件
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
@@ -355,10 +355,11 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
     }
   }```  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| toUserName | <code>string</code> | 接收者的wxid |
-| file | <code>Buffer</code> \| <code>string</code> | 语音Buffer数据或base64 |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| toUserName | <code>string</code> |  | 接收者的wxid |
+| file | <code>Buffer</code> \| <code>string</code> |  | 语音Buffer数据或base64 |
+| time | <code>number</code> | <code>0</code> | 语音时间，单位为毫秒 |
 
 <a name="Padchat+getMsgImage"></a>
 
