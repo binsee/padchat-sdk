@@ -317,21 +317,25 @@ wx
           await wx.getMsgVoice(data)
             .then(ret => {
                     rawFile = ret.data.voice || ''
-              const match   = data.content.match(/length="(\d+)" voicelength="(\d+)"/) || []
-              const length  = match[1] || 0
-              const ms      = match[2] || 0
-              logger.info('获取消息原始语音结果：%s, 获得语音base64尺寸：%d', ret.success, rawFile.length)
-              logger.info('语音数据语音长度：%d ms，xml内记录尺寸：%d，拉取到数据尺寸：%d', ms, length, ret.data.size)
+              logger.info('获取消息原始语音结果：%s, 获得语音base64尺寸：%d，拉取到数据尺寸：%d', ret.success, rawFile.length, ret.data.size)
             })
         }
         logger.info('语音数据base64尺寸：%d', rawFile.length)
-        await wx.sendVoice('filehelper', rawFile)
+        if (rawFile.length > 0) {
+          let   match  = data.content.match(/length="(\d+)"/) || []
+          const length = match[1] || 0
+                match  = data.content.match(/voicelength="(\d+)"/) || []
+          const ms     = match[1] || 0
+          logger.info('语音数据语音长度：%d ms，xml内记录尺寸：%d', ms, length)
+
+          await wx.sendVoice('filehelper', rawFile, ms)
           .then(ret => {
             logger.info('转发语音信息给 %s 结果：', 'filehelper', ret)
           })
           .catch(e => {
             logger.warn('转发语音信息异常:', e.message)
           })
+        }
         break
 
       case 49:

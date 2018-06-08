@@ -513,6 +513,7 @@ class Padchat extends EventEmitter {
   *
   * @param {string} toUserName - 接收者的wxid
   * @param {Buffer|string} file - 语音Buffer数据或base64
+  * @param {number} time - 语音时间，单位为毫秒
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * ```
   {
@@ -528,13 +529,14 @@ class Padchat extends EventEmitter {
   * ```
   * @memberof Padchat
   */
-  async sendVoice(toUserName, file) {
+  async sendVoice(toUserName, file, time = 0) {
     if (file instanceof Buffer) {
       file = file.toString('base64')
     }
     return await this.sendCmd('sendVoice', {
       toUserName,
       file,
+      time: time * 1
     })
   }
 
