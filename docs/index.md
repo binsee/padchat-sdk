@@ -1,4 +1,4 @@
-# Padchat Sdk v0.5.3 Documentation
+# Padchat Sdk v0.5.4 Documentation
 
 <a name="Padchat"></a>
 
