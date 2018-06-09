@@ -78,13 +78,6 @@ wx
       }
       logger.warn('断线重连失败！', ret)
 
-      // 断线重连失败会自动关闭任务实例，需要重新初始化
-      ret = await wx.init()
-      if (!ret.success) {
-        logger.error('重新初始化失败！', ret)
-        return
-      }
-
       ret = await wx.login('request', autoData)
       if (ret.success) {
         logger.info('自动登录成功！', ret)
