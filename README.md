@@ -41,8 +41,10 @@ Padchat开发包。通过websocket协议与运行在windows平台上的微信ipa
 | 设置好友备注         | setRemark           |
 | 设置头像             | setHeadImg          |
 | ~~设置个人资料~~     |                     | 暂不开放                              |
-| ~~主动同步通讯录~~   | syncContact         | 主动同步暂不可用                      |
+| 主动触发同步消息     | syncMsg             |                                       |
+| 主动同步通讯录       | syncContact         |                                       |
 | 获取用户二维码       | getContactQrcode    | 用于获取自己的二维码图片              |
+| 获取当前用户信息     | getMyInfo           | 用于获取当前微信号的wxid和uin         |
 | **群管理**           |
 | 创建群               | createRoom          |
 | 获取群成员           | getRoomMembers      |
@@ -149,63 +151,64 @@ API请求是以websocket协议发送的json数据，以下为json数据的字段
 
 此部分为请求API指令时，需要附加的data数据。根据使用的API不同，需要提供不同的字段及对应数据。
 
-| 字段名称         | 说明                      | 备注                                                |
-| :--------------: | ------------------------- | --------------------------------------------------- |
+| 字段名称         | 说明                       | 备注                                                |
+| :--------------: | -------------------------- | --------------------------------------------------- |
 | **登陆**         |
-| loginType        | 登陆类型                  | 支持扫码、帐号密码、手机验证码、二次登陆、断线重连  |
-| wxData           | 登陆设备数据              | 使用已登陆过的设备数据登录,可避免封号               |
-| token            | 二次登陆token             | 结合`wxData`使用可免扫码、帐号登陆                  |
-| **发送消息**     |                           |
-| toUserName       | 目标用户/群id             | 群id包含@chatroom部分                               |
-| content          | 文本内容                  | 文本消息内容、xml结构体文本、名片自定义标题         |
-|                  |                           | 添加好友时，为验证信息                              |
-| file             | 文件buffer的base64编码    | 发送图片/语音消息、上传头像、朋友圈上传图片         |
-| atList           | `Array`,要at的用户用户    | `["wxid1","wxid2"]` 文本消息时有效                  |
-| **群及好友管理** |                           |
-| roomName         | 群名称                    |
-| userIds          | `Array`,用户id列表数组    | `["wxid1","wxid2"]` 创建群                          |
-| chatroom         | 要操作的群id              |
-| remark           | 备注名称                  |
-| userId           | 用户wxid                  | 主动添加好友、好友验证、添加/邀请用户进入群         |
-| stranger         | V1码，相对加密的userId    | 接受好友请求(仅限stranger字段)                      |
-|                  |                           | 主动添加好友(也可使用`userId`字段)                  |
-| ticket           | V2码，好友请求中的ticket  | 添加单向好友、接受好友请求                          |
-| type             | `Number`,操作类型         | 添加好友来源、朋友圈操作类型                        |
+| loginType        | 登陆类型                   | 支持扫码、帐号密码、手机验证码、二次登陆、断线重连  |
+| wxData           | 登陆设备数据               | 使用已登陆过的设备数据登录,可避免封号               |
+| token            | 二次登陆token              | 结合`wxData`使用可免扫码、帐号登陆                  |
+| **发送消息**     |                            |
+| toUserName       | 目标用户/群id              | 群id包含@chatroom部分                               |
+| content          | 文本内容                   | 文本消息内容、xml结构体文本、名片自定义标题         |
+|                  |                            | 添加好友时，为验证信息                              |
+| file             | 文件buffer的base64编码     | 发送图片/语音消息、上传头像、朋友圈上传图片         |
+| time             | 语音的时间长度(单位为毫秒) | 发送语音消息                                        |
+| atList           | `Array`,要at的用户用户     | `["wxid1","wxid2"]` 文本消息时有效                  |
+| **群及好友管理** |                            |
+| roomName         | 群名称                     |
+| userIds          | `Array`,用户id列表数组     | `["wxid1","wxid2"]` 创建群                          |
+| chatroom         | 要操作的群id               |
+| remark           | 备注名称                   |
+| userId           | 用户wxid                   | 主动添加好友、好友验证、添加/邀请用户进入群         |
+| stranger         | V1码，相对加密的userId     | 接受好友请求(仅限stranger字段)                      |
+|                  |                            | 主动添加好友(也可使用`userId`字段)                  |
+| ticket           | V2码，好友请求中的ticket   | 添加单向好友、接受好友请求                          |
+| type             | `Number`,操作类型          | 添加好友来源、朋友圈操作类型                        |
 | **朋友圈**       |
-| momentId         | 朋友圈消息id              |
-| commentId        | `Number`,朋友圈评论id     |
-| commentType      | `Number`,朋友圈评论类型   |
+| momentId         | 朋友圈消息id               |
+| commentId        | `Number`,朋友圈评论id      |
+| commentType      | `Number`,朋友圈评论类型    |
 | **收藏**         |
-| favKey           | 收藏分页key               | 通过分页key来分页拉取收藏                           |
-| favId            | `Number`,收藏id           |
+| favKey           | 收藏分页key                | 通过分页key来分页拉取收藏                           |
+| favId            | `Number`,收藏id            |
 | **标签**         |
-| label            | 标签名称                  |
-| labelId          | 标签id                    |
+| label            | 标签名称                   |
+| labelId          | 标签id                     |
 | **红包**         |
-| index            | 红包信息分页索引,`n*11`   | 红包领取记录每页11条记录，`n*11`即获取第`n+1`页记录 |
-| key              | 红包领取key               |
+| index            | 红包信息分页索引,`n*11`    | 红包领取记录每页11条记录，`n*11`即获取第`n+1`页记录 |
+| key              | 红包领取key                |
 | **公众号**       |
-| ghName           | 公众号id,`gh_`开头        |
-| menuId           | `Number`,公众号菜单id     |
-| menuKey          | 公众号菜单key             |
-| url              | 网页url                   |
-| xKey             | 网页授权key               | 以公众号授权方式访问网页需要提供授权key             |
-| xUin             | 网页授权uin               | 以公众号授权方式访问网页需要提供授权uin             |
-| **其他**         |                           |
-| rawMsgData       | `Object`,push事件中的data | 用于接收红包、接收转账、获取原始图片                |
+| ghName           | 公众号id,`gh_`开头         |
+| menuId           | `Number`,公众号菜单id      |
+| menuKey          | 公众号菜单key              |
+| url              | 网页url                    |
+| xKey             | 网页授权key                | 以公众号授权方式访问网页需要提供授权key             |
+| xUin             | 网页授权uin                | 以公众号授权方式访问网页需要提供授权uin             |
+| **其他**         |                            |
+| rawMsgData       | `Object`,push事件中的data  | 用于接收红包、接收转账、获取原始图片                |
 
 ## DEMO
 
 使用`npm i padchat-sdk`安装sdk包
 
-使用以下方式引用:
+使用以下方式引用: （建议参考[demo.js](./demo.js)）
 
 ```javascript
 'use strict'
 
 const Padchat = require('padchat-sdk')
 const qrcode  = require('qrcode-terminal')
-const url     = 'ws://52.80.182.103:7777'
+const url     = 'ws://host:7777'
 const wx      = new Padchat(url)
 
 wx
