@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.4"></a>
+## [0.5.4](https://github.com/binsee/padchat-sdk/compare/v0.5.3...v0.5.4) (2018-06-09)
+
+
+### Bug Fixes
+
+* 断线重连登陆失败后，不需要重新初始化实例！ ([099e54f](https://github.com/binsee/padchat-sdk/commit/099e54f))
+
+
+
 <a name="0.5.3"></a>
 ## [0.5.3](https://github.com/binsee/padchat-sdk/compare/v0.5.2...v0.5.3) (2018-06-08)
 
