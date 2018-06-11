@@ -2455,7 +2455,7 @@ function onWsMsg(msg) {
       switch (data.event) {
         case 'warn':
           // 如果success字段为true，则为不严重的问题
-          this.emit('warn', new Error('服务器返回错误提示：' + data.error), data.success)
+          this.emit('warn', new Error('服务器返回错误提示：' + data.data.error), data.success)
           break
         case 'qrcode':   // 微信扫码登陆，推送二维码
         case 'scan'  :   // 微信账号扫码事件
@@ -2464,7 +2464,7 @@ function onWsMsg(msg) {
         case 'logout':   // 微信账号退出
         case 'over'  :   // 实例注销（账号不退出）
         case 'sns'   :   // 朋友圈事件：新评论
-          this.emit(data.event, data.data || {}, data.msg)
+          this.emit(data.event, data.data || {}, data.data.msg)
           break
         case 'push':
           if (!data.data || !Array.isArray(data.data.list) || data.data.list.length <= 0) {
