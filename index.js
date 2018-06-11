@@ -2403,42 +2403,45 @@ function onWsMsg(msg) {
 
   this.emit('msg', data)
   // TODO: 补充push数据格式
-  // 返回数据结果
-  // data = {
-  //   type  : 'cmdRet',                                 //返回数据包类型
-  //   cmdId : 'b61eb250-3770-11e8-b00f-595f9d4f3df0',   //请求id
-  //   taskId: '5',                                      //服务端返回当前实例的任务ID
-  //   data  :                                           //荷载数据，`push`类型无
-  //     {
-  //       error  : '',     //错误提示
-  //       msg    : '',     //其他提示信息
-  //       success: true,   //接口执行是否成功
-  //       data   :         //接口执行结果数据
-  //         {
-  //           message: '',
-  //           msgId  : '1284778244346778513',
-  //           status : 0
-  //         }
-  //     },
-  //   list:   // 仅`push`类型拥有，包含多个push结构数据
-  //     [
-  //       {
-  //         content    : '信息内容',                  //消息内容或xml结构体内容
-  //         continue   : 1,
-  //         description: '杉木 : 信息内容',             //描述内容
-  //         fromUser   : 'wxid_001',              //发信人
-  //         msgId      : '4032724472820776289',   //消息id
-  //         msgSource  : '',
-  //         msgType    : 5,                       //消息主类型，类型为5时则用子类型判断
-  //         status     : 1,
-  //         subType    : 1,                       //消息子类型
-  //         timestamp  : 1522921008,              //消息时间戳
-  //         toUser     : 'wxid_002',              //收件人
-  //         uin        : 149806460,               //用户uin，全局唯一
-  //         mType      : 1                        //消息类型。等同msgType，当msgType为5时，等同于subType
-  //       }
-  //     ],
-  // }
+
+  /**
+   * 返回数据结果:
+   data = {
+     type  : 'cmdRet',                                 //返回数据包类型
+     cmdId : 'b61eb250-3770-11e8-b00f-595f9d4f3df0',   //请求id
+     taskId: '5',                                      //服务端返回当前实例的任务ID
+     data  :                                           //荷载数据，`push`类型无
+     {
+       error  : '',     //错误提示
+       msg    : '',     //其他提示信息
+       success: true,   //接口执行是否成功
+       data   :         //接口执行结果数据
+       {
+         message: '',
+         msgId  : '1284778244346778513',
+         status : 0
+       },
+       list:   // 仅`push`类型拥有，包含多个push结构数据
+         [
+           {
+             content    : '信息内容',                  //消息内容或xml结构体内容
+             continue   : 1,
+             description: '杉木 : 信息内容',             //描述内容
+             fromUser   : 'wxid_001',              //发信人
+             msgId      : '4032724472820776289',   //消息id
+             msgSource  : '',
+             msgType    : 5,                       //消息主类型，类型为5时则用子类型判断
+             status     : 1,
+             subType    : 1,                       //消息子类型
+             timestamp  : 1522921008,              //消息时间戳
+             toUser     : 'wxid_002',              //收件人
+             uin        : 149801234,               //用户uin，全局唯一
+             mType      : 1                        //消息类型。等同msgType，当msgType为5时，等同于subType
+           }
+         ],
+     },
+   }
+   */
 
   let hasOn
   switch (data.type) {
