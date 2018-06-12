@@ -73,17 +73,17 @@ wx
     if (autoData.token) {
       ret = await wx.login('token', autoData)
       if (ret.success) {
-        logger.info('断线重连成功！', ret)
+        logger.info('断线重连请求成功！', ret)
         return
       }
-      logger.warn('断线重连失败！', ret)
+      logger.warn('断线重连请求失败！', ret)
 
       ret = await wx.login('request', autoData)
       if (ret.success) {
-        logger.info('自动登录成功！', ret)
+        logger.info('自动登录请求成功！', ret)
         return
       }
-      logger.warn('自动登录失败！', ret)
+      logger.warn('自动登录请求失败！', ret)
     }
 
     ret = await wx.login('qrcode')
@@ -182,7 +182,7 @@ wx
     Object.assign(autoData, { token: ret.data.token })
 
     // NOTE: 这里将设备参数保存到本地，以后再次登录此账号时提供相同参数
-    fs.writeFileSync('./config.json', JSON.stringify(autoData))
+    fs.writeFileSync('./config.json', JSON.stringify(autoData, null, 2))
     logger.info('设备参数已写入到 ./config.json文件')
   })
   .on('logout', ({ msg }) => {
