@@ -94,20 +94,9 @@ wx
     logger.info('使用qrcode登录模式！')
   })
   .on('qrcode', data => {
-    if (data.url) {
-      // 如果存在url，则直接在终端中生成二维码并显示
-      logger.info('登陆二维码如下，请使用微信扫码登陆!')
-      qrcode.generate(data.url, { small: false })
-      return
-    }
-    // 如果服务端解析二维码失败，则没有url字段
-    // qrCode字段为获取到的登陆二维码图片数据
-    if (!data.qrCode) {
-      logger.error('没有在数据中获得登陆二维码！', data)
-      return
-    }
-    fs.writeFileSync('./qrcode.jpg', Buffer.from(data.qrCode || '', 'base64'))
-    logger.info('登陆二维码已经写入到 ./qrcode.jpg，请打开扫码登陆！')
+    // 如果存在url，则直接在终端中生成二维码并显示
+    logger.info(`登陆二维码内容为: "${data.url}"，请使用微信扫描下方二维码登陆!`)
+    qrcode.generate(data.url, { small: false })
   })
   .on('scan', data => {
     switch (data.status) {
