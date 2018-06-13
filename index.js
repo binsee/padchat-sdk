@@ -53,18 +53,39 @@ class Padchat extends EventEmitter {
    */
   constructor(url = server) {
     super()
+    this.url    = url
     this._event = new EventEmitter()
     // 向ws服务器提交指令后，返回结果的超时时间，单位毫秒
     this.sendTimeout = 10 * 1000
+    this.connected   = false
+    this.ws          = {}
+    this.start()
+  }
 
-    this.ws = new Websocket(url)
-    this.ws
-      .on('message', msg => {
+  /**
+   * 启动websocket连接
+   *
+   * @memberof Padchat
+   */
+  async start() {
+    if (this.ws instanceof Websocket) {
+      this.ws.close()
+    }
+    this.ws = new Websocket(this.url)
+      .on('message', (msg) => {
         onWsMsg.call(this, msg)
       })
-      .on('open', () => { this.emit('open') })
-      .on('close', () => { this.emit('close') })
-      .on('error', e => { this.emit('error', e) })
+      .on('open', () => {
+        this.connected = true
+        this.emit('open')
+      })
+      .on('close', () => {
+        this.connected = false
+        this.emit('close')
+      })
+      .on('error', (e) => {
+        this.emit('error', e)
+      })
   }
 
   /**
@@ -77,6 +98,9 @@ class Padchat extends EventEmitter {
   */
   async _send(data) {
     return new Promise((resolve, reject) => {
+      if (!this.connected || !(this.ws instanceof Websocket)) {
+        reject('websocket未连接!')
+      }
       this.ws.send(JSON.stringify(data), e => {
         if (e) {
           reject(new Error(`ws发送数据失败! err: ${e.message}`))
