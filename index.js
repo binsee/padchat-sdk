@@ -56,9 +56,10 @@ class Padchat extends EventEmitter {
     this.url    = url
     this._event = new EventEmitter()
     // 向ws服务器提交指令后，返回结果的超时时间，单位毫秒
-    this.sendTimeout = 10 * 1000
-    this.connected   = false
-    this.ws          = {}
+    this.sendTimeout    = 10 * 1000
+    this.connected      = false
+    this._lastStartTime = 0
+    this.ws             = {}
     this.start()
   }
 
@@ -68,8 +69,13 @@ class Padchat extends EventEmitter {
    * @memberof Padchat
    */
   async start() {
-    if (this.ws instanceof Websocket) {
-      this.ws.close()
+    // 限制启动ws连接间隔时间
+    if (Date.now() - this._lastStartTime < 200) {
+      throw new Error('建立ws连接时间间隔过短!')
+    }
+    this._lastStartTime = Date.now()
+    if (this.ws instanceof Websocket && this.ws.readyState === this.ws.OPEN) {
+      this.ws.terminate()
     }
     this.ws = new Websocket(this.url)
       .on('message', (msg) => {
