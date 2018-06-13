@@ -264,14 +264,14 @@ class Padchat extends EventEmitter {
     }
 
     switch (type) {
-      case 'token':
-      case 'request':
+      case loginType.token:
+      case loginType.request:
         if (!data.token || !data.wxData) {
           throw new Error('login data error!')
         }
         _data.token = data.token || null
         break
-      case 'phone':
+      case loginType.phone:
         if (!data.phone) {
           // code
           throw new Error('login data error!')
@@ -279,7 +279,7 @@ class Padchat extends EventEmitter {
         _data.phone = data.phone
         _data.code  = data.code
         break
-      case 'user':
+      case loginType.user:
         if (!data.username || !data.password) {
           throw new Error('login data error!')
         }
@@ -2543,6 +2543,6 @@ function clearRawMsg(obj) {
 }
 
 
-Padchat.Padchat   = Padchat
+Padchat.loginType = loginType
 Padchat.blacklist = blacklist
 module.exports    = Padchat
