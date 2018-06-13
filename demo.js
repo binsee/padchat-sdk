@@ -409,7 +409,7 @@ wx
     }
   })
   .on('error', e => {
-    logger.error('ws 错误:', e)
+    logger.error('ws 错误:', e.message)
   })
   .on('warn', e => {
     logger.error('任务出现错误:', e.message)
