@@ -53,18 +53,39 @@ class Padchat extends EventEmitter {
    */
   constructor(url = server) {
     super()
+    this.url    = url
     this._event = new EventEmitter()
     // 向ws服务器提交指令后，返回结果的超时时间，单位毫秒
     this.sendTimeout = 10 * 1000
+    this.connected   = false
+    this.ws          = {}
+    this.start()
+  }
 
-    this.ws = new Websocket(url)
-    this.ws
-      .on('message', msg => {
+  /**
+   * 启动websocket连接
+   *
+   * @memberof Padchat
+   */
+  async start() {
+    if (this.ws instanceof Websocket) {
+      this.ws.close()
+    }
+    this.ws = new Websocket(this.url)
+      .on('message', (msg) => {
         onWsMsg.call(this, msg)
       })
-      .on('open', () => { this.emit('open') })
-      .on('close', () => { this.emit('close') })
-      .on('error', e => { this.emit('error', e) })
+      .on('open', () => {
+        this.connected = true
+        this.emit('open')
+      })
+      .on('close', () => {
+        this.connected = false
+        this.emit('close')
+      })
+      .on('error', (e) => {
+        this.emit('error', e)
+      })
   }
 
   /**
@@ -77,6 +98,9 @@ class Padchat extends EventEmitter {
   */
   async _send(data) {
     return new Promise((resolve, reject) => {
+      if (!this.connected || !(this.ws instanceof Websocket)) {
+        reject('websocket未连接!')
+      }
       this.ws.send(JSON.stringify(data), e => {
         if (e) {
           reject(new Error(`ws发送数据失败! err: ${e.message}`))
@@ -240,14 +264,14 @@ class Padchat extends EventEmitter {
     }
 
     switch (type) {
-      case 'token':
-      case 'request':
+      case loginType.token:
+      case loginType.request:
         if (!data.token || !data.wxData) {
           throw new Error('login data error!')
         }
         _data.token = data.token || null
         break
-      case 'phone':
+      case loginType.phone:
         if (!data.phone) {
           // code
           throw new Error('login data error!')
@@ -255,7 +279,7 @@ class Padchat extends EventEmitter {
         _data.phone = data.phone
         _data.code  = data.code
         break
-      case 'user':
+      case loginType.user:
         if (!data.username || !data.password) {
           throw new Error('login data error!')
         }
@@ -2403,42 +2427,45 @@ function onWsMsg(msg) {
 
   this.emit('msg', data)
   // TODO: 补充push数据格式
-  // 返回数据结果
-  // data = {
-  //   type  : 'cmdRet',                                 //返回数据包类型
-  //   cmdId : 'b61eb250-3770-11e8-b00f-595f9d4f3df0',   //请求id
-  //   taskId: '5',                                      //服务端返回当前实例的任务ID
-  //   data  :                                           //荷载数据，`push`类型无
-  //     {
-  //       error  : '',     //错误提示
-  //       msg    : '',     //其他提示信息
-  //       success: true,   //接口执行是否成功
-  //       data   :         //接口执行结果数据
-  //         {
-  //           message: '',
-  //           msgId  : '1284778244346778513',
-  //           status : 0
-  //         }
-  //     },
-  //   list:   // 仅`push`类型拥有，包含多个push结构数据
-  //     [
-  //       {
-  //         content    : '信息内容',                  //消息内容或xml结构体内容
-  //         continue   : 1,
-  //         description: '杉木 : 信息内容',             //描述内容
-  //         fromUser   : 'wxid_001',              //发信人
-  //         msgId      : '4032724472820776289',   //消息id
-  //         msgSource  : '',
-  //         msgType    : 5,                       //消息主类型，类型为5时则用子类型判断
-  //         status     : 1,
-  //         subType    : 1,                       //消息子类型
-  //         timestamp  : 1522921008,              //消息时间戳
-  //         toUser     : 'wxid_002',              //收件人
-  //         uin        : 149806460,               //用户uin，全局唯一
-  //         mType      : 1                        //消息类型。等同msgType，当msgType为5时，等同于subType
-  //       }
-  //     ],
-  // }
+
+  /**
+   * 返回数据结果:
+   data = {
+     type  : 'cmdRet',                                 //返回数据包类型
+     cmdId : 'b61eb250-3770-11e8-b00f-595f9d4f3df0',   //请求id
+     taskId: '5',                                      //服务端返回当前实例的任务ID
+     data  :                                           //荷载数据（以下字段名称为转换为小驼峰后的，原始数据为下划线分隔）
+     {
+       error  : '',     //错误提示
+       msg    : '',     //其他提示信息
+       success: true,   //接口执行是否成功
+       data   :         //接口执行结果数据，`push`类型无
+       {
+         message: '',
+         msgId  : '1284778244346778513',
+         status : 0
+       },
+       list:   // 仅`push`类型拥有，包含多个push结构数据
+         [
+           {
+             content    : '信息内容',                  //消息内容或xml结构体内容
+             continue   : 1,
+             description: '杉木 : 信息内容',             //描述内容
+             fromUser   : 'wxid_001',              //发信人
+             msgId      : '4032724472820776289',   //消息id
+             msgSource  : '',
+             msgType    : 5,                       //消息主类型，类型为5时则用子类型判断
+             status     : 1,
+             subType    : 1,                       //消息子类型
+             timestamp  : 1522921008,              //消息时间戳
+             toUser     : 'wxid_002',              //收件人
+             uin        : 149801234,               //用户uin，全局唯一
+             mType      : 1                        //消息类型。等同msgType，当msgType为5时，等同于subType
+           }
+         ],
+     },
+   }
+   */
 
   let hasOn
   switch (data.type) {
@@ -2455,7 +2482,7 @@ function onWsMsg(msg) {
       switch (data.event) {
         case 'warn':
           // 如果success字段为true，则为不严重的问题
-          this.emit('warn', new Error('服务器返回错误提示：' + data.error), data.success)
+          this.emit('warn', new Error('服务器返回错误提示：' + data.data.error), data.success)
           break
         case 'qrcode':   // 微信扫码登陆，推送二维码
         case 'scan'  :   // 微信账号扫码事件
@@ -2464,7 +2491,7 @@ function onWsMsg(msg) {
         case 'logout':   // 微信账号退出
         case 'over'  :   // 实例注销（账号不退出）
         case 'sns'   :   // 朋友圈事件：新评论
-          this.emit(data.event, data.data || {}, data.msg)
+          this.emit(data.event, data.data || {}, data.data.msg)
           break
         case 'push':
           if (!data.data || !Array.isArray(data.data.list) || data.data.list.length <= 0) {
@@ -2516,6 +2543,6 @@ function clearRawMsg(obj) {
 }
 
 
-Padchat.Padchat   = Padchat
+Padchat.loginType = loginType
 Padchat.blacklist = blacklist
 module.exports    = Padchat

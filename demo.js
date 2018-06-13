@@ -51,14 +51,26 @@ try {
 
 const wx = new Padchat(server)
 logger.info('当前连接接口服务器为：', server)
+let disconnectCount = 0      // 断开计数
+let connected       = false  // 成功连接标志
 
 wx
   .on('close', () => {
-    logger.info('与服务器连接断开！')
+    // 根据是否成功连接过判断本次是未能连接成功还是与服务器连接中断
+    if (connected) {
+      connected = false
+      disconnectCount++
+      logger.info(`第 ${disconnectCount} 次与服务器连接断开！现在将重试连接服务器。`)
+    } else {
+      logger.debug(`未能连接服务器！将重试连接服务器。`)
+    }
+    // 重新启动websocket连接
+    wx.start()
   })
   .on('open', async () => {
     let ret
     logger.info('连接成功!')
+    connected = true
 
     // 非首次登录时最好使用以前成功登录时使用的设备参数，
     // 否则可能会被tx服务器怀疑账号被盗，导致手机端被登出
@@ -73,17 +85,17 @@ wx
     if (autoData.token) {
       ret = await wx.login('token', autoData)
       if (ret.success) {
-        logger.info('断线重连成功！', ret)
+        logger.info('断线重连请求成功！', ret)
         return
       }
-      logger.warn('断线重连失败！', ret)
+      logger.warn('断线重连请求失败！', ret)
 
       ret = await wx.login('request', autoData)
       if (ret.success) {
-        logger.info('自动登录成功！', ret)
+        logger.info('自动登录请求成功！', ret)
         return
       }
-      logger.warn('自动登录失败！', ret)
+      logger.warn('自动登录请求失败！', ret)
     }
 
     ret = await wx.login('qrcode')
@@ -94,20 +106,9 @@ wx
     logger.info('使用qrcode登录模式！')
   })
   .on('qrcode', data => {
-    if (data.url) {
-      // 如果存在url，则直接在终端中生成二维码并显示
-      logger.info('登陆二维码如下，请使用微信扫码登陆!')
-      qrcode.generate(data.url, { small: false })
-      return
-    }
-    // 如果服务端解析二维码失败，则没有url字段
-    // qrCode字段为获取到的登陆二维码图片数据
-    if (!data.qrCode) {
-      logger.error('没有在数据中获得登陆二维码！', data)
-      return
-    }
-    fs.writeFileSync('./qrcode.jpg', Buffer.from(data.qrCode || '', 'base64'))
-    logger.info('登陆二维码已经写入到 ./qrcode.jpg，请打开扫码登陆！')
+    // 如果存在url，则直接在终端中生成二维码并显示
+    logger.info(`登陆二维码内容为: "${data.url}"，请使用微信扫描下方二维码登陆!`)
+    qrcode.generate(data.url, { small: false })
   })
   .on('scan', data => {
     switch (data.status) {
@@ -193,7 +194,7 @@ wx
     Object.assign(autoData, { token: ret.data.token })
 
     // NOTE: 这里将设备参数保存到本地，以后再次登录此账号时提供相同参数
-    fs.writeFileSync('./config.json', JSON.stringify(autoData))
+    fs.writeFileSync('./config.json', JSON.stringify(autoData, null, 2))
     logger.info('设备参数已写入到 ./config.json文件')
   })
   .on('logout', ({ msg }) => {
@@ -408,7 +409,7 @@ wx
     }
   })
   .on('error', e => {
-    logger.error('ws 错误:', e)
+    logger.error('ws 错误:', e.message)
   })
   .on('warn', e => {
     logger.error('任务出现错误:', e.message)
