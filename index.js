@@ -2434,12 +2434,12 @@ function onWsMsg(msg) {
      type  : 'cmdRet',                                 //返回数据包类型
      cmdId : 'b61eb250-3770-11e8-b00f-595f9d4f3df0',   //请求id
      taskId: '5',                                      //服务端返回当前实例的任务ID
-     data  :                                           //荷载数据，`push`类型无
+     data  :                                           //荷载数据（以下字段名称为转换为小驼峰后的，原始数据为下划线分隔）
      {
        error  : '',     //错误提示
        msg    : '',     //其他提示信息
        success: true,   //接口执行是否成功
-       data   :         //接口执行结果数据
+       data   :         //接口执行结果数据，`push`类型无
        {
          message: '',
          msgId  : '1284778244346778513',
