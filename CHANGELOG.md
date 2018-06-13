@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.5"></a>
+## [0.5.5](https://github.com/binsee/padchat-sdk/compare/v0.5.4...v0.5.5) (2018-06-13)
+
+
+### Bug Fixes
+
+* 修复warn事件没有正确获得服务器提示信息 ([66f1d7d](https://github.com/binsee/padchat-sdk/commit/66f1d7d))
+
+
+### Features
+
+* 增加start方法来实现更容易的重连 ([231b476](https://github.com/binsee/padchat-sdk/commit/231b476)), closes [#30](https://github.com/binsee/padchat-sdk/issues/30)
+
+
+
 <a name="0.5.4"></a>
 ## [0.5.4](https://github.com/binsee/padchat-sdk/compare/v0.5.3...v0.5.4) (2018-06-09)
 

@@ -1,4 +1,4 @@
-# Padchat Sdk v0.5.4 Documentation
+# Padchat Sdk v0.5.5 Documentation
 
 <a name="Padchat"></a>
 
@@ -9,6 +9,7 @@
 * [Padchat](#Padchat) ⇐ <code>EventEmitter</code>
     * [new Padchat()](#new_Padchat_new)
     * _instance_
+        * [.start()](#Padchat+start)
         * [.init()](#Padchat+init) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.close()](#Padchat+close) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.login(type, data)](#Padchat+login) ⇒ <code>Promise.&lt;object&gt;</code>
@@ -86,6 +87,12 @@ Padchat模块使用websocket与服务器进行通讯，拥有以下事件Eve
    data   : {}      // 返回结果
  }```TODO: 补充各监听事件返回的数据定义
 
+<a name="Padchat+start"></a>
+
+### padchat.start()
+启动websocket连接
+
+**Kind**: instance method of [<code>Padchat</code>](#Padchat)  
 <a name="Padchat+init"></a>
 
 ### padchat.init() ⇒ <code>Promise.&lt;object&gt;</code>
