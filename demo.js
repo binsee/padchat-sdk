@@ -51,14 +51,26 @@ try {
 
 const wx = new Padchat(server)
 logger.info('当前连接接口服务器为：', server)
+let disconnectCount = 0      // 断开计数
+let connected       = false  // 成功连接标志
 
 wx
   .on('close', () => {
-    logger.info('与服务器连接断开！')
+    // 根据是否成功连接过判断本次是未能连接成功还是与服务器连接中断
+    if (connected) {
+      connected = false
+      disconnectCount++
+      logger.info(`第 ${disconnectCount} 次与服务器连接断开！现在将重试连接服务器。`)
+    } else {
+      logger.debug(`未能连接服务器！将重试连接服务器。`)
+    }
+    // 重新启动websocket连接
+    wx.start()
   })
   .on('open', async () => {
     let ret
     logger.info('连接成功!')
+    connected = true
 
     // 非首次登录时最好使用以前成功登录时使用的设备参数，
     // 否则可能会被tx服务器怀疑账号被盗，导致手机端被登出
