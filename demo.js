@@ -55,7 +55,8 @@ let disconnectCount = 0      // 断开计数
 let connected       = false  // 成功连接标志
 
 wx
-  .on('close', () => {
+  .on('close', (code, msg) => {
+    logger.info(`Websocket已关闭！code: ${code} - ${msg}`)
     // 根据是否成功连接过判断本次是未能连接成功还是与服务器连接中断
     if (connected) {
       connected = false
