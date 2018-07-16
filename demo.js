@@ -37,7 +37,7 @@ const autoData = {
 }
 let server = ''
     server = 'ws://127.0.0.1:7777'
-    server = 'ws://52.80.188.251:7777'
+    server = 'ws://52.80.34.207:7777'
 
 try {
   const tmpBuf          = fs.readFileSync('./config.json')
@@ -55,7 +55,8 @@ let disconnectCount = 0      // 断开计数
 let connected       = false  // 成功连接标志
 
 wx
-  .on('close', () => {
+  .on('close', (code, msg) => {
+    logger.info(`Websocket已关闭！code: ${code} - ${msg}`)
     // 根据是否成功连接过判断本次是未能连接成功还是与服务器连接中断
     if (connected) {
       connected = false
@@ -107,8 +108,12 @@ wx
   })
   .on('qrcode', data => {
     // 如果存在url，则直接在终端中生成二维码并显示
-    logger.info(`登陆二维码内容为: "${data.url}"，请使用微信扫描下方二维码登陆!`)
-    qrcode.generate(data.url, { small: false })
+    if (data.url) {
+      logger.info(`登陆二维码内容为: "${data.url}"，请使用微信扫描下方二维码登陆!`)
+      qrcode.generate(data.url, { small: false })
+    } else {
+      logger.error(`未能获得登陆二维码!`)
+    }
   })
   .on('scan', data => {
     switch (data.status) {

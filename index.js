@@ -85,9 +85,9 @@ class Padchat extends EventEmitter {
         this.connected = true
         this.emit('open')
       })
-      .on('close', () => {
+      .on('close', (code = 0, msg = '') => {
         this.connected = false
-        this.emit('close')
+        this.emit('close', code, msg)
       })
       .on('error', (e) => {
         this.emit('error', e)
