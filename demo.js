@@ -108,8 +108,12 @@ wx
   })
   .on('qrcode', data => {
     // 如果存在url，则直接在终端中生成二维码并显示
-    logger.info(`登陆二维码内容为: "${data.url}"，请使用微信扫描下方二维码登陆!`)
-    qrcode.generate(data.url, { small: false })
+    if (data.url) {
+      logger.info(`登陆二维码内容为: "${data.url}"，请使用微信扫描下方二维码登陆!`)
+      qrcode.generate(data.url, { small: false })
+    } else {
+      logger.error(`未能获得登陆二维码!`)
+    }
   })
   .on('scan', data => {
     switch (data.status) {
