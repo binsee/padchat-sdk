@@ -69,21 +69,27 @@ function toUnderLine(obj) {
 /**
  * 组装appmsg消息体
  *
- * @param {Object} obj 消息体参数
-   * ```
-   * {
-   * appid    = '',   //appid，忽略即可
-   * sdkver   = '',   //sdk版本，忽略即可
-   * title    = '',   //标题
-   * des      = '',   //描述
-   * url      = '',   //链接url
-   * thumburl = '',   //缩略图url
-   * }
-   * ```
+ * @param {object} object 消息体参数
+ * @param {object} [object.appid] - appid，忽略即可
+ * @param {object} [object.sdkver] - sdk版本，忽略即可
+ * @param {object} [object.title] - 标题
+ * @param {object} [object.des] - 描述
+ * @param {object} [object.url] - 链接url
+ * @param {object} [object.thumburl] - 缩略图url
+  * ```
+  * {
+  * appid    = '',   //appid，忽略即可
+  * sdkver   = '',   //sdk版本，忽略即可
+  * title    = '',   //标题
+  * des      = '',   //描述
+  * url      = '',   //链接url
+  * thumburl = '',   //缩略图url
+  * }
+  * ```
  * @returns {String} 组装的消息体
  */
-function structureXml(obj) {
-  const { appid = '', sdkver = '', title = '', des = '', url = '', thumburl = '' } = obj
+function structureXml(object) {
+  const { appid = '', sdkver = '', title = '', des = '', url = '', thumburl = '' } = object
   return `<appmsg appid="${appid}" sdkver="${sdkver}">
 <title>${title}</title>
 <des>${des}</des>

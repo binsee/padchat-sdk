@@ -451,16 +451,33 @@ class Padchat extends EventEmitter {
   }
 
   /**
-  * 发送App消息
+  * 发送App消息(含小程序)
   *
   * @param {string} toUserName - 接收者的wxid
-  * @param {object} object - 内容文本
-  * @param {object} [object.appid] - appid，忽略即可
-  * @param {object} [object.sdkver] - sdk版本，忽略即可
-  * @param {object} [object.title] - 标题
-  * @param {object} [object.des] - 描述
-  * @param {object} [object.url] - 链接url
-  * @param {object} [object.thumburl] - 缩略图url
+  * @param {object|string} content - app消息体文本(appmsg xml结构)
+  * @param {object} object - app消息体对象(消息体文本和对象二选一)
+  * @param {string} [object.appid] - appid，忽略即可
+  * @param {string} [object.sdkver] - sdk版本，忽略即可
+  * @param {string} [object.title] - 标题
+  * @param {string} [object.des] - 描述
+  * @param {string} [object.url] - 链接url
+  * @param {string} [object.thumburl] - 缩略图url
+  *
+  * @example <caption>发送app消息对象</caption>
+  * // 直接在第二个参数中传入消息体对象
+  * await wx.sendAppMsg('filehelper',{
+      appid    = '',   //appid，忽略即可
+      sdkver   = '',   //sdk版本，忽略即可
+      title    = '',   //标题
+      des      = '',   //描述
+      url      = '',   //链接url
+      thumburl = '',   //缩略图url
+    })
+  *
+  * @example <caption>发送app消息体文本</caption>
+  * // 如第二个参数传入非空文本，则忽略第三个参数
+  * await wx.sendAppMsg('filehelper','<appmsg><title>标题</title><des>描述</des><action>view</action><type>5</type><showtype>0</showtype><content></content><url>http://wx.qq.com</url><thumburl>http://wx.qq.com/logo.png</thumburl></appmsg>'})
+  *
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * ```
   {
@@ -474,8 +491,13 @@ class Padchat extends EventEmitter {
   * ```
   * @memberof Padchat
   */
-  async sendAppMsg(toUserName, object) {
-    const content = Helper.structureXml(object)
+  async sendAppMsg(toUserName, content, object = {}) {
+    if (!content) {
+      content = object
+    }
+    if (typeof (content) === 'object') {
+      content = Helper.structureXml(content)
+    }
     return await this.sendCmd('sendAppMsg', {
       toUserName,
       content,
