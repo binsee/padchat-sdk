@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.8"></a>
+## [0.5.8](https://github.com/binsee/padchat-sdk/compare/v0.5.7...v0.5.8) (2018-07-20)
+
+
+### Features
+
+* 增加支持发送小程序 ([95668ad](https://github.com/binsee/padchat-sdk/commit/95668ad))
+
+
+
 <a name="0.5.7"></a>
 ## [0.5.7](https://github.com/binsee/padchat-sdk/compare/v0.5.6...v0.5.7) (2018-07-16)
 
