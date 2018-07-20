@@ -1,4 +1,4 @@
-# Padchat Sdk v0.5.7 Documentation
+# Padchat Sdk v0.5.8 Documentation
 
 <a name="Padchat"></a>
 
@@ -21,7 +21,7 @@
         * [.logout()](#Padchat+logout) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.sendMsg(toUserName, content, [atList])](#Padchat+sendMsg) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.massMsg([userList], content)](#Padchat+massMsg) ⇒ <code>Promise.&lt;object&gt;</code>
-        * [.sendAppMsg(toUserName, object)](#Padchat+sendAppMsg) ⇒ <code>Promise.&lt;object&gt;</code>
+        * [.sendAppMsg(toUserName, content, object)](#Padchat+sendAppMsg) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.shareCard(toUserName, content, userId)](#Padchat+shareCard) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.sendImage(toUserName, file)](#Padchat+sendImage) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.sendVoice(toUserName, file, time)](#Padchat+sendVoice) ⇒ <code>Promise.&lt;object&gt;</code>
@@ -276,8 +276,8 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 
 <a name="Padchat+sendAppMsg"></a>
 
-### padchat.sendAppMsg(toUserName, object) ⇒ <code>Promise.&lt;object&gt;</code>
-发送App消息
+### padchat.sendAppMsg(toUserName, content, object) ⇒ <code>Promise.&lt;object&gt;</code>
+发送App消息(含小程序)
 
 **Kind**: instance method of [<code>Padchat</code>](#Padchat)  
 **Returns**: <code>Promise.&lt;object&gt;</code> - 返回Promise<object>，注意捕捉catch```
@@ -293,14 +293,32 @@ await wx.login('request',{wxData:'xxx',token:'xxxxx'})
 | Param | Type | Description |
 | --- | --- | --- |
 | toUserName | <code>string</code> | 接收者的wxid |
-| object | <code>object</code> | 内容文本 |
-| [object.appid] | <code>object</code> | appid，忽略即可 |
-| [object.sdkver] | <code>object</code> | sdk版本，忽略即可 |
-| [object.title] | <code>object</code> | 标题 |
-| [object.des] | <code>object</code> | 描述 |
-| [object.url] | <code>object</code> | 链接url |
-| [object.thumburl] | <code>object</code> | 缩略图url |
+| content | <code>object</code> \| <code>string</code> | app消息体文本(appmsg xml结构) |
+| object | <code>object</code> | app消息体对象(消息体文本和对象二选一) |
+| [object.appid] | <code>string</code> | appid，忽略即可 |
+| [object.sdkver] | <code>string</code> | sdk版本，忽略即可 |
+| [object.title] | <code>string</code> | 标题 |
+| [object.des] | <code>string</code> | 描述 |
+| [object.url] | <code>string</code> | 链接url |
+| [object.thumburl] | <code>string</code> | 缩略图url |
 
+**Example** *(发送app消息对象)*  
+```js
+// 直接在第二个参数中传入消息体对象
+await wx.sendAppMsg('filehelper',{
+      appid    = '',   //appid，忽略即可
+      sdkver   = '',   //sdk版本，忽略即可
+      title    = '',   //标题
+      des      = '',   //描述
+      url      = '',   //链接url
+      thumburl = '',   //缩略图url
+    })
+```
+**Example** *(发送app消息体文本)*  
+```js
+// 如第二个参数传入非空文本，则忽略第三个参数
+await wx.sendAppMsg('filehelper','<appmsg><title>标题</title><des>描述</des><action>view</action><type>5</type><showtype>0</showtype><content></content><url>http://wx.qq.com</url><thumburl>http://wx.qq.com/logo.png</thumburl></appmsg>'})
+```
 <a name="Padchat+shareCard"></a>
 
 ### padchat.shareCard(toUserName, content, userId) ⇒ <code>Promise.&lt;object&gt;</code>
