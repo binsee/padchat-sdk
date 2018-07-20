@@ -83,13 +83,56 @@ class Padchat extends EventEmitter {
       })
       .on('open', () => {
         this.connected = true
+        /**
+         * Open event
+         * websocket连接打开事件
+         *
+         * @event Padchat#open
+         * @example
+         * const wx = new Padchat()
+         * wx.on('open',()=>{
+         *   console.log(`连接成功！`)
+         * })
+         *
+         * @memberof Padchat
+         */
         this.emit('open')
       })
       .on('close', (code = 0, msg = '') => {
         this.connected = false
+        /**
+         * Close event
+         * websocket连接关闭事件。可在此事件中调用`Padchat.start()`发起重连
+         *
+         * @event Padchat#close
+         * @property {number} code - 关闭代码
+         * @property {string} [msg] - 关闭说明
+         * @example
+         * const wx = new Padchat()
+         * wx.on('close',(code,msg)=>{
+         *   console.log(`Websocket 已关闭！code: ${code} - ${msg}`)
+         *   wx.start()
+         * })
+         *
+         * @memberof Padchat
+         */
         this.emit('close', code, msg)
       })
       .on('error', (e) => {
+        /**
+         * Error event
+         * 错误事件
+         *
+         * @event Padchat#error
+         * @property {error} error - 报错信息
+         * @example
+         * const wx = new Padchat()
+         * wx.on('error',e=>{
+         *   console.log('Websocket 错误:', e.message)
+         * })
+         *
+         * @memberof Padchat
+         */
         this.emit('error', e)
       })
   }
@@ -2509,16 +2552,160 @@ function onWsMsg(msg) {
     case 'userEvent':
       switch (data.event) {
         case 'warn':
-          // 如果success字段为true，则为不严重的问题
+        /**
+         * Warn event
+         * 实例错误提示
+         *
+         * @event Padchat#warn
+         * @property {error} error - 报错信息
+         * @example
+         * const wx = new Padchat()
+         * wx.on('warn',e=>{
+         *   console.log('任务出现错误:', e.message)
+         * })
+         *
+         * @memberof Padchat
+         */
+        // 如果success字段为true，则为不严重的问题
           this.emit('warn', new Error('服务器返回错误提示：' + data.data.error), data.success)
           break
         case 'qrcode':   // 微信扫码登陆，推送二维码
-        case 'scan'  :   // 微信账号扫码事件
-        case 'login' :   // 微信账号登陆成功
+        /**
+         * Qrcode event
+         * 登陆二维码推送
+         *
+         * @event Padchat#qrocde
+         * @property {object} data - 二维码信息
+         * @property {string} [data.url] - 登陆二维码解析后的内容url，可使用此url作为内容生成二维码图片后，使用手机扫码登陆
+         * @property {string|null} msg - 附加提示信息
+         * @example
+         * const wx = new Padchat()
+         * wx.on('qrcode',data=>{
+         *   console.log(`登陆二维码内容为: "${data.url}"`)
+         *   // 可使用`qrcode-terminal`库在终端生成二维码
+         * })
+         *
+         * @memberof Padchat
+         */
+        case 'scan':   // 微信账号扫码事件
+        /**
+         * Scan event
+         * 扫码状态推送
+         *
+         * @event Padchat#scan
+         * @property {object} data - 扫码状态
+         * @property {number} data.status - 扫码状态:
+         * <br> `0` 等待扫码
+         * <br> `1` 扫码完成，等待手机端确认登陆
+         * <br> `2` 手机端已确认，等待登陆
+         * <br> `3` 二维码过期
+         * <br> `4` 手机端取消登陆
+         * <br> 其他状态未知
+         * @property {number} [data.subStatus] - 扫码子状态，仅`status`为`2`时有效
+         * <br> `0` 登陆成功
+         * <br> `1` 登陆失败
+         * <br> 其他状态未知
+         * @property {string} [data.headUrl] - 头像url **（扫码后存在）**
+         * @property {string} [data.deviceType] - 主设备类型 **（扫码后存在）**
+         * @property {string} [data.userName] - 账号wxid，全局唯一 **（扫码后存在）**
+         * @property {number} [data.uin] - 账号uin，全局唯一 **（扫码后存在）**
+         * @property {string} [data.email] - 账号绑定的邮箱 **（确认登陆后存在）**
+         * @property {string} [data.phoneNumber] - 账号绑定的手机号 **（确认登陆后存在）**
+         * @property {number} [data.qq] - 账号绑定的QQ号 **（确认登陆后存在）**
+         * @property {string} [data.nickName] - 账号昵称 **（确认登陆后存在）**
+         * @property {number} [data.external] - 是否为扩展设备登陆
+         * <br> `0` 主设备登陆
+         * <br> `1` 扩展设备登录
+         * @property {string|null} msg - 附加提示信息
+         * @example
+         * const wx = new Padchat()
+         * wx.on('scan',data=>{
+         *  switch (data.status) {
+         *    case 0:
+         *    case 1:
+         *    case 2:
+         *    case 3:
+         *    case 4:
+         *    default:
+         *      break
+         *  }
+         * })
+         *
+         * @memberof Padchat
+         */
+        case 'login':   // 微信账号登陆成功
+        /**
+         * Login event
+         * 登陆成功推送
+         *
+         * @example
+         * const wx = new Padchat()
+         * wx.on('login',()=>{
+         *  console.log('微信账号登陆成功!')
+         * })
+         *
+         * @event Padchat#login
+         */
         case 'loaded':   // 通讯录载入完毕
+        /**
+         * Loaded event
+         * 通讯录同步完毕推送
+         *
+         * @example
+         * const wx = new Padchat()
+         * wx.on('loaded',()=>{
+         *  console.log('通讯录同步完毕!')
+         * })
+         *
+         * @event Padchat#loaded
+         */
         case 'logout':   // 微信账号退出
-        case 'over'  :   // 实例注销（账号不退出）
-        case 'sns'   :   // 朋友圈事件：新评论
+        /**
+         * Logout event
+         * 微信账号退出推送
+         *
+         * @example
+         * const wx = new Padchat()
+         * wx.on('logout',({error,msg})=>{
+         *  console.log('微信账号已退出! ',error,msg)
+         * })
+         *
+         * @event Padchat#logout
+         * @property {object} data
+         * @property {string|null} [data.error] - 错误提示信息
+         * @property {string|null} [data.msg] - 附加提示信息
+         * @property {string|null} [msg] - 附加提示信息(同`data.msg`)
+         */
+        case 'over':   // 实例注销（账号不退出）
+        /**
+         * Over event
+         * 实例关闭推送
+         *
+         * @event Padchat#over
+         * @property {object} data
+         * @property {string|null} [data.msg] - 附加提示信息
+         * @property {string|null} [msg] - 附加提示信息(同`data.msg`)
+         *
+         * @example
+         * const wx = new Padchat()
+         * wx.on('over',({msg})=>{
+         *  console.log('任务实例已关闭！',msg)
+         * })
+         *
+         */
+        case 'sns':   // 朋友圈事件：新评论
+        /**
+         * Sns event
+         * 朋友圈通知
+         *
+         * @event Padchat#sns
+         * @example
+         * const wx = new Padchat()
+         * wx.on('sns',()=>{
+         *  console.log('收到朋友圈事件！')
+         * })
+         *
+         */
           this.emit(data.event, data.data || {}, data.data.msg)
           break
         case 'push':
@@ -2542,6 +2729,52 @@ function onWsMsg(msg) {
               } catch (e) {
               }
             }
+            /**
+             * Push event
+             * 联系人/消息推送
+             *
+             * @event Padchat#push
+             * @property {number} data.mType - 推送类型
+            <br> `1`    : 文字消息
+            <br> `2`    : 好友信息推送，包含好友，群，公众号信息
+            <br> `3`    : 收到图片消息
+            <br> `34`   : 语音消息
+            <br> `35`   : 用户头像buf
+            <br> `37`   : 收到好友请求消息
+            <br> `42`   : 名片消息
+            <br> `43`   : 视频消息
+            <br> `47`   : 表情消息
+            <br> `48`   : 定位消息
+            <br> `49`   : APP消息(文件 或者 链接 H5)
+            <br> `50`   : 语音通话
+            <br> `51`   : 状态通知（如打开与好友/群的聊天界面）
+            <br> `52`   : 语音通话通知
+            <br> `53`   : 语音通话邀请
+            <br> `62`   : 小视频
+            <br> `2000` : 转账消息
+            <br> `2001` : 收到红包消息
+            <br> `3000` : 群邀请
+            <br> `9999` : 系统通知
+            <br> `10000`: 微信通知信息。微信群信息变更，多为群名修改、进群、离群信息，不包含群内聊天信息
+            <br> `10002`: 撤回消息
+             * @property {string} [data.userName] - (`mType`为2) 联系人微信号/wxid
+             * @property {string} [data.nickName] - (`mType`为2) 联系人昵称
+             * @property {string} [data.fromUser] - (`mType`非2) 发件人
+             * @property {string} [data.toUser] - (`mType`非2) 收件人
+             * @property {string} [data.content] - (`mType`非2) 消息内容。非文本型消息时，此字段可能为xml结构文本
+             * @property {string} [data.data] - 图片、语音、视频等媒体文件base64文本
+             * @property {string} [data.description] - (部分`mType`非2) 消息描述
+             * @property {string} [data.msgId] - (`mType`非2) 消息id
+             * @property {string} [data.timestamp] - (`mType`非2) 消息时间戳
+             * @property {number} [data.uin] - 当前账号uin
+             * @property {string} [data.*] - 其他字段请自行输出查看
+             * @example
+             * const util = require('util')
+             * const wx   = new Padchat()
+             * wx.on('push',data=>{
+             *  console.log('push:',util.inspect(data, { depth: 10 }))
+             * })
+             */
             this.emit('push', item)
           })
           break
