@@ -270,28 +270,38 @@ class Padchat extends EventEmitter {
   *
   * @example <caption>扫码登陆</caption>
   * const wx = new Padchat()
-  * await wx.init()
-  * await wx.login('qrcode',{wxData:'xxx'})
+  * wx.on('open',()=>{
+  *   await wx.init()
+  *   await wx.login('qrcode',{wxData:'xxx'})
+  * })
   *
   * @example <caption>账号密码登陆</caption>
   * const wx = new Padchat()
-  * await wx.init()
-  * await wx.login('user',{wxData:'xxx',username:'name',password:'123456'})
+  * wx.on('open',()=>{
+  *   await wx.init()
+  *   await wx.login('user',{wxData:'xxx',username:'name',password:'123456'})
+  * })
   *
   * @example <caption>手机验证码</caption>
   * const wx = new Padchat()
-  * await wx.init()
-  * await wx.login('phone',{wxData:'xxx',phone:'13512345678',code:'123456'})
+  * wx.on('open',()=>{
+  *   await wx.init()
+  *   await wx.login('phone',{wxData:'xxx',phone:'13512345678',code:'123456'})
+  * })
   *
   * @example <caption>断线重连</caption>
   * const wx = new Padchat()
-  * await wx.init()
-  * await wx.login('token',{wxData:'xxx',token:'xxxxx'})
+  * wx.on('open',()=>{
+  *   await wx.init()
+  *   await wx.login('token',{wxData:'xxx',token:'xxxxx'})
+  * })
   *
   * @example <caption>二次登陆</caption>
   * const wx = new Padchat()
-  * await wx.init()
-  * await wx.login('request',{wxData:'xxx',token:'xxxxx'})
+  * wx.on('open',()=>{
+  *   await wx.init()
+  *   await wx.login('request',{wxData:'xxx',token:'xxxxx'})
+  * })
   *
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * ```
@@ -1145,20 +1155,18 @@ class Padchat extends EventEmitter {
   * @param {string} stranger - 用户stranger数据
   * @param {string} ticket - 用户ticket数据
   * @param {Number} type - 添加好友途径
-  × 值 | 说明
-  × ----|----
-  x 0 | 通过微信号搜索
-  × 1 | 搜索QQ号
-  x 3 | 通过微信号搜索
-  × 4 | 通过QQ好友添加
-  × 8 | 通过群聊
-  × 12 | 来自QQ好友
-  × 14 | 通过群聊
-  × 15 | 通过搜索手机号
-  × 17 | 通过名片分享           //未验证
-  × 22 | 通过摇一摇打招呼方式    //未验证
-  × 25 | 通过漂流瓶             //未验证
-  × 30 | 通过二维码方式         //未验证
+  <br> `0` : 通过微信号搜索
+  <br> `1` : 搜索QQ号
+  <br> `3` : 通过微信号搜索
+  <br> `4` : 通过QQ好友添加
+  <br> `8` : 通过群聊
+  <br> `12`: 来自QQ好友
+  <br> `14`: 通过群聊
+  <br> `15`: 通过搜索手机号
+  <br> `17`: 通过名片分享      //未验证
+  <br> `22`: 通过摇一摇打招呼方式  //未验证
+  <br> `25`: 通过漂流瓶       //未验证
+  <br> `30`: 通过二维码方式     //未验证
   * @param {string} [content=''] - 验证信息
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * ```
