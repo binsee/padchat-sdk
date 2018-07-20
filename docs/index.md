@@ -1,4 +1,4 @@
-# Padchat Sdk v0.5.8 Documentation
+# Padchat Sdk v0.5.9 Documentation
 
 <a name="Padchat"></a>
 
@@ -72,6 +72,18 @@
         * [.operateSubscription(ghName, menuId, menuKey)](#Padchat+operateSubscription) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.getRequestToken(ghName, url)](#Padchat+getRequestToken) ⇒ <code>Promise.&lt;object&gt;</code>
         * [.requestUrl(url, xKey, xUin)](#Padchat+requestUrl) ⇒ <code>Promise.&lt;object&gt;</code>
+        * ["open"](#Padchat+event_open)
+        * ["close"](#Padchat+event_close)
+        * ["error"](#Padchat+event_error)
+        * ["warn"](#Padchat+event_warn)
+        * ["qrocde"](#Padchat+event_qrocde)
+        * ["scan"](#Padchat+event_scan)
+        * ["login"](#Padchat+event_login)
+        * ["loaded"](#Padchat+event_loaded)
+        * ["logout"](#Padchat+event_logout)
+        * ["over"](#Padchat+event_over)
+        * ["sns"](#Padchat+event_sns)
+        * ["push"](#Padchat+event_push)
     * _static_
         * [.Padchat](#Padchat.Padchat)
             * [new Padchat([url])](#new_Padchat.Padchat_new)
@@ -138,32 +150,42 @@ Padchat模块使用websocket与服务器进行通讯，拥有以下事件Eve
 **Example** *(扫码登陆)*  
 ```js
 const wx = new Padchat()
-await wx.init()
-await wx.login('qrcode',{wxData:'xxx'})
+wx.on('open',()=>{
+  await wx.init()
+  await wx.login('qrcode',{wxData:'xxx'})
+})
 ```
 **Example** *(账号密码登陆)*  
 ```js
 const wx = new Padchat()
-await wx.init()
-await wx.login('user',{wxData:'xxx',username:'name',password:'123456'})
+wx.on('open',()=>{
+  await wx.init()
+  await wx.login('user',{wxData:'xxx',username:'name',password:'123456'})
+})
 ```
 **Example** *(手机验证码)*  
 ```js
 const wx = new Padchat()
-await wx.init()
-await wx.login('phone',{wxData:'xxx',phone:'13512345678',code:'123456'})
+wx.on('open',()=>{
+  await wx.init()
+  await wx.login('phone',{wxData:'xxx',phone:'13512345678',code:'123456'})
+})
 ```
 **Example** *(断线重连)*  
 ```js
 const wx = new Padchat()
-await wx.init()
-await wx.login('token',{wxData:'xxx',token:'xxxxx'})
+wx.on('open',()=>{
+  await wx.init()
+  await wx.login('token',{wxData:'xxx',token:'xxxxx'})
+})
 ```
 **Example** *(二次登陆)*  
 ```js
 const wx = new Padchat()
-await wx.init()
-await wx.login('request',{wxData:'xxx',token:'xxxxx'})
+wx.on('open',()=>{
+  await wx.init()
+  await wx.login('request',{wxData:'xxx',token:'xxxxx'})
+})
 ```
 <a name="Padchat+getWxData"></a>
 
@@ -827,7 +849,7 @@ await wx.sendAppMsg('filehelper','<appmsg><title>标题</title><des>描述</des>
 | --- | --- | --- | --- |
 | stranger | <code>string</code> |  | 用户stranger数据 |
 | ticket | <code>string</code> |  | 用户ticket数据 |
-| type | <code>Number</code> | <code>3</code> | 添加好友途径   × 值 | 说明   × ----|----   x 0 | 通过微信号搜索   × 1 | 搜索QQ号   x 3 | 通过微信号搜索   × 4 | 通过QQ好友添加   × 8 | 通过群聊   × 12 | 来自QQ好友   × 14 | 通过群聊   × 15 | 通过搜索手机号   × 17 | 通过名片分享           //未验证   × 22 | 通过摇一摇打招呼方式    //未验证   × 25 | 通过漂流瓶             //未验证   × 30 | 通过二维码方式         //未验证 |
+| type | <code>Number</code> | <code>3</code> | 添加好友途径   <br> `0` : 通过微信号搜索   <br> `1` : 搜索QQ号   <br> `3` : 通过微信号搜索   <br> `4` : 通过QQ好友添加   <br> `8` : 通过群聊   <br> `12`: 来自QQ好友   <br> `14`: 通过群聊   <br> `15`: 通过搜索手机号   <br> `17`: 通过名片分享      //未验证   <br> `22`: 通过摇一摇打招呼方式  //未验证   <br> `25`: 通过漂流瓶       //未验证   <br> `30`: 通过二维码方式     //未验证 |
 | [content] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | 验证信息 |
 
 <a name="Padchat+sayHello"></a>
@@ -1888,6 +1910,205 @@ await wx.sendAppMsg('filehelper','<appmsg><title>标题</title><des>描述</des>
 | xKey | <code>string</code> | 访问Key，用`getRequestToken`获取 |
 | xUin | <code>string</code> | 访问uin，用`getRequestToken`获取 |
 
+<a name="Padchat+event_open"></a>
+
+### "open"
+Open eventwebsocket连接打开事件
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Example**  
+```js
+const wx = new Padchat()wx.on('open',()=>{  console.log(`连接成功！`)})
+```
+<a name="Padchat+event_close"></a>
+
+### "close"
+Close eventwebsocket连接关闭事件。可在此事件中调用`Padchat.start()`发起重连
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| code | <code>number</code> | 关闭代码 |
+| [msg] | <code>string</code> | 关闭说明 |
+
+**Example**  
+```js
+const wx = new Padchat()wx.on('close',(code,msg)=>{  console.log(`Websocket 已关闭！code: ${code} - ${msg}`)  wx.start()})
+```
+<a name="Padchat+event_error"></a>
+
+### "error"
+Error event错误事件
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| error | <code>error</code> | 报错信息 |
+
+**Example**  
+```js
+const wx = new Padchat()wx.on('error',e=>{  console.log('Websocket 错误:', e.message)})
+```
+<a name="Padchat+event_warn"></a>
+
+### "warn"
+Warn event实例错误提示
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| error | <code>error</code> | 报错信息 |
+
+**Example**  
+```js
+const wx = new Padchat()wx.on('warn',e=>{  console.log('任务出现错误:', e.message)})
+```
+<a name="Padchat+event_qrocde"></a>
+
+### "qrocde"
+Qrcode event登陆二维码推送
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| data | <code>object</code> | 二维码信息 |
+| [data.url] | <code>string</code> | 登陆二维码解析后的内容url，可使用此url作为内容生成二维码图片后，使用手机扫码登陆 |
+| msg | <code>string</code> \| <code>null</code> | 附加提示信息 |
+
+**Example**  
+```js
+const wx = new Padchat()wx.on('qrcode',data=>{  console.log(`登陆二维码内容为: "${data.url}"`)  // 可使用`qrcode-terminal`库在终端生成二维码})
+```
+<a name="Padchat+event_scan"></a>
+
+### "scan"
+Scan event扫码状态推送
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| data | <code>object</code> | 扫码状态 |
+| data.status | <code>number</code> | 扫码状态: <br> `0` 等待扫码 <br> `1` 扫码完成，等待手机端确认登陆 <br> `2` 手机端已确认，等待登陆 <br> `3` 二维码过期 <br> `4` 手机端取消登陆 <br> 其他状态未知 |
+| [data.subStatus] | <code>number</code> | 扫码子状态，仅`status`为`2`时有效 <br> `0` 登陆成功 <br> `1` 登陆失败 <br> 其他状态未知 |
+| [data.headUrl] | <code>string</code> | 头像url **（扫码后存在）** |
+| [data.deviceType] | <code>string</code> | 主设备类型 **（扫码后存在）** |
+| [data.userName] | <code>string</code> | 账号wxid，全局唯一 **（扫码后存在）** |
+| [data.uin] | <code>number</code> | 账号uin，全局唯一 **（扫码后存在）** |
+| [data.email] | <code>string</code> | 账号绑定的邮箱 **（确认登陆后存在）** |
+| [data.phoneNumber] | <code>string</code> | 账号绑定的手机号 **（确认登陆后存在）** |
+| [data.qq] | <code>number</code> | 账号绑定的QQ号 **（确认登陆后存在）** |
+| [data.nickName] | <code>string</code> | 账号昵称 **（确认登陆后存在）** |
+| [data.external] | <code>number</code> | 是否为扩展设备登陆 <br> `0` 主设备登陆 <br> `1` 扩展设备登录 |
+| msg | <code>string</code> \| <code>null</code> | 附加提示信息 |
+
+**Example**  
+```js
+const wx = new Padchat()wx.on('scan',data=>{ switch (data.status) {   case 0:   case 1:   case 2:   case 3:   case 4:   default:     break }})
+```
+<a name="Padchat+event_login"></a>
+
+### "login"
+Login event登陆成功推送
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Example**  
+```js
+const wx = new Padchat()wx.on('login',()=>{ console.log('微信账号登陆成功!')})
+```
+<a name="Padchat+event_loaded"></a>
+
+### "loaded"
+Loaded event通讯录同步完毕推送
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Example**  
+```js
+const wx = new Padchat()wx.on('loaded',()=>{ console.log('通讯录同步完毕!')})
+```
+<a name="Padchat+event_logout"></a>
+
+### "logout"
+Logout event微信账号退出推送
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| data | <code>object</code> |  |
+| [data.error] | <code>string</code> \| <code>null</code> | 错误提示信息 |
+| [data.msg] | <code>string</code> \| <code>null</code> | 附加提示信息 |
+| [msg] | <code>string</code> \| <code>null</code> | 附加提示信息(同`data.msg`) |
+
+**Example**  
+```js
+const wx = new Padchat()wx.on('logout',({error,msg})=>{ console.log('微信账号已退出! ',error,msg)})
+```
+<a name="Padchat+event_over"></a>
+
+### "over"
+Over event实例关闭推送
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| data | <code>object</code> |  |
+| [data.msg] | <code>string</code> \| <code>null</code> | 附加提示信息 |
+| [msg] | <code>string</code> \| <code>null</code> | 附加提示信息(同`data.msg`) |
+
+**Example**  
+```js
+const wx = new Padchat()wx.on('over',({msg})=>{ console.log('任务实例已关闭！',msg)})
+```
+<a name="Padchat+event_sns"></a>
+
+### "sns"
+Sns event朋友圈通知
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Example**  
+```js
+const wx = new Padchat()wx.on('sns',()=>{ console.log('收到朋友圈事件！')})
+```
+<a name="Padchat+event_push"></a>
+
+### "push"
+Push event联系人/消息推送
+
+**Kind**: event emitted by [<code>Padchat</code>](#Padchat)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| data.mType | <code>number</code> | 推送类型             <br> `1`    : 文字消息             <br> `2`    : 好友信息推送，包含好友，群，公众号信息             <br> `3`    : 收到图片消息             <br> `34`   : 语音消息             <br> `35`   : 用户头像buf             <br> `37`   : 收到好友请求消息             <br> `42`   : 名片消息             <br> `43`   : 视频消息             <br> `47`   : 表情消息             <br> `48`   : 定位消息             <br> `49`   : APP消息(文件 或者 链接 H5)             <br> `50`   : 语音通话             <br> `51`   : 状态通知（如打开与好友/群的聊天界面）             <br> `52`   : 语音通话通知             <br> `53`   : 语音通话邀请             <br> `62`   : 小视频             <br> `2000` : 转账消息             <br> `2001` : 收到红包消息             <br> `3000` : 群邀请             <br> `9999` : 系统通知             <br> `10000`: 微信通知信息。微信群信息变更，多为群名修改、进群、离群信息，不包含群内聊天信息             <br> `10002`: 撤回消息 |
+| [data.userName] | <code>string</code> | (`mType`为2) 联系人微信号/wxid |
+| [data.nickName] | <code>string</code> | (`mType`为2) 联系人昵称 |
+| [data.fromUser] | <code>string</code> | (`mType`非2) 发件人 |
+| [data.toUser] | <code>string</code> | (`mType`非2) 收件人 |
+| [data.content] | <code>string</code> | (`mType`非2) 消息内容。非文本型消息时，此字段可能为xml结构文本 |
+| [data.data] | <code>string</code> | 图片、语音、视频等媒体文件base64文本 |
+| [data.description] | <code>string</code> | (部分`mType`非2) 消息描述 |
+| [data.msgId] | <code>string</code> | (`mType`非2) 消息id |
+| [data.timestamp] | <code>string</code> | (`mType`非2) 消息时间戳 |
+| [data.uin] | <code>number</code> | 当前账号uin |
+| [data.*] | <code>string</code> | 其他字段请自行输出查看 |
+
+**Example**  
+```js
+const util = require('util')const wx   = new Padchat()wx.on('push',data=>{ console.log('push:',util.inspect(data, { depth: 10 }))})
+```
 <a name="Padchat.Padchat"></a>
 
 ### Padchat.Padchat

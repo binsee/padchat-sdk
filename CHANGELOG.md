@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.9"></a>
+## [0.5.9](https://github.com/binsee/padchat-sdk/compare/v0.5.8...v0.5.9) (2018-07-20)
+
+
+
 <a name="0.5.8"></a>
 ## [0.5.8](https://github.com/binsee/padchat-sdk/compare/v0.5.7...v0.5.8) (2018-07-20)
 
