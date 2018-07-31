@@ -462,8 +462,24 @@ class Padchat extends EventEmitter {
   *
   * @param {string} toUserName - 接收者的wxid
   * @param {string} content - 内容文本
-  * @param {Array<string>} [atList=[]] - 向群内发信息时，要@的用户wxid数组
-  * FIXME: 无法At用户
+  * @param {Array<string>} [atList=[]] - 向群内发信息时，要@的用户wxid数组。
+  * 内容文本中要有@同样数量的用户昵称，不足时，将自动前缀空白的@符号及换行符
+  *
+  * @example at群成员示例 - content内@了群成员昵称
+  * wx.sendMsg('123456@chatroom','@nickname1 @nickname2 message body',['wxid1','wxid2'])
+  * //显示内容:
+  * ```text
+  * @nickname1 @nickname2 message body
+  * ```
+  *
+  * @example at群成员示例 - content内遗漏@群成员:
+  * wx.sendMsg('123456@chatroom','@nickname1 message body',['wxid1','wxid2','wxid3'])
+  * //显示内容:
+  * ```text
+  * @@
+  * @nickname1 message body
+  * ```
+  *
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * ```
   {
@@ -478,6 +494,13 @@ class Padchat extends EventEmitter {
   *  @memberof Padchat
   */
   async sendMsg(toUserName, content, atList = []) {
+    if (Array.isArray(atList) && atList.length > 0) {
+      const arr = content.match(/@/g)
+      const num = Array.isArray(arr) ? arr.length : 0
+      if (num < atList.length) {
+        content = '@'.repeat(atList.length - num) + '\n' + content
+      }
+    }
     return await this.sendCmd('sendMsg', {
       toUserName,
       content,
