@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.10"></a>
+## [0.5.10](https://github.com/binsee/padchat-sdk/compare/v0.5.9...v0.5.10) (2018-07-31)
+
+
+### Bug Fixes
+
+* 修复群内发送文本消息at成员无效的bug ([27ac206](https://github.com/binsee/padchat-sdk/commit/27ac206))
+
+
+
 <a name="0.5.9"></a>
 ## [0.5.9](https://github.com/binsee/padchat-sdk/compare/v0.5.8...v0.5.9) (2018-07-20)
 

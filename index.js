@@ -462,8 +462,20 @@ class Padchat extends EventEmitter {
   *
   * @param {string} toUserName - 接收者的wxid
   * @param {string} content - 内容文本
-  * @param {Array<string>} [atList=[]] - 向群内发信息时，要@的用户wxid数组
-  * FIXME: 无法At用户
+  * @param {Array<string>} [atList=[]] - 向群内发信息时，要@的用户wxid数组。
+  * 内容文本中要有@同样数量的用户昵称，不足时，将自动前缀空白的@符号及换行符
+  *
+  * @example <caption>at群成员示例 - content内@了群成员昵称</caption>
+  * wx.sendMsg('123456@chatroom','@nickname1 @nickname2 message body',['wxid1','wxid2'])
+  * // 显示内容:
+  * // `@nickname1 @nickname2 message body`
+  *
+  * @example <caption>at群成员示例 - content内遗漏@群成员: </caption>
+  * wx.sendMsg('123456@chatroom','@nickname1 message body',['wxid1','wxid2','wxid3'])
+  * // 显示内容:
+  * // `@@
+  * // @nickname1 message body`
+  *
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * ```
   {
@@ -478,6 +490,13 @@ class Padchat extends EventEmitter {
   *  @memberof Padchat
   */
   async sendMsg(toUserName, content, atList = []) {
+    if (Array.isArray(atList) && atList.length > 0) {
+      const arr = content.match(/@/g)
+      const num = Array.isArray(arr) ? arr.length : 0
+      if (num < atList.length) {
+        content = '@'.repeat(atList.length - num) + '\n' + content
+      }
+    }
     return await this.sendCmd('sendMsg', {
       toUserName,
       content,
@@ -2560,21 +2579,21 @@ function onWsMsg(msg) {
     case 'userEvent':
       switch (data.event) {
         case 'warn':
-        /**
-         * Warn event
-         * 实例错误提示
-         *
-         * @event Padchat#warn
-         * @property {error} error - 报错信息
-         * @example
-         * const wx = new Padchat()
-         * wx.on('warn',e=>{
-         *   console.log('任务出现错误:', e.message)
-         * })
-         *
-         * @memberof Padchat
-         */
-        // 如果success字段为true，则为不严重的问题
+          /**
+           * Warn event
+           * 实例错误提示
+           *
+           * @event Padchat#warn
+           * @property {error} error - 报错信息
+           * @example
+           * const wx = new Padchat()
+           * wx.on('warn',e=>{
+           *   console.log('任务出现错误:', e.message)
+           * })
+           *
+           * @memberof Padchat
+           */
+          // 如果success字段为true，则为不严重的问题
           this.emit('warn', new Error('服务器返回错误提示：' + data.data.error), data.success)
           break
         case 'qrcode':   // 微信扫码登陆，推送二维码
@@ -2702,18 +2721,18 @@ function onWsMsg(msg) {
          *
          */
         case 'sns':   // 朋友圈事件：新评论
-        /**
-         * Sns event
-         * 朋友圈通知
-         *
-         * @event Padchat#sns
-         * @example
-         * const wx = new Padchat()
-         * wx.on('sns',()=>{
-         *  console.log('收到朋友圈事件！')
-         * })
-         *
-         */
+          /**
+           * Sns event
+           * 朋友圈通知
+           *
+           * @event Padchat#sns
+           * @example
+           * const wx = new Padchat()
+           * wx.on('sns',()=>{
+           *  console.log('收到朋友圈事件！')
+           * })
+           *
+           */
           this.emit(data.event, data.data || {}, data.data.msg)
           break
         case 'push':
