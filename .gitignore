@@ -10,6 +10,6 @@ run/
 .DS_Store
 *.sw*
 *.un~
-*config.json
+*config*.json
 qrcode.jpg
 exe/
