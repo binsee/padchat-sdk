@@ -1,4 +1,4 @@
-# Padchat Sdk v0.5.9 Documentation
+# Padchat Sdk v0.5.10 Documentation
 
 <a name="Padchat"></a>
 
@@ -281,8 +281,21 @@ wx.on('open',()=>{
 | --- | --- | --- | --- |
 | toUserName | <code>string</code> |  | 接收者的wxid |
 | content | <code>string</code> |  | 内容文本 |
-| [atList] | <code>Array.&lt;string&gt;</code> | <code>[]</code> | 向群内发信息时，要@的用户wxid数组 FIXME: 无法At用户 |
+| [atList] | <code>Array.&lt;string&gt;</code> | <code>[]</code> | 向群内发信息时，要@的用户wxid数组。 内容文本中要有@同样数量的用户昵称，不足时，将自动前缀空白的@符号及换行符 |
 
+**Example** *(at群成员示例 - content内@了群成员昵称)*  
+```js
+wx.sendMsg('123456@chatroom','@nickname1 @nickname2 message body',['wxid1','wxid2'])
+// 显示内容:
+// `@nickname1 @nickname2 message body`
+```
+**Example** *(at群成员示例 - content内遗漏@群成员: )*  
+```js
+wx.sendMsg('123456@chatroom','@nickname1 message body',['wxid1','wxid2','wxid3'])
+// 显示内容:
+// `@@
+// @nickname1 message body`
+```
 <a name="Padchat+massMsg"></a>
 
 ### padchat.massMsg([userList], content) ⇒ <code>Promise.&lt;object&gt;</code>
