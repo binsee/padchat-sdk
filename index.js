@@ -548,7 +548,7 @@ class Padchat extends EventEmitter {
   *
   * @example <caption>发送app消息体文本</caption>
   * // 如第二个参数传入非空文本，则忽略第三个参数
-  * await wx.sendAppMsg('filehelper','<appmsg><title>标题</title><des>描述</des><action>view</action><type>5</type><showtype>0</showtype><content></content><url>http://wx.qq.com</url><thumburl>http://wx.qq.com/logo.png</thumburl></appmsg>'})
+  * await wx.sendAppMsg('filehelper','<appmsg><title>标题</title><des>描述</des><action>view</action><type>5</type><showtype>0</showtype><content></content><url>http://wx.qq.com</url><thumburl>http://wx.qq.com/logo.png</thumburl></appmsg>')
   *
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * ```
@@ -600,6 +600,11 @@ class Padchat extends EventEmitter {
       toUserName,
       content,
       userId,
+    })
+  }
+
+  async dumpWxuser() {
+    return await this.sendCmd('dumpWxuser', {
     })
   }
 
