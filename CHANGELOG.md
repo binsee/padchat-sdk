@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.11"></a>
+## [0.5.11](https://github.com/binsee/padchat-sdk/compare/v0.5.10...v0.5.11) (2018-08-23)
+
+
+### Bug Fixes
+
+* 修复使用设备数据登陆后再获取设备数据会无效的问题 ([042eaf1](https://github.com/binsee/padchat-sdk/commit/042eaf1))
+
+
+
 <a name="0.5.10"></a>
 ## [0.5.10](https://github.com/binsee/padchat-sdk/compare/v0.5.9...v0.5.10) (2018-07-31)
 
