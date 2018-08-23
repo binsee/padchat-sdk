@@ -180,7 +180,7 @@ wx
     await wx.syncContact()
 
     if (!autoData.wxData) {
-      // 如果已经存在设备参数，则不再获取
+      // 如果已经存在设备参数，可不再获取
       ret = await wx.getWxData()
       if (!ret.success) {
         logger.warn('获取设备参数未成功！ json:', ret)
