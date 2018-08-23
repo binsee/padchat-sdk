@@ -45,5 +45,10 @@
     "define.js",
     "helper.js",
     "index.js"
-  ]
+  ],
+  "standard-version": {
+    "skip": {
+      "tag": true
+    }
+  }
 }
