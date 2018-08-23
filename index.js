@@ -457,6 +457,30 @@ class Padchat extends EventEmitter {
   }
 
   /**
+   * 关闭推送
+   *
+   * @description 仅用于开发调试，不需要使用
+   * @private
+   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
+   * @memberof Padchat
+   */
+  async closePush() {
+    return await this.sendCmd('closePush', {})
+  }
+
+  /**
+   * 启动心跳
+   *
+   * @description 仅用于开发调试，不需要使用
+   * @private
+   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
+   * @memberof Padchat
+   */
+  async heartBeat() {
+    return await this.sendCmd('heartBeat', {})
+  }
+
+  /**
   * 发送文字信息
   *
   * @param {string} toUserName - 接收者的wxid
