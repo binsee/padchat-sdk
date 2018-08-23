@@ -355,7 +355,6 @@ class Padchat extends EventEmitter {
   /**
   * 获取设备62数据
   *
-  * **WARN: ** 如果使用62数据进行登陆，再获取到的62数据是无效的，一定不要用。
   * 事实上，只要你有一次登陆成功，以后一直用这个62数据，不需要更换。
   *
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
@@ -364,7 +363,7 @@ class Padchat extends EventEmitter {
     error: '', success: true,
     data :
       {
-        wxData: '62xxxxx'  //设备62数据
+        wxData: 'xxxxx'  //设备62数据
       }
   }
   * ```
