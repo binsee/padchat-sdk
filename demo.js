@@ -37,7 +37,7 @@ const autoData = {
 }
 let server = ''
     server = 'ws://127.0.0.1:7777'
-    server = 'ws://52.80.34.207:7777'
+    server = 'ws://52.80.34.207:7777/{YourToken}'
 
 try {
   const tmpBuf          = fs.readFileSync('./config.json')
@@ -56,6 +56,11 @@ let connected       = false  // 成功连接标志
 
 wx
   .on('close', (code, msg) => {
+    // 需要注意关闭代码为3201-3203的错误，重连也用，具体参考文档中`close`事件说明
+    if (code > 3200) {
+      logger.warn(`Websocket已关闭！code: ${code} - ${msg}`)
+      return
+    }
     logger.info(`Websocket已关闭！code: ${code} - ${msg}`)
     // 根据是否成功连接过判断本次是未能连接成功还是与服务器连接中断
     if (connected) {
