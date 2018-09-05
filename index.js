@@ -48,7 +48,8 @@ const server = 'ws://127.0.0.1:7777'
 class Padchat extends EventEmitter {
   /**
    * Creates an instance of Padchat.
-   * @param {string} [url] - 服务器url，默认为：`ws://127.0.0.1:7777`
+   * @param {string} [url] - 服务器url，后缀你的token：`ws://127.0.0.1:7777/{YourToken}`
+   * 如：`ws://127.0.0.1:7777/mytoken_123456`
    * @memberof Padchat
    */
   constructor(url = server) {
@@ -106,6 +107,9 @@ class Padchat extends EventEmitter {
          *
          * @event Padchat#close
          * @property {number} code - 关闭代码
+         * <br> `3201`: 你的Token是无效的，请联系我们获取有效的Token，以连接padchat-sdk
+         * <br> `3202`: 你的Token已经登录了一个机器人，请不要用同一个Token登录多个机器人
+         * <br> `3203`: 你的Token已经过期了，请联系我们进行续费
          * @property {string} [msg] - 关闭说明
          * @example
          * const wx = new Padchat()
