@@ -1,6 +1,6 @@
 {
   "name": "padchat-sdk",
-  "version": "0.5.12",
+  "version": "0.5.13",
   "description": "padchat开发包",
   "main": "index.js",
   "scripts": {
