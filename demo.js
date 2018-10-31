@@ -89,7 +89,7 @@ wx
 
     //先尝试使用断线重连方式登陆
     if (autoData.token) {
-      ret = await wx.login('token', autoData)
+      ret = await wx.login('auto', autoData)
       if (ret.success) {
         logger.info('断线重连请求成功！', ret)
         return
