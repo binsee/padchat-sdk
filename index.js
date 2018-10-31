@@ -64,10 +64,11 @@ class Padchat extends EventEmitter {
     this.openSyncMsg     = true       //是否同步消息
     this.openSyncContact = true       //是否同步联系人
     this.loaded          = false      //通讯录载入完毕
-    this.sendTimeout    = 10 * 1000
-    this.connected      = false
-    this._lastStartTime = 0
-    this.ws             = {}
+    this.cmdSeq          = 1
+    this.sendTimeout     = 10 * 1000
+    this.connected       = false
+    this._lastStartTime  = 0
+    this.ws              = {}
     this.start()
   }
 
@@ -182,8 +183,11 @@ class Padchat extends EventEmitter {
   */
   async asyncSend(data, timeout = 30000) {
     if (!data.cmdId) {
-      data.cmdId = UUID.v1()
+      data.cmdId = '' + this.cmdSeq++
+      if (this.cmdSeq >= 0xffffff00) {
+        this.cmdSeq = 1
       }
+    }
     return new Promise((res, rej) => {
       try {
         getCmdRecv.call(this, data.cmdId, timeout)
