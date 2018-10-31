@@ -193,7 +193,7 @@ class Padchat extends EventEmitter {
         getCmdRecv.call(this, data.cmdId, timeout)
           .then(data => {
             // console.info('getCmdRecv ret data:', data)
-            res(data.data)
+            res(data.payload)
           })
         this._send(data)
           .then(async ret => {
@@ -225,7 +225,7 @@ class Padchat extends EventEmitter {
     return await this.asyncSend({
       type: 'user',
       cmd,
-      data,
+      payload: data,
     })
       .then(ret => {
         // 用于抓取操作接口对应的返回数据，便于写入文档
@@ -2517,23 +2517,23 @@ function onWsMsg(msg) {
     return
   }
 
-  if (data.data) {
-    if (data.data.data) {
+  if (data.payload) {
+    if (data.payload.data) {
       // 解析扩展数据的json文本
 
-      if (data.data.data.external) {
+      if (data.payload.data.external) {
         try {
           //解析红包及转账接口返回数据
-          data.data.data.external = JSON.parse(data.data.data.external)
+          data.payload.data.external = JSON.parse(data.payload.data.external)
         } catch (e) { }
       }
 
-      if (data.data.data.info) {
+      if (data.payload.data.info) {
         try {
           //解析公众号接口返回数据
-          data.data.data.info = JSON.parse(data.data.data.info)
+          data.payload.data.info = JSON.parse(data.payload.data.info)
 
-          const info   = data.data.data.info
+          const info   = data.payload.data.info
           const fields = [
             'BrandInfo',
             'externalInfo',
@@ -2574,15 +2574,15 @@ function onWsMsg(msg) {
         } catch (e) { }
       }
 
-      if (data.data.data.member) {
+      if (data.payload.data.member) {
         try {
           //解析获取群成员接口返回数据
-          data.data.data.member = JSON.parse(data.data.data.member)
+          data.payload.data.member = JSON.parse(data.payload.data.member)
         } catch (e) { }
       }
     }
     // 转小驼峰
-    data.data = Helper.toCamelCase(data.data)
+    data.payload = Helper.toCamelCase(data.payload)
   }
 
   this.emit('msg', data)
@@ -2591,10 +2591,10 @@ function onWsMsg(msg) {
   /**
    * 返回数据结果:
    data = {
-     type  : 'cmdRet',                                 //返回数据包类型
-     cmdId : 'b61eb250-3770-11e8-b00f-595f9d4f3df0',   //请求id
-     taskId: '5',                                      //服务端返回当前实例的任务ID
-     data  :                                           //荷载数据（以下字段名称为转换为小驼峰后的，原始数据为下划线分隔）
+     type   : 'cmdRet',                                 //返回数据包类型
+     cmdId  : 'b61eb250-3770-11e8-b00f-595f9d4f3df0',   //请求id
+     taskId : '5',                                      //服务端返回当前实例的任务ID
+     payload:                                           //荷载数据（以下字段名称为转换为小驼峰后的，原始数据为下划线分隔）
      {
        error  : '',     //错误提示
        msg    : '',     //其他提示信息
@@ -2656,7 +2656,7 @@ function onWsMsg(msg) {
            * @memberof Padchat
            */
           // 如果success字段为true，则为不严重的问题
-          this.emit('warn', new Error('服务器返回错误提示：' + data.data.error), data.success)
+          this.emit('warn', new Error('服务器返回错误提示：' + data.payload.error), data.success)
           break
         case 'qrcode':   // 微信扫码登陆，推送二维码
         /**
@@ -2795,11 +2795,11 @@ function onWsMsg(msg) {
            * })
            *
            */
-          this.emit(data.event, data.data || {}, data.data.msg)
+          this.emit(data.event, data.payload || {}, data.payload.msg)
           break
 
         case 'notify':   // 推送通知
-          if (data.data.type === 4) {
+          if (data.payload.type === 4) {
             if (this.openSyncContact) {
               this.syncContact()
             }
@@ -2810,11 +2810,11 @@ function onWsMsg(msg) {
           }
           break
         case 'push':
-          if (data.data && Array.isArray(data.data.list)) {
-            const pushContact = data.data.type === 4
+          if (data.payload && Array.isArray(data.payload.list)) {
+            const pushContact = data.payload.type === 4
             const event       = pushContact ? 'contact' : 'msg'
             let   loaded      = false
-            data.data.list.forEach(item => {
+            data.payload.list.forEach(item => {
               const type = item.msgType
               if (type === 32768 && item.continue === 0) {
                 //通讯录同步完毕
