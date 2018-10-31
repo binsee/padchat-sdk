@@ -338,7 +338,7 @@ class Padchat extends EventEmitter {
     }
 
     switch (type) {
-      case loginType.token:
+      case loginType.auto:
       case loginType.request:
         if (!data.token || !data.wxData) {
           throw new Error('login data error!')
@@ -2881,6 +2881,48 @@ function onWsMsg(msg) {
                * })
                */
               this.emit('push', item)
+              /**
+               * Contact event
+               * 联系人/消息推送
+               *
+               * @event Padchat#contact
+               * @property {number} data.mType - 推送类型
+              <br> `2`: 好友信息推送，包含好友，群，公众号信息
+               * @property {string} data.city 城市
+               * @property {string} data.country 国家
+               * @property {string} data.provincia 省份
+               * @property {string} data.intro 公众号主体
+               * @property {string} data.label
+               * @property {number} data.level
+               * @property {string} data.remark 备注
+               * @property {number} data.sex 性别: 1男 2女 0未知
+               * @property {string} data.signature v1值
+               * @property {number} data.source 联系人添加渠道
+               * @property {string} data.stranger
+               * @property {number} data.uin 当前账号uin (自己微信号的,不是好友的)
+               * @property {string} data.bigHead 高清头像
+               * @property {number} data.bitValue
+               * @property {number} data.chatroomId
+               * @property {string} data.chatroomOwner
+               * @property {number} data.imgFlag
+               * @property {number} data.maxMemberCount
+               * @property {number} data.memberCount
+               * @property {number} data.msgType
+               * @property {string} data.nickName 联系人昵称
+               * @property {string} data.pyInitial
+               * @property {string} data.quanPin
+               * @property {string} data.remarkPyInitial
+               * @property {string} data.remarkQuanPin
+               * @property {string} data.smallHead
+               * @property {string} data.userName 联系人微信号/wxid
+               * @property {number} data.mType
+               * @example
+               * const util = require('util')
+               * const wx   = new Padchat()
+               * wx.on('push',data=>{
+               *  console.log('push:',util.inspect(data, { depth: 10 }))
+               * })
+               */
               this.emit(event, item)
             })
             if (pushContact) {
