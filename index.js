@@ -57,6 +57,13 @@ class Padchat extends EventEmitter {
     this.url    = url
     this._event = new EventEmitter()
     // 向ws服务器提交指令后，返回结果的超时时间，单位毫秒
+    this.sendTimeout     = 10 * 1000
+    this.connected       = false
+    this._lastStartTime  = 0
+    this.ws              = {}
+    this.openSyncMsg     = true       //是否同步消息
+    this.openSyncContact = true       //是否同步联系人
+    this.loaded          = false      //通讯录载入完毕
     this.sendTimeout    = 10 * 1000
     this.connected      = false
     this._lastStartTime = 0
@@ -176,7 +183,7 @@ class Padchat extends EventEmitter {
   async asyncSend(data, timeout = 30000) {
     if (!data.cmdId) {
       data.cmdId = UUID.v1()
-    }
+      }
     return new Promise((res, rej) => {
       try {
         getCmdRecv.call(this, data.cmdId, timeout)
@@ -422,6 +429,24 @@ class Padchat extends EventEmitter {
   }
 
   /**
+  * 设置是否同步联系人
+  *
+  * @memberof Padchat
+  */
+  setSyncContact(open) {
+    this.openSyncContact = !!open
+  }
+
+  /**
+  * 设置是否同步消息
+  *
+  * @memberof Padchat
+  */
+  setSyncMsg(open) {
+    this.openSyncMsg = !!open
+  }
+
+  /**
   * 同步消息
   *
   * 使用此接口手动触发同步消息，一般用于刚登陆后调用，可立即开始同步消息。
@@ -445,9 +470,10 @@ class Padchat extends EventEmitter {
   * @memberof Padchat
   */
   async syncContact(reset = false) {
-    return await this.sendCmd('syncContact', {
-      reset
-    })
+    if (reset) {
+      this.loaded = false
+    }
+    return await this.sendCmd('syncContact')
   }
 
   /**
@@ -2767,75 +2793,102 @@ function onWsMsg(msg) {
            */
           this.emit(data.event, data.data || {}, data.data.msg)
           break
-        case 'push':
-          if (!data.data || !Array.isArray(data.data.list) || data.data.list.length <= 0) {
-            this.emit('error', new Error('推送数据异常！'))
-            break
-          }
-          data.data.list.forEach(item => {
-            const type = item.msgType
-            // 过滤无意义的2048和32768类型数据
-            if (type === undefined || type === 2048 || type === 32768) {
-              return null
+
+        case 'notify':   // 推送通知
+          if (data.data.type === 4) {
+            if (this.openSyncContact) {
+              this.syncContact()
             }
-            // 当msg_type为5时，即表示推送的信息类型要用sub_type进行判断
-            // 另外增加一个属性来存储好了
-            item.mType = item.msgType === 5 ? item.subType : item.msgType
-            // 解析群成员列表
-            if (item.member) {
-              try {
-                item.member = JSON.parse(item.member) || []
-              } catch (e) {
+          } else {
+            if (this.openSyncMsg) {
+              this.syncMsg()
+            }
+          }
+          break
+        case 'push':
+          if (data.data && Array.isArray(data.data.list)) {
+            const pushContact = data.data.type === 4
+            const event       = pushContact ? 'contact' : 'msg'
+            let   loaded      = false
+            data.data.list.forEach(item => {
+              const type = item.msgType
+              if (type === 32768 && item.continue === 0) {
+                //通讯录同步完毕
+                loaded = true
+              }
+              // 过滤无意义的2048和32768类型数据
+              if (type === undefined || type === 2048 || type === 32768) {
+                return null
+              }
+              // 当msg_type为5时，即表示推送的信息类型要用sub_type进行判断
+              // 另外增加一个属性来存储好了
+              item.mType = item.msgType === 5 ? item.subType : item.msgType
+              // 解析群成员列表
+              if (item.member) {
+                try {
+                  item.member = JSON.parse(item.member) || []
+                } catch (e) {
+                }
+              }
+              /**
+               * Push event
+               * 联系人/消息推送
+               *
+               * @event Padchat#push
+               * @property {number} data.mType - 推送类型
+              <br> `1`    : 文字消息
+              <br> `2`    : 好友信息推送，包含好友，群，公众号信息
+              <br> `3`    : 收到图片消息
+              <br> `34`   : 语音消息
+              <br> `35`   : 用户头像buf
+              <br> `37`   : 收到好友请求消息
+              <br> `42`   : 名片消息
+              <br> `43`   : 视频消息
+              <br> `47`   : 表情消息
+              <br> `48`   : 定位消息
+              <br> `49`   : APP消息(文件 或者 链接 H5)
+              <br> `50`   : 语音通话
+              <br> `51`   : 状态通知（如打开与好友/群的聊天界面）
+              <br> `52`   : 语音通话通知
+              <br> `53`   : 语音通话邀请
+              <br> `62`   : 小视频
+              <br> `2000` : 转账消息
+              <br> `2001` : 收到红包消息
+              <br> `3000` : 群邀请
+              <br> `9999` : 系统通知
+              <br> `10000`: 微信通知信息。微信群信息变更，多为群名修改、进群、离群信息，不包含群内聊天信息
+              <br> `10002`: 撤回消息
+               * @property {string} [data.userName] - (`mType`为2) 联系人微信号/wxid
+               * @property {string} [data.nickName] - (`mType`为2) 联系人昵称
+               * @property {string} [data.fromUser] - (`mType`非2) 发件人
+               * @property {string} [data.toUser] - (`mType`非2) 收件人
+               * @property {string} [data.content] - (`mType`非2) 消息内容。非文本型消息时，此字段可能为xml结构文本
+               * @property {string} [data.data] - 图片、语音、视频等媒体文件base64文本
+               * @property {string} [data.description] - (部分`mType`非2) 消息描述
+               * @property {string} [data.msgId] - (`mType`非2) 消息id
+               * @property {string} [data.timestamp] - (`mType`非2) 消息时间戳
+               * @property {number} [data.uin] - 当前账号uin
+               * @property {string} [data.*] - 其他字段请自行输出查看
+               * @example
+               * const util = require('util')
+               * const wx   = new Padchat()
+               * wx.on('push',data=>{
+               *  console.log('push:',util.inspect(data, { depth: 10 }))
+               * })
+               */
+              this.emit('push', item)
+              this.emit(event, item)
+            })
+            if (pushContact) {
+              if (!loaded && this.openSyncContact) {
+                this.syncContact()
+              }
+              if (loaded && !this.loaded) {
+                this.loaded = true
+                this.emit('loaded')
               }
             }
-            /**
-             * Push event
-             * 联系人/消息推送
-             *
-             * @event Padchat#push
-             * @property {number} data.mType - 推送类型
-            <br> `1`    : 文字消息
-            <br> `2`    : 好友信息推送，包含好友，群，公众号信息
-            <br> `3`    : 收到图片消息
-            <br> `34`   : 语音消息
-            <br> `35`   : 用户头像buf
-            <br> `37`   : 收到好友请求消息
-            <br> `42`   : 名片消息
-            <br> `43`   : 视频消息
-            <br> `47`   : 表情消息
-            <br> `48`   : 定位消息
-            <br> `49`   : APP消息(文件 或者 链接 H5)
-            <br> `50`   : 语音通话
-            <br> `51`   : 状态通知（如打开与好友/群的聊天界面）
-            <br> `52`   : 语音通话通知
-            <br> `53`   : 语音通话邀请
-            <br> `62`   : 小视频
-            <br> `2000` : 转账消息
-            <br> `2001` : 收到红包消息
-            <br> `3000` : 群邀请
-            <br> `9999` : 系统通知
-            <br> `10000`: 微信通知信息。微信群信息变更，多为群名修改、进群、离群信息，不包含群内聊天信息
-            <br> `10002`: 撤回消息
-             * @property {string} [data.userName] - (`mType`为2) 联系人微信号/wxid
-             * @property {string} [data.nickName] - (`mType`为2) 联系人昵称
-             * @property {string} [data.fromUser] - (`mType`非2) 发件人
-             * @property {string} [data.toUser] - (`mType`非2) 收件人
-             * @property {string} [data.content] - (`mType`非2) 消息内容。非文本型消息时，此字段可能为xml结构文本
-             * @property {string} [data.data] - 图片、语音、视频等媒体文件base64文本
-             * @property {string} [data.description] - (部分`mType`非2) 消息描述
-             * @property {string} [data.msgId] - (`mType`非2) 消息id
-             * @property {string} [data.timestamp] - (`mType`非2) 消息时间戳
-             * @property {number} [data.uin] - 当前账号uin
-             * @property {string} [data.*] - 其他字段请自行输出查看
-             * @example
-             * const util = require('util')
-             * const wx   = new Padchat()
-             * wx.on('push',data=>{
-             *  console.log('push:',util.inspect(data, { depth: 10 }))
-             * })
-             */
-            this.emit('push', item)
-          })
+          }
           break
         default:
           this.emit('other', data)
