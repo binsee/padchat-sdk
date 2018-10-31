@@ -20,7 +20,7 @@ exports.userEvents = [
 ]
 
 exports.loginType = {
-  token  : 'token',     // 断线重连
+  auto   : 'auto',      // 断线重连
   request: 'request',   // 二次登陆
   qrcode : 'qrcode',    // 扫码登陆
   phone  : 'phone',     // 手机验证码登陆

@@ -269,7 +269,7 @@ class Padchat extends EventEmitter {
   * 任何登陆方式，使用成功登陆过的`wxData`都可降低封号概率。
   *
   * @param {string} type - 登录类型，默认为扫码登录
-  * <br> `token` **断线重连**，用于短时间使用`wxData`和`token`再次登录。`token`有效期很短，如果登陆失败，建议使用二次登陆方式
+  * <br> `auto` **断线重连**，用于短时间使用`wxData`和`token`再次登录。`token`有效期很短，如果登陆失败，建议使用二次登陆方式
   * <br> `request` **二次登陆**。需要提供`wxData`和`token`数据，手机端会弹出确认框，点击后登陆。不容易封号
   * <br> `qrcode` **扫码登录**（现在此模式已经可以返回二维码内容的url了）
   * <br> `phone` **手机验证码登录**，建议配合`wxData`使用
@@ -308,7 +308,7 @@ class Padchat extends EventEmitter {
   * const wx = new Padchat()
   * wx.on('open',()=>{
   *   await wx.init()
-  *   await wx.login('token',{wxData:'xxx',token:'xxxxx'})
+  *   await wx.login('auto',{wxData:'xxx',token:'xxxxx'})
   * })
   *
   * @example <caption>二次登陆</caption>
