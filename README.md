@@ -22,89 +22,76 @@ Padchat开发包。通过websocket协议与运行在windows平台上的微信ipa
 
 ## 接口功能列表
 
-| **接口**             | **code**            | **备注**                              |
-| -------------------- | :-----------------: | ------------------------------------- |
-| **登陆管理**         |                     |
-| 初始化实例           | init                | 初始化任务实例                        |
-| 登陆                 | login               | 登陆账号                              |
-| 注销登录             | logout              | 会退出账号登陆                        |
-| 关闭实例             | close               | 关闭任务实例，不退出账号登陆          |
-| 获取设备登陆数据     | getWxData           | 固定设备登陆数据                      |
-| 获取二次登陆数据     | getLoginToken       | 可使用二次登陆数据免扫码或免密码登陆  |
-| **用户管理**         |
-| 获取用户信息         | getContact          | 获取用户详细信息                      |
-| 搜索用户             | searchContact       |
-| 通过好友请求         | acceptUser          |
-| 添加好友             | addContact          |
-| 打招呼               | sayHello            |                                       |
-| 删除好友             | deleteContact       |
-| 设置好友备注         | setRemark           |
-| 设置头像             | setHeadImg          |
-| ~~设置个人资料~~     |                     | 暂不开放                              |
-| 主动触发同步消息     | syncMsg             |                                       |
-| 主动同步通讯录       | syncContact         |                                       |
-| 获取用户二维码       | getContactQrcode    | 用于获取自己的二维码图片              |
-| 获取当前用户信息     | getMyInfo           | 用于获取当前微信号的wxid和uin         |
-| **群管理**           |
-| 创建群               | createRoom          |
-| 获取群成员           | getRoomMembers      |
-| 添加群成员           | addRoomMember       |
-| 邀请好友进群         | inviteRoomMember    |
-| 删除群成员           | deleteRoomMember    |
-| 退出群               | quitRoom            |
-| 设置群公告           | setRoomAnnouncement | 设置群公告会自动@通知群内所有成员     |
-| 设置群名称           | setRoomName         | 修改微信群名称                        |
-| 获取进群二维码       | getRoomQrcode       | 获取到的进群二维码有效期为7天         |
-| **发送消息**         |
-| 发送文本消息         | sendMsg             |
-| 发送App消息          | sendAppMsg          | 发送图文链接消息                      |
-| 发送图片消息         | sendImage           |
-| 发送语音消息         | sendVoice           | 语音文件必须是silk格式                |
-| 发送名片             | shareCard           |
-| ~~群发消息~~         | massMsg             | 废弃接口                              |
-| ~~发送视频~~         |                     | 暂无接口                              |
-| ~~发送文件~~         |                     | 暂不可用                              |
-| **获取图片、文件**   |
-| 获取消息图片原图     | getMsgImage         | 获取图片消息的原始图片数据            |
-| 获取消息视频数据     | getMsgVideo         | 获取小视频消息的视频数据              |
-| 获取消息语音数据     | getMsgVoice         | 获取语音消息的语音数据                |
-| ~~获取文件~~         |                     | 暂无接口                              |
-| **朋友圈操作**       |
-| 发朋友圈             | snsSendMoment       | 发表文字朋友圈信息                    |
-| 朋友圈上传图片       | snsUpload           | 上传后仅能得到url，而非真正的发朋友圈 |
-| 查看用户朋友圈       | snsUserPage         | 查看指定用户朋友圈信息                |
-| 获取朋友圈动态       | snsTimeline         | 查看朋友圈时间轴信息                  |
-| 获取朋友圈消息详情   | snsGetObject        |
-| 操作朋友圈           | snsObjectOp         |                                       |
-| 发表评论             | snsComment          |
-| 点赞                 | snsLike             |
-| **收藏操作**         |
-| 同步收藏消息         | syncFav             |
-| 添加收藏             | addFav              |
-| 获取收藏消息详情     | getFav              |
-| 删除收藏             | deleteFav           |
-| **标签管理**         |
-| 添加标签             | addLabel            |
-| 删除标签             | deleteLabel         |
-| 获取所有标签         | getLabelList        |
-| 设置用户标签         | setLabel            |
-| **接收转账及红包**   |
-| 查看转账消息         | queryTransfer       |
-| 接受转账             | acceptTransfer      |
-| 接收红包             | receiveRedPacket    | 收到红包消息后要先接收才能领取和查询  |
-| 领取红包             | openRedPacket       | 领取红包前需先接收红包                |
-| 查看红包信息         | queryRedPacket      | 查询红包领取状态等信息                |
-| **公众号操作**       |
-| 搜索公众号           | searchMp            | 根据关键字搜索公众号                  |
-| 获取公众号信息       | getSubscriptionInfo |
-| 操作公众号菜单       | operateSubscription |
-| 获取公众号网页授权   | getRequestToken     | 需要授权才能访问的网页需要先授权      |
-| 访问授权页面         | requestUrl          | 以授权过的身份访问页面                |
-| **小程序相关操作**   |                     | **不支持**                            |
-| **其他未开放接口**   |                     | **暂不考虑开放**                      |
-| 扩展设备操作系列接口 |                     | 操作如Ipad、PC、Web微信登陆的系列接口 |
-| 申诉相关接口         |                     | 账号申诉相关接口                      |
-| 注册账号接口         |                     | 用于注册微信账号                      |
+| **接口**           | **code**            | **备注**                              |
+| ------------------ | :-----------------: | ------------------------------------- |
+| **登陆管理**       |                     |
+| 初始化实例         | init                | 初始化任务实例                        |
+| 登陆               | login               | 登陆账号                              |
+| 注销登录           | logout              | 会退出账号登陆                        |
+| 关闭实例           | close               | 关闭任务实例，不退出账号登陆          |
+| 获取设备登陆数据   | getWxData           | 固定设备登陆数据                      |
+| 获取二次登陆数据   | getLoginToken       | 可使用二次登陆数据免扫码或免密码登陆  |
+| **用户管理**       |
+| 获取用户信息       | getContact          | 获取用户详细信息                      |
+| 搜索用户           | searchContact       |
+| 通过好友请求       | acceptUser          |
+| 添加好友           | addContact          |
+| 打招呼             | sayHello            |                                       |
+| 删除好友           | deleteContact       |
+| 设置好友备注       | setRemark           |
+| 设置头像           | setHeadImg          |
+| 主动触发同步消息   | syncMsg             |                                       |
+| 主动同步通讯录     | syncContact         |                                       |
+| 获取用户二维码     | getContactQrcode    | 用于获取自己的二维码图片              |
+| 获取当前用户信息   | getMyInfo           | 用于获取当前微信号的wxid和uin         |
+| **群管理**         |
+| 创建群             | createRoom          |
+| 获取群成员         | getRoomMembers      |
+| 添加群成员         | addRoomMember       |
+| 邀请好友进群       | inviteRoomMember    |
+| 删除群成员         | deleteRoomMember    |
+| 退出群             | quitRoom            |
+| 设置群公告         | setRoomAnnouncement | 设置群公告会自动@通知群内所有成员     |
+| 设置群名称         | setRoomName         | 修改微信群名称                        |
+| 获取进群二维码     | getRoomQrcode       | 获取到的进群二维码有效期为7天         |
+| **发送消息**       |
+| 发送文本消息       | sendMsg             |
+| 发送App消息        | sendAppMsg          | 发送图文链接消息                      |
+| 发送图片消息       | sendImage           |
+| 发送语音消息       | sendVoice           | 语音文件必须是silk格式                |
+| 发送名片           | shareCard           |
+| **获取图片、文件** |
+| 获取消息图片原图   | getMsgImage         | 获取图片消息的原始图片数据            |
+| 获取消息视频数据   | getMsgVideo         | 获取小视频消息的视频数据              |
+| 获取消息语音数据   | getMsgVoice         | 获取语音消息的语音数据                |
+| **朋友圈操作**     |
+| 发朋友圈           | snsSendMoment       | 发表文字朋友圈信息                    |
+| 朋友圈上传图片     | snsUpload           | 上传后仅能得到url，而非真正的发朋友圈 |
+| 查看用户朋友圈     | snsUserPage         | 查看指定用户朋友圈信息                |
+| 获取朋友圈动态     | snsTimeline         | 查看朋友圈时间轴信息                  |
+| 获取朋友圈消息详情 | snsGetObject        |
+| 操作朋友圈         | snsObjectOp         |                                       |
+| 发表评论           | snsComment          |
+| 点赞               | snsLike             |
+| **收藏操作**       |
+| 同步收藏消息       | syncFav             |
+| 添加收藏           | addFav              |
+| 获取收藏消息详情   | getFav              |
+| 删除收藏           | deleteFav           |
+| **标签管理**       |
+| 添加标签           | addLabel            |
+| 删除标签           | deleteLabel         |
+| 获取所有标签       | getLabelList        |
+| 设置用户标签       | setLabel            |
+| **公众号操作**     |
+| 搜索公众号         | searchMp            | 根据关键字搜索公众号                  |
+| 获取公众号信息     | getSubscriptionInfo |
+| 操作公众号菜单     | operateSubscription |
+| 获取公众号网页授权 | getRequestToken     | 需要授权才能访问的网页需要先授权      |
+| 访问授权页面       | requestUrl          | 以授权过的身份访问页面                |
+| **小程序相关操作** |                     | 支持转发分享                          |
+
+完整接口见**API文档**
 
 ## 通讯约定
 
@@ -151,139 +138,54 @@ API请求是以websocket协议发送的json数据，以下为json数据的字段
 
 此部分为请求API指令时，需要附加的data数据。根据使用的API不同，需要提供不同的字段及对应数据。
 
-| 字段名称         | 说明                       | 备注                                                |
-| :--------------: | -------------------------- | --------------------------------------------------- |
+| 字段名称         | 说明                       | 备注                                               |
+| :--------------: | -------------------------- | -------------------------------------------------- |
 | **登陆**         |
-| loginType        | 登陆类型                   | 支持扫码、帐号密码、手机验证码、二次登陆、断线重连  |
-| wxData           | 登陆设备数据               | 使用已登陆过的设备数据登录,可避免封号               |
-| token            | 二次登陆token              | 结合`wxData`使用可免扫码、帐号登陆                  |
+| loginType        | 登陆类型                   | 支持扫码、帐号密码、手机验证码、二次登陆、断线重连 |
+| wxData           | 登陆设备数据               | 使用已登陆过的设备数据登录,可避免封号              |
+| token            | 二次登陆token              | 结合`wxData`使用可免扫码、帐号登陆                 |
 | **发送消息**     |                            |
-| toUserName       | 目标用户/群id              | 群id包含@chatroom部分                               |
-| content          | 文本内容                   | 文本消息内容、xml结构体文本、名片自定义标题         |
-|                  |                            | 添加好友时，为验证信息                              |
-| file             | 文件buffer的base64编码     | 发送图片/语音消息、上传头像、朋友圈上传图片         |
-| time             | 语音的时间长度(单位为毫秒) | 发送语音消息                                        |
-| atList           | `Array`,要at的用户用户     | `["wxid1","wxid2"]` 文本消息时有效                  |
+| toUserName       | 目标用户/群id              | 群id包含@chatroom部分                              |
+| content          | 文本内容                   | 文本消息内容、xml结构体文本、名片自定义标题        |
+|                  |                            | 添加好友时，为验证信息                             |
+| file             | 文件buffer的base64编码     | 发送图片/语音消息、上传头像、朋友圈上传图片        |
+| time             | 语音的时间长度(单位为毫秒) | 发送语音消息                                       |
+| atList           | `Array`,要at的用户用户     | `["wxid1","wxid2"]` 文本消息时有效                 |
 | **群及好友管理** |                            |
 | roomName         | 群名称                     |
-| userIds          | `Array`,用户id列表数组     | `["wxid1","wxid2"]` 创建群                          |
+| userIds          | `Array`,用户id列表数组     | `["wxid1","wxid2"]` 创建群                         |
 | chatroom         | 要操作的群id               |
 | remark           | 备注名称                   |
-| userId           | 用户wxid                   | 主动添加好友、好友验证、添加/邀请用户进入群         |
-| stranger         | V1码，相对加密的userId     | 接受好友请求(仅限stranger字段)                      |
-|                  |                            | 主动添加好友(也可使用`userId`字段)                  |
-| ticket           | V2码，好友请求中的ticket   | 添加单向好友、接受好友请求                          |
-| type             | `Number`,操作类型          | 添加好友来源、朋友圈操作类型                        |
+| userId           | 用户wxid                   | 主动添加好友、好友验证、添加/邀请用户进入群        |
+| stranger         | V1码，相对加密的userId     | 接受好友请求(仅限stranger字段)                     |
+|                  |                            | 主动添加好友(也可使用`userId`字段)                 |
+| ticket           | V2码，好友请求中的ticket   | 添加单向好友、接受好友请求                         |
+| type             | `Number`,操作类型          | 添加好友来源、朋友圈操作类型                       |
 | **朋友圈**       |
 | momentId         | 朋友圈消息id               |
 | commentId        | `Number`,朋友圈评论id      |
 | commentType      | `Number`,朋友圈评论类型    |
 | **收藏**         |
-| favKey           | 收藏分页key                | 通过分页key来分页拉取收藏                           |
+| favKey           | 收藏分页key                | 通过分页key来分页拉取收藏                          |
 | favId            | `Number`,收藏id            |
 | **标签**         |
 | label            | 标签名称                   |
 | labelId          | 标签id                     |
-| **红包**         |
-| index            | 红包信息分页索引,`n*11`    | 红包领取记录每页11条记录，`n*11`即获取第`n+1`页记录 |
-| key              | 红包领取key                |
 | **公众号**       |
 | ghName           | 公众号id,`gh_`开头         |
 | menuId           | `Number`,公众号菜单id      |
 | menuKey          | 公众号菜单key              |
 | url              | 网页url                    |
-| xKey             | 网页授权key                | 以公众号授权方式访问网页需要提供授权key             |
-| xUin             | 网页授权uin                | 以公众号授权方式访问网页需要提供授权uin             |
+| xKey             | 网页授权key                | 以公众号授权方式访问网页需要提供授权key            |
+| xUin             | 网页授权uin                | 以公众号授权方式访问网页需要提供授权uin            |
 | **其他**         |                            |
-| rawMsgData       | `Object`,push事件中的data  | 用于接收红包、接收转账、获取原始图片                |
+| rawMsgData       | `Object`,push事件中的data  | 用于接收红包、接收转账、获取原始图片               |
 
 ## DEMO
 
 使用`npm i padchat-sdk`安装sdk包
 
-使用以下方式引用: （建议参考[demo.js](./demo.js)）
-
-```javascript
-'use strict'
-
-const Padchat = require('padchat-sdk')
-const qrcode  = require('qrcode-terminal')
-const url     = 'ws://host:7777'
-const wx      = new Padchat(url)
-
-wx
-  .on('open', async () => {
-    let ret
-    ret = await wx.init()
-    if (!ret.success) {
-      console.error('初始化失败! ret:', ret)
-      return
-    }
-    console.log('初始化成功! ret:', ret)
-
-    ret = await wx.login()
-    if (!ret.success) {
-      console.error('请求登录失败! ret:', ret)
-      return
-    }
-    console.log('请求登录成功! ret:', ret)
-  })
-  .on('qrcode', data => {
-    if (data.url) {
-      console.log('登陆二维码url: %s ,请扫码登陆：', data.url)
-      qrcode.generate(data.url)
-      return
-    } else if (data.qrCode) {
-      console.log('登陆二维码图片数据，请输出到文件扫码。')
-      return
-    }
-    console.error('没有发现二维码数据!')
-  })
-  .on('scan', data => {
-    switch (data.status) {
-      case 0:
-        console.log('等待扫码...', data)
-        break;
-      case 1:
-        console.log('已扫码，请在手机端确认登陆...', data)
-        break;
-      case 2:
-        switch (data.subStatus) {
-          case 0:
-            console.log('扫码成功！登陆成功！', data)
-            break;
-          case 1:
-            console.log('扫码成功！登陆失败！', data)
-            break;
-          default:
-            console.log('扫码成功！未知状态码！', data)
-            break;
-        }
-        break;
-      case 3:
-        console.log('二维码已过期', data)
-        break;
-      case 4:
-        console.log('手机端已取消登陆！', data)
-        break;
-      default:
-        break;
-    }
-  })
-  .on('login', () => {
-    console.log('登陆成功!')
-  })
-  .on('loaded', () => {
-    console.log('载入通讯录完成!')
-  })
-  .on('push', data => {
-    if (data.mType === 2) {
-      console.log('接收到联系人/群: %s', data.nickName)
-      return
-    }
-    console.log('收到新消息: %o', data)
-  })
-```
+使用DEMO见 [demo.js](./demo.js)
 
 ## API文档
 

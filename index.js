@@ -466,10 +466,9 @@ class Padchat extends EventEmitter {
   /**
   * 同步通讯录
   *
-  * 使用此接口可以触发同步通讯录，如果设置`reset`为`true`，则会先重置同步状态。
-  * 重置同步状态后，会再次接收到前一段时间内的消息推送，需自行处理过滤。
+  * 使用此接口可以触发同步通讯录，如果设置`reset`为`true`，则在通讯录同步完毕后触发`loaded`事件
   *
-  * @param {boolean} [reset=false] 是否重置同步状态
+  * @param {boolean} [reset=false] 是否重置通讯录加载完毕状态
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
   * @memberof Padchat
   */
@@ -569,6 +568,7 @@ class Padchat extends EventEmitter {
   * @param {Array<string>} [userList=[]] - 接收者wxid数组
   * @param {string} content - 内容文本
   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
+  * @deprecated
   * @memberof Padchat
   */
   async massMsg(userList = [], content) {
@@ -660,6 +660,11 @@ class Padchat extends EventEmitter {
     })
   }
 
+  /**
+   * @returns {Promise<object>} 返回Promise<object>，注意捕捉catch
+   * @private
+   * @memberof Padchat
+   */
   async dumpWxuser() {
     return await this.sendCmd('dumpWxuser', {
     })
@@ -1858,6 +1863,7 @@ class Padchat extends EventEmitter {
       }
   }
   * ```
+  * @deprecated
   * @memberof Padchat
   */
   async queryTransfer(rawMsgData) {
@@ -1890,6 +1896,7 @@ class Padchat extends EventEmitter {
       }
   }
   * ```
+  * @deprecated
   * @memberof Padchat
   */
   async acceptTransfer(rawMsgData) {
@@ -1938,6 +1945,7 @@ class Padchat extends EventEmitter {
       }
   }
   * ```
+  * @deprecated
   * @memberof Padchat
   */
   async receiveRedPacket(rawMsgData) {
@@ -2048,6 +2056,7 @@ class Padchat extends EventEmitter {
       }
   }
   * ```
+  * @deprecated
   * @memberof Padchat
   */
   async queryRedPacket(rawMsgData, index = 0) {
@@ -2142,6 +2151,7 @@ class Padchat extends EventEmitter {
       }
   }
   * ```
+  * @deprecated
   * @memberof Padchat
   */
   async openRedPacket(rawMsgData, key) {
@@ -2663,7 +2673,7 @@ function onWsMsg(msg) {
          * Qrcode event
          * 登陆二维码推送
          *
-         * @event Padchat#qrocde
+         * @event Padchat#qrcode
          * @property {object} data - 二维码信息
          * @property {string} [data.url] - 登陆二维码解析后的内容url，可使用此url作为内容生成二维码图片后，使用手机扫码登陆
          * @property {string|null} msg - 附加提示信息
@@ -2749,7 +2759,7 @@ function onWsMsg(msg) {
          *  console.log('自动重连成功!')
          * })
          *
-         * @event Padchat#login
+         * @event Padchat#autoLogin
          */
         case 'loaded':   // 通讯录载入完毕
         /**
