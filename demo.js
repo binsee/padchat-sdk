@@ -208,10 +208,13 @@ wx
   .on('sns', (data, msg) => {
     logger.info('收到朋友圈事件！请查看朋友圈新消息哦！', msg)
   })
+
+  .on('contact', async data => {
+    logger.info('收到推送联系人：%s - %s\n', data.userName, data.nickName, JSON.stringify(data))
+  })
   .on('push', async data => {
     // 消息类型 data.mType
     // 1  文字消息
-    // 2  好友信息推送，包含好友，群，公众号信息
     // 3  收到图片消息
     // 34  语音消息
     // 35  用户头像buf
@@ -235,16 +238,8 @@ wx
     // --------------------------------
     // 注意，如果是来自微信群的消息，data.content字段中包含发言人的wxid及其发言内容，需要自行提取
     // 各类复杂消息，data.content中是xml格式的文本内容，需要自行从中提取各类数据。（如好友请求）
-    if ((data.mType !== 2) && !(data.mType === 10002 && data.fromUser === 'weixin')) {
-      // 输出除联系人以外的推送信息
-      dLog.info('push: \n%o', data)
-    }
     let rawFile
     switch (data.mType) {
-      case 2:
-        logger.info('收到推送联系人：%s - %s', data.userName, data.nickName)
-        break
-
       case 3:
         logger.info('收到来自 %s 的图片消息，包含图片数据：%s，xml内容：\n%s', data.fromUser, !!data.data, data.content)
         rawFile = data.data || null

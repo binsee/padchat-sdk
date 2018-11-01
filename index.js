@@ -2828,7 +2828,7 @@ function onWsMsg(msg) {
         case 'push':
           if (data.payload && Array.isArray(data.payload.list)) {
             const pushContact = data.payload.type === 4
-            const event       = pushContact ? 'contact' : 'msg'
+            const event       = pushContact ? 'contact' : 'push'
             let   loaded      = false
             data.payload.list.forEach(item => {
               const type = item.msgType
@@ -2878,11 +2878,10 @@ function onWsMsg(msg) {
               <br> `9999` : 系统通知
               <br> `10000`: 微信通知信息。微信群信息变更，多为群名修改、进群、离群信息，不包含群内聊天信息
               <br> `10002`: 撤回消息
-               * @property {string} [data.userName] - (`mType`为2) 联系人微信号/wxid
-               * @property {string} [data.nickName] - (`mType`为2) 联系人昵称
                * @property {string} [data.fromUser] - (`mType`非2) 发件人
                * @property {string} [data.toUser] - (`mType`非2) 收件人
                * @property {string} [data.content] - (`mType`非2) 消息内容。非文本型消息时，此字段可能为xml结构文本
+               * @property {string} [data.msgSource] - (`mType`非2)
                * @property {string} [data.data] - 图片、语音、视频等媒体文件base64文本
                * @property {string} [data.description] - (部分`mType`非2) 消息描述
                * @property {string} [data.msgId] - (`mType`非2) 消息id
@@ -2896,7 +2895,7 @@ function onWsMsg(msg) {
                *  console.log('push:',util.inspect(data, { depth: 10 }))
                * })
                */
-              this.emit('push', item)
+
               /**
                * Contact event
                * 联系人/消息推送
@@ -2908,30 +2907,29 @@ function onWsMsg(msg) {
                * @property {string} data.country 国家
                * @property {string} data.provincia 省份
                * @property {string} data.intro 公众号主体
+               * @property {string} data.stranger 个性签名
                * @property {string} data.label
                * @property {number} data.level
-               * @property {string} data.remark 备注
                * @property {number} data.sex 性别: 1男 2女 0未知
                * @property {string} data.signature v1值
                * @property {number} data.source 联系人添加渠道
-               * @property {string} data.stranger
                * @property {number} data.uin 当前账号uin (自己微信号的,不是好友的)
                * @property {string} data.bigHead 高清头像
+               * @property {string} data.smallHead 头像缩略图
                * @property {number} data.bitValue
-               * @property {number} data.chatroomId
-               * @property {string} data.chatroomOwner
+               * @property {number} data.chatroomId 群版本号
+               * @property {string} data.chatroomOwner 群主wxid
                * @property {number} data.imgFlag
-               * @property {number} data.maxMemberCount
-               * @property {number} data.memberCount
+               * @property {number} data.maxMemberCount 群成员上限
+               * @property {number} data.memberCount 群成员数量
                * @property {number} data.msgType
                * @property {string} data.nickName 联系人昵称
-               * @property {string} data.pyInitial
-               * @property {string} data.quanPin
-               * @property {string} data.remarkPyInitial
-               * @property {string} data.remarkQuanPin
-               * @property {string} data.smallHead
+               * @property {string} data.pyInitial 昵称拼音简写
+               * @property {string} data.quanPin 昵称拼音全拼
+               * @property {string} data.remark 备注
+               * @property {string} data.remarkPyInitial 备注拼音简写
+               * @property {string} data.remarkQuanPin 备注拼音全拼
                * @property {string} data.userName 联系人微信号/wxid
-               * @property {number} data.mType
                * @example
                * const util = require('util')
                * const wx   = new Padchat()
