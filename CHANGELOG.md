@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/binsee/padchat-sdk/compare/v0.5.11...v0.6.0) (2018-11-01)
+
+
+### Bug Fixes
+
+* **demo:** 更新demo中断线重连代码 ([fe5b2a6](https://github.com/binsee/padchat-sdk/commit/fe5b2a6))
+* 修复断线重连判断错误 ([3abc799](https://github.com/binsee/padchat-sdk/commit/3abc799))
+
+
+### Features
+
+* 增加自动重连通知事件 ([cc29f3d](https://github.com/binsee/padchat-sdk/commit/cc29f3d))
+* 将推送联系人从push事件中独立出来 ([81d9206](https://github.com/binsee/padchat-sdk/commit/81d9206))
+* 更改cmdId为计数器，减少通讯中cmdId的占用尺寸 ([fd83bfd](https://github.com/binsee/padchat-sdk/commit/fd83bfd))
+* 更改ws通讯中荷载字段名称为payload ([1635b14](https://github.com/binsee/padchat-sdk/commit/1635b14)), closes [#28](https://github.com/binsee/padchat-sdk/issues/28)
+* 更改推送机制方案，以优化性能 ([fe22ae0](https://github.com/binsee/padchat-sdk/commit/fe22ae0))
+* 登陆模式的断线重连名称改为 'auto' ([e2461e3](https://github.com/binsee/padchat-sdk/commit/e2461e3)), closes [#29](https://github.com/binsee/padchat-sdk/issues/29)
+* **demo:** 可独立开关同步通讯录及消息 ([7d3f0e0](https://github.com/binsee/padchat-sdk/commit/7d3f0e0))
+
+
+
 <a name="0.5.13"></a>
 ## [0.5.13](https://github.com/binsee/padchat-sdk/compare/v0.5.11...v0.5.13) (2018-09-05)
 
