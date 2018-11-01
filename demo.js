@@ -328,63 +328,7 @@ wx
         break
 
       case 49:
-
-        if (data.content.indexOf('<![CDATA[微信红包]]>') > 0) {
-          logger.info('收到来自 %s 的红包：', data.fromUser, data)
-          await wx.queryRedPacket(data)
-            .then(ret => {
-              logger.info('未领取，查询来自 %s 的红包信息：', data.fromUser, ret)
-            })
-            .catch(e => {
-              logger.warn('未领取，查询红包异常:', e.message)
-            })
-          await wx.receiveRedPacket(data)
-            .then(async ret => {
-              logger.info('接收来自 %s 的红包结果：', data.fromUser, ret)
-              await wx.openRedPacket(data, ret.data.key)
-                .then(ret2 => {
-                  logger.info('打开来自 %s 的红包结果：', data.fromUser, ret2)
-                })
-                .catch(e => {
-                  logger.warn('打开红包异常:', e.message)
-                })
-              await wx.queryRedPacket(data)
-                .then(ret => {
-                  logger.info('打开后，查询来自 %s 的红包信息：', data.fromUser, ret)
-                })
-                .catch(e => {
-                  logger.warn('打开后，再次查询红包异常:', e.message)
-                })
-            })
-            .catch(e => {
-              logger.warn('接收红包异常:', e.message)
-            })
-        } else if (data.content.indexOf('<![CDATA[微信转账]]>') > 0) {
-          logger.info('收到来自 %s 的转账：', data.fromUser, data)
-          await wx.queryTransfer(data)
-            .then(ret => {
-              logger.info('查询来自 %s 的转账信息：', data.fromUser, ret)
-            })
-            .catch(e => {
-              logger.warn('查询转账异常:', e.message)
-            })
-          await wx.acceptTransfer(data)
-            .then(ret => {
-              logger.info('接受来自 %s 的转账结果：', data.fromUser, ret)
-            })
-            .catch(e => {
-              logger.warn('接受转账异常:', e.message)
-            })
-          await wx.queryTransfer(data)
-            .then(ret => {
-              logger.info('接受后，查询来自 %s 的转账信息：', data.fromUser, ret)
-            })
-            .catch(e => {
-              logger.warn('接受后，查询转账异常:', e.message)
-            })
-        } else {
-          logger.info('收到一条来自 %s 的appmsg富媒体消息：', data.fromUser, data)
-        }
+        logger.info('收到一条来自 %s 的appmsg富媒体消息：', data.fromUser, data)
         break
 
       case 10002:
