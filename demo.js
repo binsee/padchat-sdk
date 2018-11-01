@@ -37,7 +37,8 @@ const autoData = {
 }
 let server = ''
     server = 'ws://127.0.0.1:7777'
-    server = 'ws://52.80.34.207:7777/{YourToken}'
+    server = 'ws://padchat.server/{YourToken}'
+// 服务器地址及token请联系客服获取
 
 try {
   const tmpBuf          = fs.readFileSync('./config.json')
@@ -89,7 +90,7 @@ wx
 
     //先尝试使用断线重连方式登陆
     if (autoData.token) {
-      ret = await wx.login('token', autoData)
+      ret = await wx.login('auto', autoData)
       if (ret.success) {
         logger.info('断线重连请求成功！', ret)
         return
@@ -115,7 +116,7 @@ wx
     // 如果存在url，则直接在终端中生成二维码并显示
     if (data.url) {
       logger.info(`登陆二维码内容为: "${data.url}"，请使用微信扫描下方二维码登陆!`)
-      qrcode.generate(data.url, { small: false })
+      qrcode.generate(data.url, { small: true })
     } else {
       logger.error(`未能获得登陆二维码!`)
     }
@@ -181,31 +182,17 @@ wx
     ret = await wx.getMyInfo()
     logger.info('当前账号信息：', ret.data)
 
+    // 如果不想同步通讯录信息，可关闭同步通讯录
+    // await wx.setSyncContact(false)
+
     // 主动同步通讯录
     await wx.syncContact()
 
-    if (!autoData.wxData) {
-      // 如果已经存在设备参数，可不再获取
-      ret = await wx.getWxData()
-      if (!ret.success) {
-        logger.warn('获取设备参数未成功！ json:', ret)
-        return
-      }
-      logger.info('获取设备参数成功, json: ', ret)
-      Object.assign(autoData, { wxData: ret.data.wxData })
-    }
-
-    ret = await wx.getLoginToken()
-    if (!ret.success) {
-      logger.warn('获取自动登陆数据未成功！ json:', ret)
-      return
-    }
-    logger.info('获取自动登陆数据成功, json: ', ret)
-    Object.assign(autoData, { token: ret.data.token })
-
-    // NOTE: 这里将设备参数保存到本地，以后再次登录此账号时提供相同参数
-    fs.writeFileSync('./config.json', JSON.stringify(autoData, null, 2))
-    logger.info('设备参数已写入到 ./config.json文件')
+    await saveAutoData()
+  })
+  .on('autoLogin', async () => {
+    // 自动重连后需要保存新的自动登陆数据
+    await saveAutoData()
   })
   .on('logout', ({ msg }) => {
     logger.info('微信账号已退出！', msg)
@@ -225,10 +212,13 @@ wx
   .on('sns', (data, msg) => {
     logger.info('收到朋友圈事件！请查看朋友圈新消息哦！', msg)
   })
+
+  .on('contact', async data => {
+    logger.info('收到推送联系人：%s - %s\n', data.userName, data.nickName, JSON.stringify(data))
+  })
   .on('push', async data => {
     // 消息类型 data.mType
     // 1  文字消息
-    // 2  好友信息推送，包含好友，群，公众号信息
     // 3  收到图片消息
     // 34  语音消息
     // 35  用户头像buf
@@ -252,16 +242,8 @@ wx
     // --------------------------------
     // 注意，如果是来自微信群的消息，data.content字段中包含发言人的wxid及其发言内容，需要自行提取
     // 各类复杂消息，data.content中是xml格式的文本内容，需要自行从中提取各类数据。（如好友请求）
-    if ((data.mType !== 2) && !(data.mType === 10002 && data.fromUser === 'weixin')) {
-      // 输出除联系人以外的推送信息
-      dLog.info('push: \n%o', data)
-    }
     let rawFile
     switch (data.mType) {
-      case 2:
-        logger.info('收到推送联系人：%s - %s', data.userName, data.nickName)
-        break
-
       case 3:
         logger.info('收到来自 %s 的图片消息，包含图片数据：%s，xml内容：\n%s', data.fromUser, !!data.data, data.content)
         rawFile = data.data || null
@@ -424,10 +406,31 @@ wx
   .on('warn', e => {
     logger.error('任务出现错误:', e.message)
   })
-  .on('cmdRet', (cmd, ret) => {
-    //捕捉接口操作结果，补充接口文档用
-    dLog.info('%s ret: \n%s', cmd, util.inspect(ret, { depth: 10 }))
-  })
+
+/**
+ * @description 保存自动登陆数据
+ */
+async function saveAutoData() {
+  let ret = await wx.getWxData()
+  if (!ret.success) {
+    logger.warn('获取设备参数未成功！ json:', ret)
+    return
+  }
+  logger.info('获取设备参数成功, json: ', ret)
+  Object.assign(autoData, { wxData: ret.data.wxData })
+
+  ret = await wx.getLoginToken()
+  if (!ret.success) {
+    logger.warn('获取自动登陆数据未成功！ json:', ret)
+    return
+  }
+  logger.info('获取自动登陆数据成功, json: ', ret)
+  Object.assign(autoData, { token: ret.data.token })
+
+  // NOTE: 这里将设备参数保存到本地，以后再次登录此账号时提供相同参数
+  fs.writeFileSync('./config.json', JSON.stringify(autoData, null, 2))
+  logger.info('设备参数已写入到 ./config.json文件')
+}
 
 async function onMsg(data) {
   const content        = data.content.replace(/^[\w:\n]*#/m, '')

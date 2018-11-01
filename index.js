@@ -57,10 +57,18 @@ class Padchat extends EventEmitter {
     this.url    = url
     this._event = new EventEmitter()
     // 向ws服务器提交指令后，返回结果的超时时间，单位毫秒
-    this.sendTimeout    = 10 * 1000
-    this.connected      = false
-    this._lastStartTime = 0
-    this.ws             = {}
+    this.sendTimeout     = 10 * 1000
+    this.connected       = false
+    this._lastStartTime  = 0
+    this.ws              = {}
+    this.openSyncMsg     = true       //是否同步消息
+    this.openSyncContact = true       //是否同步联系人
+    this.loaded          = false      //通讯录载入完毕
+    this.cmdSeq          = 1
+    this.sendTimeout     = 10 * 1000
+    this.connected       = false
+    this._lastStartTime  = 0
+    this.ws              = {}
     this.start()
   }
 
@@ -175,14 +183,17 @@ class Padchat extends EventEmitter {
   */
   async asyncSend(data, timeout = 30000) {
     if (!data.cmdId) {
-      data.cmdId = UUID.v1()
+      data.cmdId = '' + this.cmdSeq++
+      if (this.cmdSeq >= 0xffffff00) {
+        this.cmdSeq = 1
+      }
     }
     return new Promise((res, rej) => {
       try {
         getCmdRecv.call(this, data.cmdId, timeout)
           .then(data => {
             // console.info('getCmdRecv ret data:', data)
-            res(data.data)
+            res(data.payload)
           })
         this._send(data)
           .then(async ret => {
@@ -214,7 +225,7 @@ class Padchat extends EventEmitter {
     return await this.asyncSend({
       type: 'user',
       cmd,
-      data,
+      payload: data,
     })
       .then(ret => {
         // 用于抓取操作接口对应的返回数据，便于写入文档
@@ -258,7 +269,7 @@ class Padchat extends EventEmitter {
   * 任何登陆方式，使用成功登陆过的`wxData`都可降低封号概率。
   *
   * @param {string} type - 登录类型，默认为扫码登录
-  * <br> `token` **断线重连**，用于短时间使用`wxData`和`token`再次登录。`token`有效期很短，如果登陆失败，建议使用二次登陆方式
+  * <br> `auto` **断线重连**，用于短时间使用`wxData`和`token`再次登录。`token`有效期很短，如果登陆失败，建议使用二次登陆方式
   * <br> `request` **二次登陆**。需要提供`wxData`和`token`数据，手机端会弹出确认框，点击后登陆。不容易封号
   * <br> `qrcode` **扫码登录**（现在此模式已经可以返回二维码内容的url了）
   * <br> `phone` **手机验证码登录**，建议配合`wxData`使用
@@ -297,7 +308,7 @@ class Padchat extends EventEmitter {
   * const wx = new Padchat()
   * wx.on('open',()=>{
   *   await wx.init()
-  *   await wx.login('token',{wxData:'xxx',token:'xxxxx'})
+  *   await wx.login('auto',{wxData:'xxx',token:'xxxxx'})
   * })
   *
   * @example <caption>二次登陆</caption>
@@ -327,7 +338,7 @@ class Padchat extends EventEmitter {
     }
 
     switch (type) {
-      case loginType.token:
+      case loginType.auto:
       case loginType.request:
         if (!data.token || !data.wxData) {
           throw new Error('login data error!')
@@ -422,6 +433,24 @@ class Padchat extends EventEmitter {
   }
 
   /**
+  * 设置是否同步联系人
+  *
+  * @memberof Padchat
+  */
+  setSyncContact(open) {
+    this.openSyncContact = !!open
+  }
+
+  /**
+  * 设置是否同步消息
+  *
+  * @memberof Padchat
+  */
+  setSyncMsg(open) {
+    this.openSyncMsg = !!open
+  }
+
+  /**
   * 同步消息
   *
   * 使用此接口手动触发同步消息，一般用于刚登陆后调用，可立即开始同步消息。
@@ -445,9 +474,10 @@ class Padchat extends EventEmitter {
   * @memberof Padchat
   */
   async syncContact(reset = false) {
-    return await this.sendCmd('syncContact', {
-      reset
-    })
+    if (reset) {
+      this.loaded = false
+    }
+    return await this.sendCmd('syncContact')
   }
 
   /**
@@ -2487,23 +2517,23 @@ function onWsMsg(msg) {
     return
   }
 
-  if (data.data) {
-    if (data.data.data) {
+  if (data.payload) {
+    if (data.payload.data) {
       // 解析扩展数据的json文本
 
-      if (data.data.data.external) {
+      if (data.payload.data.external) {
         try {
           //解析红包及转账接口返回数据
-          data.data.data.external = JSON.parse(data.data.data.external)
+          data.payload.data.external = JSON.parse(data.payload.data.external)
         } catch (e) { }
       }
 
-      if (data.data.data.info) {
+      if (data.payload.data.info) {
         try {
           //解析公众号接口返回数据
-          data.data.data.info = JSON.parse(data.data.data.info)
+          data.payload.data.info = JSON.parse(data.payload.data.info)
 
-          const info   = data.data.data.info
+          const info   = data.payload.data.info
           const fields = [
             'BrandInfo',
             'externalInfo',
@@ -2544,15 +2574,15 @@ function onWsMsg(msg) {
         } catch (e) { }
       }
 
-      if (data.data.data.member) {
+      if (data.payload.data.member) {
         try {
           //解析获取群成员接口返回数据
-          data.data.data.member = JSON.parse(data.data.data.member)
+          data.payload.data.member = JSON.parse(data.payload.data.member)
         } catch (e) { }
       }
     }
     // 转小驼峰
-    data.data = Helper.toCamelCase(data.data)
+    data.payload = Helper.toCamelCase(data.payload)
   }
 
   this.emit('msg', data)
@@ -2561,10 +2591,10 @@ function onWsMsg(msg) {
   /**
    * 返回数据结果:
    data = {
-     type  : 'cmdRet',                                 //返回数据包类型
-     cmdId : 'b61eb250-3770-11e8-b00f-595f9d4f3df0',   //请求id
-     taskId: '5',                                      //服务端返回当前实例的任务ID
-     data  :                                           //荷载数据（以下字段名称为转换为小驼峰后的，原始数据为下划线分隔）
+     type   : 'cmdRet',                                 //返回数据包类型
+     cmdId  : 'b61eb250-3770-11e8-b00f-595f9d4f3df0',   //请求id
+     taskId : '5',                                      //服务端返回当前实例的任务ID
+     payload:                                           //荷载数据（以下字段名称为转换为小驼峰后的，原始数据为下划线分隔）
      {
        error  : '',     //错误提示
        msg    : '',     //其他提示信息
@@ -2626,7 +2656,7 @@ function onWsMsg(msg) {
            * @memberof Padchat
            */
           // 如果success字段为true，则为不严重的问题
-          this.emit('warn', new Error('服务器返回错误提示：' + data.data.error), data.success)
+          this.emit('warn', new Error('服务器返回错误提示：' + data.payload.error), data.success)
           break
         case 'qrcode':   // 微信扫码登陆，推送二维码
         /**
@@ -2705,6 +2735,22 @@ function onWsMsg(msg) {
          *
          * @event Padchat#login
          */
+        case 'autoLogin':   // 自动重连成功
+        /**
+         * AutoLogin event
+         * 自动重连成功推送
+         *
+         * 自动重连后token会变化，可在此时获取新的token，否则使用旧token将不能断线重连，但可以二次登陆(需手机端确认登陆)
+         *
+         * @example
+         * const wx = new Padchat()
+         * wx.on('autoLogin',()=>{
+         *  wx.getLoginToken()
+         *  console.log('自动重连成功!')
+         * })
+         *
+         * @event Padchat#login
+         */
         case 'loaded':   // 通讯录载入完毕
         /**
          * Loaded event
@@ -2765,77 +2811,144 @@ function onWsMsg(msg) {
            * })
            *
            */
-          this.emit(data.event, data.data || {}, data.data.msg)
+          this.emit(data.event, data.payload || {}, data.payload.msg)
+          break
+
+        case 'notify':   // 推送通知
+          if (data.payload.type === 4) {
+            if (this.openSyncContact) {
+              this.syncContact()
+            }
+          } else {
+            if (this.openSyncMsg) {
+              this.syncMsg()
+            }
+          }
           break
         case 'push':
-          if (!data.data || !Array.isArray(data.data.list) || data.data.list.length <= 0) {
-            this.emit('error', new Error('推送数据异常！'))
-            break
-          }
-          data.data.list.forEach(item => {
-            const type = item.msgType
-            // 过滤无意义的2048和32768类型数据
-            if (type === undefined || type === 2048 || type === 32768) {
-              return null
-            }
-            // 当msg_type为5时，即表示推送的信息类型要用sub_type进行判断
-            // 另外增加一个属性来存储好了
-            item.mType = item.msgType === 5 ? item.subType : item.msgType
-            // 解析群成员列表
-            if (item.member) {
-              try {
-                item.member = JSON.parse(item.member) || []
-              } catch (e) {
+          if (data.payload && Array.isArray(data.payload.list)) {
+            const pushContact = data.payload.type === 4
+            const event       = pushContact ? 'contact' : 'push'
+            let   loaded      = false
+            data.payload.list.forEach(item => {
+              const type = item.msgType
+              if (type === 32768 && item.continue === 0) {
+                //通讯录同步完毕
+                loaded = true
+              }
+              // 过滤无意义的2048和32768类型数据
+              if (type === undefined || type === 2048 || type === 32768) {
+                return null
+              }
+              // 当msg_type为5时，即表示推送的信息类型要用sub_type进行判断
+              // 另外增加一个属性来存储好了
+              item.mType = item.msgType === 5 ? item.subType : item.msgType
+              // 解析群成员列表
+              if (item.member) {
+                try {
+                  item.member = JSON.parse(item.member) || []
+                } catch (e) {
+                }
+              }
+              /**
+               * Push event
+               * 联系人/消息推送
+               *
+               * @event Padchat#push
+               * @property {number} data.mType - 推送类型
+              <br> `1`    : 文字消息
+              <br> `2`    : 好友信息推送，包含好友，群，公众号信息
+              <br> `3`    : 收到图片消息
+              <br> `34`   : 语音消息
+              <br> `35`   : 用户头像buf
+              <br> `37`   : 收到好友请求消息
+              <br> `42`   : 名片消息
+              <br> `43`   : 视频消息
+              <br> `47`   : 表情消息
+              <br> `48`   : 定位消息
+              <br> `49`   : APP消息(文件 或者 链接 H5)
+              <br> `50`   : 语音通话
+              <br> `51`   : 状态通知（如打开与好友/群的聊天界面）
+              <br> `52`   : 语音通话通知
+              <br> `53`   : 语音通话邀请
+              <br> `62`   : 小视频
+              <br> `2000` : 转账消息
+              <br> `2001` : 收到红包消息
+              <br> `3000` : 群邀请
+              <br> `9999` : 系统通知
+              <br> `10000`: 微信通知信息。微信群信息变更，多为群名修改、进群、离群信息，不包含群内聊天信息
+              <br> `10002`: 撤回消息
+               * @property {string} [data.fromUser] - (`mType`非2) 发件人
+               * @property {string} [data.toUser] - (`mType`非2) 收件人
+               * @property {string} [data.content] - (`mType`非2) 消息内容。非文本型消息时，此字段可能为xml结构文本
+               * @property {string} [data.msgSource] - (`mType`非2)
+               * @property {string} [data.data] - 图片、语音、视频等媒体文件base64文本
+               * @property {string} [data.description] - (部分`mType`非2) 消息描述
+               * @property {string} [data.msgId] - (`mType`非2) 消息id
+               * @property {string} [data.timestamp] - (`mType`非2) 消息时间戳
+               * @property {number} [data.uin] - 当前账号uin
+               * @property {string} [data.*] - 其他字段请自行输出查看
+               * @example
+               * const util = require('util')
+               * const wx   = new Padchat()
+               * wx.on('push',data=>{
+               *  console.log('push:',util.inspect(data, { depth: 10 }))
+               * })
+               */
+
+              /**
+               * Contact event
+               * 联系人/消息推送
+               *
+               * @event Padchat#contact
+               * @property {number} data.mType - 推送类型
+              <br> `2`: 好友信息推送，包含好友，群，公众号信息
+               * @property {string} data.city 城市
+               * @property {string} data.country 国家
+               * @property {string} data.provincia 省份
+               * @property {string} data.intro 公众号主体
+               * @property {string} data.stranger 个性签名
+               * @property {string} data.label
+               * @property {number} data.level
+               * @property {number} data.sex 性别: 1男 2女 0未知
+               * @property {string} data.signature v1值
+               * @property {number} data.source 联系人添加渠道
+               * @property {number} data.uin 当前账号uin (自己微信号的,不是好友的)
+               * @property {string} data.bigHead 高清头像
+               * @property {string} data.smallHead 头像缩略图
+               * @property {number} data.bitValue
+               * @property {number} data.chatroomId 群版本号
+               * @property {string} data.chatroomOwner 群主wxid
+               * @property {number} data.imgFlag
+               * @property {number} data.maxMemberCount 群成员上限
+               * @property {number} data.memberCount 群成员数量
+               * @property {number} data.msgType
+               * @property {string} data.nickName 联系人昵称
+               * @property {string} data.pyInitial 昵称拼音简写
+               * @property {string} data.quanPin 昵称拼音全拼
+               * @property {string} data.remark 备注
+               * @property {string} data.remarkPyInitial 备注拼音简写
+               * @property {string} data.remarkQuanPin 备注拼音全拼
+               * @property {string} data.userName 联系人微信号/wxid
+               * @example
+               * const util = require('util')
+               * const wx   = new Padchat()
+               * wx.on('push',data=>{
+               *  console.log('push:',util.inspect(data, { depth: 10 }))
+               * })
+               */
+              this.emit(event, item)
+            })
+            if (pushContact) {
+              if (!loaded && this.openSyncContact) {
+                this.syncContact()
+              }
+              if (loaded && !this.loaded) {
+                this.loaded = true
+                this.emit('loaded')
               }
             }
-            /**
-             * Push event
-             * 联系人/消息推送
-             *
-             * @event Padchat#push
-             * @property {number} data.mType - 推送类型
-            <br> `1`    : 文字消息
-            <br> `2`    : 好友信息推送，包含好友，群，公众号信息
-            <br> `3`    : 收到图片消息
-            <br> `34`   : 语音消息
-            <br> `35`   : 用户头像buf
-            <br> `37`   : 收到好友请求消息
-            <br> `42`   : 名片消息
-            <br> `43`   : 视频消息
-            <br> `47`   : 表情消息
-            <br> `48`   : 定位消息
-            <br> `49`   : APP消息(文件 或者 链接 H5)
-            <br> `50`   : 语音通话
-            <br> `51`   : 状态通知（如打开与好友/群的聊天界面）
-            <br> `52`   : 语音通话通知
-            <br> `53`   : 语音通话邀请
-            <br> `62`   : 小视频
-            <br> `2000` : 转账消息
-            <br> `2001` : 收到红包消息
-            <br> `3000` : 群邀请
-            <br> `9999` : 系统通知
-            <br> `10000`: 微信通知信息。微信群信息变更，多为群名修改、进群、离群信息，不包含群内聊天信息
-            <br> `10002`: 撤回消息
-             * @property {string} [data.userName] - (`mType`为2) 联系人微信号/wxid
-             * @property {string} [data.nickName] - (`mType`为2) 联系人昵称
-             * @property {string} [data.fromUser] - (`mType`非2) 发件人
-             * @property {string} [data.toUser] - (`mType`非2) 收件人
-             * @property {string} [data.content] - (`mType`非2) 消息内容。非文本型消息时，此字段可能为xml结构文本
-             * @property {string} [data.data] - 图片、语音、视频等媒体文件base64文本
-             * @property {string} [data.description] - (部分`mType`非2) 消息描述
-             * @property {string} [data.msgId] - (`mType`非2) 消息id
-             * @property {string} [data.timestamp] - (`mType`非2) 消息时间戳
-             * @property {number} [data.uin] - 当前账号uin
-             * @property {string} [data.*] - 其他字段请自行输出查看
-             * @example
-             * const util = require('util')
-             * const wx   = new Padchat()
-             * wx.on('push',data=>{
-             *  console.log('push:',util.inspect(data, { depth: 10 }))
-             * })
-             */
-            this.emit('push', item)
-          })
+          }
           break
         default:
           this.emit('other', data)

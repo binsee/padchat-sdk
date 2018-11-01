@@ -16,11 +16,13 @@ exports.userEvents = [
   'close', // 任务断线
   'warn', // 错误
   'sns', // 朋友圈事件（朋友圈小圆点）
-  // 'push', // 推送消息（系统、好友消息、联系人等）
+  'notify', // 推送消息通知
+  'autoLogin', // 自动重连成功通知
+  'push', // 推送消息（系统、好友消息等）
 ]
 
 exports.loginType = {
-  token  : 'token',     // 断线重连
+  auto   : 'auto',      // 断线重连
   request: 'request',   // 二次登陆
   qrcode : 'qrcode',    // 扫码登陆
   phone  : 'phone',     // 手机验证码登陆
