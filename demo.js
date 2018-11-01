@@ -181,6 +181,9 @@ wx
     ret = await wx.getMyInfo()
     logger.info('当前账号信息：', ret.data)
 
+    // 如果不想同步通讯录信息，可关闭同步通讯录
+    // await wx.setSyncContact(false)
+
     // 主动同步通讯录
     await wx.syncContact()
 
