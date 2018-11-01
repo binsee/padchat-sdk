@@ -184,28 +184,11 @@ wx
     // 主动同步通讯录
     await wx.syncContact()
 
-    if (!autoData.wxData) {
-      // 如果已经存在设备参数，可不再获取
-      ret = await wx.getWxData()
-      if (!ret.success) {
-        logger.warn('获取设备参数未成功！ json:', ret)
-        return
-      }
-      logger.info('获取设备参数成功, json: ', ret)
-      Object.assign(autoData, { wxData: ret.data.wxData })
-    }
-
-    ret = await wx.getLoginToken()
-    if (!ret.success) {
-      logger.warn('获取自动登陆数据未成功！ json:', ret)
-      return
-    }
-    logger.info('获取自动登陆数据成功, json: ', ret)
-    Object.assign(autoData, { token: ret.data.token })
-
-    // NOTE: 这里将设备参数保存到本地，以后再次登录此账号时提供相同参数
-    fs.writeFileSync('./config.json', JSON.stringify(autoData, null, 2))
-    logger.info('设备参数已写入到 ./config.json文件')
+    await saveAutoData()
+  })
+  .on('autoLogin', async () => {
+    // 自动重连后需要保存新的自动登陆数据
+    await saveAutoData()
   })
   .on('logout', ({ msg }) => {
     logger.info('微信账号已退出！', msg)
@@ -424,10 +407,31 @@ wx
   .on('warn', e => {
     logger.error('任务出现错误:', e.message)
   })
-  .on('cmdRet', (cmd, ret) => {
-    //捕捉接口操作结果，补充接口文档用
-    dLog.info('%s ret: \n%s', cmd, util.inspect(ret, { depth: 10 }))
-  })
+
+/**
+ * @description 保存自动登陆数据
+ */
+async function saveAutoData() {
+  let ret = await wx.getWxData()
+  if (!ret.success) {
+    logger.warn('获取设备参数未成功！ json:', ret)
+    return
+  }
+  logger.info('获取设备参数成功, json: ', ret)
+  Object.assign(autoData, { wxData: ret.data.wxData })
+
+  ret = await wx.getLoginToken()
+  if (!ret.success) {
+    logger.warn('获取自动登陆数据未成功！ json:', ret)
+    return
+  }
+  logger.info('获取自动登陆数据成功, json: ', ret)
+  Object.assign(autoData, { token: ret.data.token })
+
+  // NOTE: 这里将设备参数保存到本地，以后再次登录此账号时提供相同参数
+  fs.writeFileSync('./config.json', JSON.stringify(autoData, null, 2))
+  logger.info('设备参数已写入到 ./config.json文件')
+}
 
 async function onMsg(data) {
   const content        = data.content.replace(/^[\w:\n]*#/m, '')

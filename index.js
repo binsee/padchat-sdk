@@ -2735,6 +2735,22 @@ function onWsMsg(msg) {
          *
          * @event Padchat#login
          */
+        case 'autoLogin':   // 自动重连成功
+        /**
+         * AutoLogin event
+         * 自动重连成功推送
+         *
+         * 自动重连后token会变化，可在此时获取新的token，否则使用旧token将不能断线重连，但可以二次登陆(需手机端确认登陆)
+         *
+         * @example
+         * const wx = new Padchat()
+         * wx.on('autoLogin',()=>{
+         *  wx.getLoginToken()
+         *  console.log('自动重连成功!')
+         * })
+         *
+         * @event Padchat#login
+         */
         case 'loaded':   // 通讯录载入完毕
         /**
          * Loaded event
