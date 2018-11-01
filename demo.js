@@ -37,7 +37,8 @@ const autoData = {
 }
 let server = ''
     server = 'ws://127.0.0.1:7777'
-    server = 'ws://52.80.34.207:7777/{YourToken}'
+    server = 'ws://padchat.server/{YourToken}'
+// 服务器地址及token请联系客服获取
 
 try {
   const tmpBuf          = fs.readFileSync('./config.json')
