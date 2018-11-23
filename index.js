@@ -2513,7 +2513,7 @@ async function getCmdRecv(cmdId, timeout = 3000) {
  * @param {string} msg - ws连接接收到的文本消息
  * @private
  */
-function onWsMsg(msg) {
+async function onWsMsg(msg) {
   let data
   // console.log('进入 onWsMsg', msg)
   try {
@@ -2827,11 +2827,11 @@ function onWsMsg(msg) {
         case 'notify':   // 推送通知
           if (data.payload.type === 4) {
             if (this.openSyncContact) {
-              this.syncContact()
+              await this.syncContact()
             }
           } else {
             if (this.openSyncMsg) {
-              this.syncMsg()
+              await this.syncMsg()
             }
           }
           break
@@ -2951,7 +2951,7 @@ function onWsMsg(msg) {
             })
             if (pushContact) {
               if (!loaded && this.openSyncContact) {
-                this.syncContact()
+                await this.syncContact()
               }
               if (loaded && !this.loaded) {
                 this.loaded = true
