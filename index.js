@@ -40,8 +40,6 @@ const server = 'ws://127.0.0.1:7777'
  }
  * ```
  *
- * TODO: 补充各监听事件返回的数据定义
- *
  * @class Padchat
  * @extends {EventEmitter}
  */
@@ -69,6 +67,7 @@ class Padchat extends EventEmitter {
     this.connected       = false
     this._lastStartTime  = 0
     this.ws              = {}
+    this._starting       = false
     this.start()
   }
 
@@ -78,9 +77,13 @@ class Padchat extends EventEmitter {
    * @memberof Padchat
    */
   async start() {
+    if (this._starting) {
+      return
+    }
+    this._starting = true
     // 限制启动ws连接间隔时间
     if (Date.now() - this._lastStartTime < 200) {
-      throw new Error('建立ws连接时间间隔过短!')
+      await sleep(1000)
     }
     this._lastStartTime = Date.now()
     if (this.ws instanceof Websocket && this.ws.readyState === this.ws.OPEN) {
@@ -147,6 +150,7 @@ class Padchat extends EventEmitter {
          */
         this.emit('error', e)
       })
+    this._starting = false
   }
 
   /**
@@ -2983,6 +2987,17 @@ function clearRawMsg(obj) {
     delete obj.data
   }
   return obj
+}
+
+/**
+ * 非阻塞等待
+ *
+ * @param {*} ms 要等待的毫秒数
+ * @private
+ * @returns {Promise}
+ */
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 
