@@ -52,10 +52,9 @@ class Padchat extends EventEmitter {
    */
   constructor(url = server) {
     super()
-    this.url    = url
-    this._event = new EventEmitter()
+    this.url = url
     // 向ws服务器提交指令后，返回结果的超时时间，单位毫秒
-    this.sendTimeout     = 10 * 1000
+    this.sendTimeout     = 30 * 1000
     this.connected       = false
     this._lastStartTime  = 0
     this.ws              = {}
@@ -63,10 +62,6 @@ class Padchat extends EventEmitter {
     this.openSyncContact = true       //是否同步联系人
     this.loaded          = false      //通讯录载入完毕
     this.cmdSeq          = 1
-    this.sendTimeout     = 10 * 1000
-    this.connected       = false
-    this._lastStartTime  = 0
-    this.ws              = {}
     this._starting       = false
     this.start()
   }
@@ -185,7 +180,7 @@ class Padchat extends EventEmitter {
   * @private
   * @memberof Padchat
   */
-  async asyncSend(data, timeout = 30000) {
+  async asyncSend(data, timeout = this.sendTimeout) {
     if (!data.cmdId) {
       data.cmdId = '' + this.cmdSeq++
       if (this.cmdSeq >= 0xffffff00) {
