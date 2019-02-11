@@ -40,8 +40,6 @@ const server = 'ws://127.0.0.1:7777'
  }
  * ```
  *
- * TODO: 补充各监听事件返回的数据定义
- *
  * @class Padchat
  * @extends {EventEmitter}
  */
@@ -54,10 +52,9 @@ class Padchat extends EventEmitter {
    */
   constructor(url = server) {
     super()
-    this.url    = url
-    this._event = new EventEmitter()
+    this.url = url
     // 向ws服务器提交指令后，返回结果的超时时间，单位毫秒
-    this.sendTimeout     = 10 * 1000
+    this.sendTimeout     = 30 * 1000
     this.connected       = false
     this._lastStartTime  = 0
     this.ws              = {}
@@ -65,10 +62,7 @@ class Padchat extends EventEmitter {
     this.openSyncContact = true       //是否同步联系人
     this.loaded          = false      //通讯录载入完毕
     this.cmdSeq          = 1
-    this.sendTimeout     = 10 * 1000
-    this.connected       = false
-    this._lastStartTime  = 0
-    this.ws              = {}
+    this._starting       = false
     this.start()
   }
 
@@ -78,9 +72,13 @@ class Padchat extends EventEmitter {
    * @memberof Padchat
    */
   async start() {
+    if (this._starting) {
+      return
+    }
+    this._starting = true
     // 限制启动ws连接间隔时间
     if (Date.now() - this._lastStartTime < 200) {
-      throw new Error('建立ws连接时间间隔过短!')
+      await sleep(1000)
     }
     this._lastStartTime = Date.now()
     if (this.ws instanceof Websocket && this.ws.readyState === this.ws.OPEN) {
@@ -147,6 +145,7 @@ class Padchat extends EventEmitter {
          */
         this.emit('error', e)
       })
+    this._starting = false
   }
 
   /**
@@ -181,7 +180,7 @@ class Padchat extends EventEmitter {
   * @private
   * @memberof Padchat
   */
-  async asyncSend(data, timeout = 30000) {
+  async asyncSend(data, timeout = this.sendTimeout) {
     if (!data.cmdId) {
       data.cmdId = '' + this.cmdSeq++
       if (this.cmdSeq >= 0xffffff00) {
@@ -2983,6 +2982,17 @@ function clearRawMsg(obj) {
     delete obj.data
   }
   return obj
+}
+
+/**
+ * 非阻塞等待
+ *
+ * @param {*} ms 要等待的毫秒数
+ * @private
+ * @returns {Promise}
+ */
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 

@@ -1,4 +1,4 @@
-# Padchat Sdk v0.6.2 Documentation
+# Padchat Sdk v0.6.3 Documentation
 
 <a name="Padchat"></a>
 
@@ -120,8 +120,6 @@ sns | 朋友圈更新事件
    data   : {}      // 返回结果
  }
 ```
-
-TODO: 补充各监听事件返回的数据定义
 
 <a name="Padchat+start"></a>
 
